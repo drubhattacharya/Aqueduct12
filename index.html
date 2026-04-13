@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
 <title>Aqueduct — Community Benefit Intelligence Platform</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.js"></script>
+<!-- docx loaded on demand via loadDocxLib() -->
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -2676,9 +2676,9 @@ function updateEngagementProtocol() {
 }
 
 /* ── DOWNLOAD ENGAGEMENT PROTOCOL AS DOCX ───────────────────────────── */
-window.downloadEngagementProtocol = function() {
-  if (typeof docx === 'undefined') { showToast('docx library not loaded — please refresh and try again.'); return; }
+window.downloadEngagementProtocol = async function() {
   const D   = window._engProtocolSteps || [];
+  if (!D.length) { showToast('Select engagement levers first to generate a protocol.'); return; }
   const org = (document.getElementById('setup_org_name')||{}).value || 'Your Organization';
   const city= (document.getElementById('setup_city')||{}).value || '';
   const state=(document.getElementById('setup_state')||{}).value || '';
@@ -2686,7 +2686,8 @@ window.downloadEngagementProtocol = function() {
   const date= new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
   const mr_m= (document.getElementById('mr_m')||{}).value || '50';
 
-  const {Document, Paragraph, TextRun, HeadingLevel, Table, TableRow, TableCell, WidthType, BorderStyle, AlignmentType, PageBreak, Spacing} = docx;
+  const docxMod = await loadDocxLib();
+  const {Document, Paragraph, TextRun, HeadingLevel, Table, TableRow, TableCell, WidthType, BorderStyle, AlignmentType, PageBreak, Spacing} = docxMod;
 
   const hd = (text, level) => new Paragraph({
     text, heading: level,
@@ -4804,20 +4805,7 @@ window.downloadArtifactFile = async function(type) {
   // ── DOCX download ──────────────────────────────────────────────
   showToast('Building Word document…');
   try {
-    const docxLib = window.docx;
-    if (!docxLib) {
-      // Fallback: download as .txt
-      const content = buildDocxPreview(type, D, fmtD)
-        .replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
-      const blob = new Blob([orgName() + ' NEMT Program\n' + today() + '\n\n' + content], {type:'text/plain'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href=url; a.download=(type+'_'+org+'.txt').replace(/[^a-z0-9_.]/gi,'_'); a.click();
-      URL.revokeObjectURL(url);
-      showToast('Downloaded as .txt (Word library not loaded)');
-      return;
-    }
-
+    const docxLib = await loadDocxLib();
     const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, BorderStyle, UnderlineType } = docxLib;
 
     const makeTitle = (text) => new Paragraph({
@@ -4931,5 +4919,42 @@ document.getElementById('doc-preview-modal').addEventListener('click', function(
 });
 </script>
 
+<script>
+/* ── DOCX LIBRARY LOADER ─────────────────────────────────────────────
+   Loads docx.js UMD on first demand and caches the promise.
+   Tries jsdelivr first, falls back to unpkg.
+   ─────────────────────────────────────────────────────────────────── */
+let _docxLoadPromise = null;
+
+function loadDocxLib() {
+  if (window.docx) return Promise.resolve(window.docx);
+  if (_docxLoadPromise) return _docxLoadPromise;
+
+  const URLS = [
+    'https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js',
+    'https://unpkg.com/docx@8.5.0/build/index.umd.js',
+    'https://cdn.jsdelivr.net/npm/docx@7.8.2/build/index.js',
+    'https://unpkg.com/docx@7.8.2/build/index.js',
+  ];
+
+  function tryLoad(urls) {
+    if (!urls.length) return Promise.reject(new Error('All CDN sources failed'));
+    const url = urls[0];
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = url;
+      s.onload = () => {
+        if (window.docx) resolve(window.docx);
+        else reject(new Error('Script loaded but window.docx not set: ' + url));
+      };
+      s.onerror = () => reject(new Error('Failed to load: ' + url));
+      document.head.appendChild(s);
+    }).catch(() => tryLoad(urls.slice(1)));
+  }
+
+  _docxLoadPromise = tryLoad(URLS);
+  return _docxLoadPromise;
+}
+</script>
 </body>
 </html>
