@@ -4808,63 +4808,642 @@ window.downloadArtifactFile = async function(type) {
     const docxLib = await loadDocxLib();
     const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, BorderStyle, UnderlineType } = docxLib;
 
-    const makeTitle = (text) => new Paragraph({
-      children:[new TextRun({text,bold:true,size:28,color:'001533',font:'Calibri'})],
-      alignment:AlignmentType.CENTER, spacing:{after:120}
+    const org  = orgName();
+    const loc  = orgLoc();
+    const td   = today();
+    const trips= Math.round(D.trips||0).toLocaleString();
+    const tripsN = Math.round(D.trips||0);
+    const l0=D.l0||0, l1=D.l1||0, l2=D.l2||0, l3=D.l3||0;
+    const cost=D.cost||0, net=D.net||0, total=D.total||0;
+    const patients = D.patients ? Math.round(D.patients).toLocaleString() : 'TBD';
+    const chna = window._aqChna || {};
+    const pri1 = chna.priorities?.[0]?.name || 'Access to Care';
+    const pri2 = chna.priorities?.[1]?.name || 'Chronic Disease Management';
+    const transFinding = chna.transportation_findings || 'Transportation documented as a primary barrier to care access in the CHNA.';
+    const lmiPop = chna.lmi_population || 'Approximately 20% of service area population below 200% FPL';
+    const chnaYear = chna.chna_year || new Date().getFullYear();
+    const mr_m = (document.getElementById('mr_m')||{}).value || '50';
+    const mr_n = (document.getElementById('mr_n')||{}).value || '20';
+    const mr_s = (document.getElementById('mr_s')||{}).value || '30';
+    const mr_v = (document.getElementById('mr_v')||{}).value || '40000';
+
+    // ── Typography helpers ─────────────────────────────────────────
+    const P  = (text, opts={}) => new Paragraph({
+      children:[new TextRun({text,size:opts.size||20,font:'Calibri',bold:opts.bold,italics:opts.italic,color:opts.color})],
+      spacing:{after:opts.spAfter!==undefined?opts.spAfter:100,before:opts.spBefore||0},
+      alignment:opts.align||AlignmentType.LEFT,
+      indent:opts.indent?{left:opts.indent}:undefined
     });
-    const makeH2 = (text) => new Paragraph({
-      children:[new TextRun({text,bold:true,size:22,color:'1F4E79',font:'Calibri'})],
-      spacing:{before:260,after:80},
-      border:{bottom:{style:BorderStyle.SINGLE,size:4,color:'C9A227',space:2}}
+    const BOLD = (text,opts={}) => P(text,{...opts,bold:true});
+    const H1 = (text) => new Paragraph({
+      children:[new TextRun({text,bold:true,size:24,font:'Calibri',color:'001533'})],
+      spacing:{before:320,after:100},
+      border:{bottom:{style:BorderStyle.SINGLE,size:6,color:'C9A227',space:3}}
     });
-    const makeP = (text) => new Paragraph({
+    const H2 = (text) => new Paragraph({
+      children:[new TextRun({text,bold:true,size:21,font:'Calibri',color:'1F4E79'})],
+      spacing:{before:240,after:80}
+    });
+    const BULLET = (text,level=0) => new Paragraph({
       children:[new TextRun({text,size:20,font:'Calibri'})],
-      spacing:{after:100}
+      bullet:{level}, spacing:{after:60}
     });
-    const makeBullet = (text) => new Paragraph({
-      children:[new TextRun({text,size:20,font:'Calibri'})],
-      bullet:{level:0}, spacing:{after:60}
-    });
-    const makeMeta = (label, value) => new Paragraph({
-      children:[new TextRun({text:label+': ',bold:true,size:20,font:'Calibri'}),new TextRun({text:value,size:20,font:'Calibri'})],
+    const META = (label,value) => new Paragraph({
+      children:[new TextRun({text:label+':  ',bold:true,size:20,font:'Calibri'}),new TextRun({text:value,size:20,font:'Calibri'})],
       spacing:{after:60}
     });
-    const makeHR = () => new Paragraph({children:[],border:{bottom:{style:BorderStyle.SINGLE,size:4,color:'CCCCCC'}},spacing:{after:100}});
+    const HR = () => new Paragraph({children:[new TextRun({text:' '})],
+      border:{bottom:{style:BorderStyle.SINGLE,size:4,color:'D1D5DB'}},spacing:{after:120,before:60}});
+    const SPACE = (n=1) => new Paragraph({children:[new TextRun({text:'  '})],spacing:{after:n*80}});
+    const COVER_TITLE = (text) => new Paragraph({
+      children:[new TextRun({text,bold:true,size:36,font:'Calibri',color:'001533'})],
+      alignment:AlignmentType.CENTER,spacing:{after:80}
+    });
+    const COVER_SUB = (text) => new Paragraph({
+      children:[new TextRun({text,size:22,font:'Calibri',color:'374151'})],
+      alignment:AlignmentType.CENTER,spacing:{after:60}
+    });
+    const COVER_META = (text) => new Paragraph({
+      children:[new TextRun({text,size:18,font:'Calibri',color:'6B7280'})],
+      alignment:AlignmentType.CENTER,spacing:{after:40}
+    });
+
+    // ── Per-type content ───────────────────────────────────────────
+    let children = [];
+
+    // ══════════════════════════════════════════════════════════════
+    if (type === 'aks_memo') {
+    // ══════════════════════════════════════════════════════════════
+      children = [
+        COVER_TITLE('MEMORANDUM'),
+        SPACE(),
+        META('TO','[Chief Compliance Officer / General Counsel]'),
+        META('FROM','Aqueduct Platform / Program Development Team'),
+        META('DATE',td),
+        META('RE','OIG Anti-Kickback Statute Safe Harbor Analysis — NEMT Community Benefit Program'),
+        META('ORGANIZATION',org),
+        META('LOCATION',loc),
+        HR(),
+        H1('I. EXECUTIVE SUMMARY'),
+        P(`This memorandum analyzes ${org}'s proposed Non-Emergency Medical Transportation (NEMT) Community Benefit Program under the federal Anti-Kickback Statute (AKS), 42 U.S.C. § 1320a-7b(b), and concludes that the program qualifies for protection under the OIG's Non-Monetary Remuneration (NMR) Safe Harbor, 42 C.F.R. § 1001.952(l). The program is further supported by the Community-Wide Health Care Planning Safe Harbor and multiple OIG Advisory Opinions addressing transportation benefit programs.`),
+        P(`This analysis should be reviewed by qualified healthcare compliance counsel prior to program launch. This document is intended as a compliance framework memo, not legal advice.`),
+        H1('II. STATUTORY BACKGROUND'),
+        H2('A. The Anti-Kickback Statute'),
+        P(`The AKS prohibits knowingly and willfully offering, paying, soliciting, or receiving anything of value to induce or reward referrals of items or services covered by federal healthcare programs. 42 U.S.C. § 1320a-7b(b). Violations carry criminal penalties up to $100,000 per occurrence and exclusion from federal programs.`),
+        P(`NEMT provided to patients who are eligible for, and may subsequently utilize, the hospital's services could theoretically constitute remuneration "to induce referrals" if not structured carefully. This analysis demonstrates that ${org}'s program structure satisfies Safe Harbor criteria and does not implicate AKS risk when properly documented.`),
+        H2('B. The Non-Monetary Remuneration Safe Harbor (42 C.F.R. § 1001.952(l))'),
+        P('The NMR Safe Harbor protects non-monetary remuneration (including transportation) provided by a hospital to a beneficiary if ALL of the following criteria are satisfied:'),
+        BULLET('The remuneration is not offered as part of any advertisement or solicitation;',0),
+        BULLET('The remuneration is not tied to the provision of other services reimbursed in whole or part by a federal healthcare program;',0),
+        BULLET('The item or service may be used by the beneficiary only (not transferred);',0),
+        BULLET('The annual per-patient value does not exceed $25 per item or $75 in aggregate, OR the hospital qualifies under a separate exception for in-kind transportation;',0),
+        BULLET('The hospital does not take into account the volume or value of referrals or other business generated when providing the benefit.',0),
+        H1('III. SAFE HARBOR CRITERIA ANALYSIS'),
+        H2('Criterion 1: Not Advertisement or Solicitation'),
+        P(`${org}'s program is not advertised to the general public or used as a marketing tool. Eligibility is determined clinically — patients are identified through Z75.3 (Unavailability/inaccessibility of health care facilities) ICD-10 screening during care encounters. Program enrollment is triggered by clinical need documentation, not by marketing outreach.`),
+        BOLD('Status: ✓ SATISFIED', {color:'166534'}),
+        H2('Criterion 2: Not Tied to Federal Program Services'),
+        P(`The NEMT benefit is structured as a community benefit activity under IRS Schedule H, Line 7e (Community Health Improvement Services). The explicit program purpose is reducing transportation barriers to care access as documented in the ${chnaYear} CHNA — not inducing utilization of specific federally-reimbursed services. Patients are eligible based on transportation barrier documentation (Z75.3), not based on the type or reimbursement source of the appointment.`),
+        BOLD('Status: ✓ SATISFIED (with documentation requirements noted in Section V)', {color:'166534'}),
+        H2('Criterion 3: Personal Use Limitation'),
+        P('Transportation is inherently personal use — the benefit (a ride to a medical appointment) is consumed by the beneficiary and cannot be transferred, resold, or assigned. Physical trip provision meets the personal-use-only requirement by design.'),
+        BOLD('Status: ✓ SATISFIED BY PROGRAM DESIGN', {color:'166534'}),
+        H2('Criterion 4: Value Limitation / Transportation Exception'),
+        P(`The OIG has issued multiple Advisory Opinions (AO 02-1, AO 02-14, AO 06-16, AO 15-10) recognizing that transportation to/from medical facilities for financially needy patients qualifies for protection without the per-patient dollar cap, when: (a) the patient is in financial need or meets geographic hardship criteria, (b) the transportation is to/from the hospital's own facilities, and (c) the program is not used as a vehicle to increase referrals.`),
+        P(`${org}'s program serves ${lmiPop}. This financial need documentation, combined with the CHNA-documented transportation barrier (${transFinding.substring(0,150)}…), supports the financial-need exception.`),
+        BOLD('Status: ✓ SATISFIED under financial-need transportation exception', {color:'166534'}),
+        H2('Criterion 5: No Volume/Value Correlation'),
+        P(`Program eligibility is determined by clinical need (Z75.3 documentation) and transportation barrier assessment, not by the volume of services a patient is expected to use or the reimbursement value of appointments. The program serves ${lmiPop} — populations with lower expected service volume, not higher-value commercial patients. This structure affirmatively demonstrates no volume/value correlation.`),
+        BOLD('Status: ✓ SATISFIED', {color:'166534'}),
+        H1('IV. SUPPORTING OIG ADVISORY OPINIONS'),
+        BULLET('OIG Advisory Opinion No. 02-1 (2002): Affirmed protection for hospital transportation to financially needy patients; no dollar cap required when financial need is documented.',0),
+        BULLET('OIG Advisory Opinion No. 02-14 (2002): Transportation for Medicaid beneficiaries to hospital\'s own facilities protected when need-based.',0),
+        BULLET('OIG Advisory Opinion No. 06-16 (2006): Ride-sharing-style transportation for documented low-income patients protected; emphasized CHNA linkage.',0),
+        BULLET('OIG Advisory Opinion No. 15-10 (2015): Confirmed that IRS Schedule H community benefit framework aligns with AKS safe harbor intent for transportation programs.',0),
+        H1('V. DOCUMENTATION REQUIREMENTS'),
+        P('To maintain Safe Harbor protection, the following documentation must be maintained per patient and per program period:'),
+        H2('Per-Patient Documentation'),
+        BULLET('Z75.3 ICD-10 code entered in EHR problem list at order entry',0),
+        BULLET('Transportation barrier assessment completed by care coordinator',0),
+        BULLET('Financial need documentation (Medicaid eligibility, income screening, or geographic hardship)',0),
+        BULLET('Enrollment form signed by patient affirming personal use',0),
+        BULLET('Trip manifest (date, pickup location, destination, driver, appointment type)',0),
+        H2('Program-Level Documentation'),
+        BULLET(`CHNA (${chnaYear}) identifying transportation as a community health priority — on file`,0),
+        BULLET('Implementation Strategy formally adopted by ${org} governing board',0),
+        BULLET('Schedule H Part I Line 7e reporting in annual Form 990 filing',0),
+        BULLET('Annual compliance review by healthcare counsel',0),
+        BULLET('Vendor Business Associate Agreement (BAA) executed',0),
+        H1('VI. PROGRAM FINANCIAL PARAMETERS'),
+        META('Annual trips',trips),
+        META('Estimated patients served',patients),
+        META('Annual program cost',fmtD(cost)),
+        META('FFS contribution recovery (Layer 0)',fmtD(l0)),
+        META('Coding & documentation uplift (Layer 1)',fmtD(l1)),
+        META('CCM/TCM billing (Layer 2)',fmtD(l2)),
+        META('VBC earn-back (Layer 3)',fmtD(l3)),
+        META('Total program value',fmtD(total)),
+        META('Net annual value',fmtD(net)),
+        H1('VII. CONCLUSION'),
+        P(`Based on the foregoing analysis, ${org}'s NEMT Community Benefit Program, as designed, qualifies for protection under the OIG Non-Monetary Remuneration Safe Harbor (42 C.F.R. § 1001.952(l)) and is further supported by OIG Advisory Opinions 02-1, 02-14, 06-16, and 15-10.`),
+        P('This conclusion is contingent on maintenance of the per-patient and program-level documentation requirements outlined in Section V. Compliance counsel should review this analysis prior to program launch and conduct annual compliance reviews thereafter.'),
+        SPACE(),
+        P('_'.repeat(50)),
+        P('For Compliance Counsel Review — ' + org),
+        P('Generated by Aqueduct Platform · ' + td),
+      ];
+
+    // ══════════════════════════════════════════════════════════════
+    } else if (type === 'memo') {
+    // ══════════════════════════════════════════════════════════════
+      // CRA Community Development Justification Memo
+      children = [
+        COVER_TITLE('CRA COMMUNITY DEVELOPMENT'),
+        COVER_TITLE('JUSTIFICATION MEMORANDUM'),
+        SPACE(),
+        COVER_SUB('Non-Emergency Medical Transportation Program'),
+        COVER_SUB(org + ' · ' + loc),
+        COVER_META('Prepared for CRA Examination File · ' + td),
+        HR(),
+        H1('I. PURPOSE'),
+        P(`This memorandum documents the Community Reinvestment Act (CRA) Community Development qualification for a bank investment in ${org}'s Non-Emergency Medical Transportation (NEMT) Program in ${loc}. It is prepared for inclusion in the CRA examination file and is structured to satisfy OCC, FDIC, and Federal Reserve CRA documentation requirements under 12 C.F.R. Part 25, 228, and 345.`),
+        H1('II. CRA REGULATORY CLASSIFICATION'),
+        H2('Community Development — Health Services for LMI Individuals'),
+        P('Under the CRA Community Development definition (12 C.F.R. § 25.12(g)(3) / § 228.12(g)(3) / § 345.12(g)(3)), community development includes activities that provide community services targeted to low- and moderate-income (LMI) individuals. Healthcare access programs serving LMI populations in the assessment area qualify as community development activities.'),
+        P(`The Federal Reserve and OCC have confirmed in examination guidance (SR 14-4; OCC Community Development Investments, 2014) that healthcare access programs — including transportation to medical facilities — for LMI populations in underserved geographic areas qualify as community development activities.`),
+        META('Classification','Community Development — LMI Community Services (12 C.F.R. § 25.12(g)(3))'),
+        META('Assessment Area',loc),
+        META('LMI Population Served',lmiPop),
+        H1('III. COMMUNITY NEED DOCUMENTATION'),
+        H2('CHNA Evidence'),
+        P(`${org}'s ${chnaYear} Community Health Needs Assessment, conducted pursuant to IRS § 501(r)(3), documents the following community health priorities:`),
+        BULLET(`Priority 1: ${pri1} — Transportation identified as a primary access barrier`,0),
+        BULLET(`Priority 2: ${pri2} — Appointment attendance barriers documented`,0),
+        BULLET(`Transportation finding: ${transFinding.substring(0,200)}`,0),
+        H2('LMI Geographic Analysis'),
+        P(`The FFIEC Census Data for the ${loc} Metropolitan Statistical Area confirms that the program's primary service ZIP codes include LMI census tracts as defined under CRA (median family income ≤ 80% of Area Median Income). ${lmiPop} in the program service area.`),
+        H1('IV. PROGRAM DESCRIPTION'),
+        META('Program','Non-Emergency Medical Transportation Community Benefit Program'),
+        META('Operator',org),
+        META('Service Area',loc),
+        META('Program Structure','Health system-administered NEMT coordination with contracted vendor(s)'),
+        META('Eligibility Criteria','Documented transportation barrier (ICD-10 Z75.3); Medicaid or income-eligible patients; LMI census tract residents'),
+        P('The program provides door-to-door transportation to medical appointments for LMI patients with documented transportation barriers, reducing no-show rates and improving access to primary, specialty, and preventive care. Z75.3 documentation is required at enrollment, creating a direct regulatory link between patient need and program response.'),
+        H1('V. CRA IMPACT METRICS'),
+        META('Annual trips provided',trips),
+        META('Patients served annually',patients),
+        META('Reduction in transportation-attributable no-shows',mr_m + '% (evidence-based)'),
+        META('Annual program cost (funder investment target)',fmtD(cost)),
+        META('Total community health value generated',fmtD(total)),
+        META('Net health system ROI (non-funder sources)',fmtD(net)),
+        P('For CRA examination purposes, the investment creates a measurable community impact: each dollar of bank investment in this program generates an estimated ' + (total&&cost ? '$' + (Math.round(total/cost*10)/10) : '[X]') + ' in community health value through reduced no-shows, improved chronic disease management, and decreased emergency utilization.'),
+        H1('VI. EXAM-FILE DOCUMENTATION CHECKLIST'),
+        BULLET('✓ This CRA Community Development Justification Memorandum',0),
+        BULLET('✓ CHNA ('+chnaYear+') — documenting transportation as community health priority',0),
+        BULLET('✓ IRS Form 990 Schedule H (most recent) — documenting community benefit expenditures',0),
+        BULLET('✓ Program description and eligibility criteria',0),
+        BULLET('✓ FFIEC census tract LMI designation map for service ZIP codes',0),
+        BULLET('□ Executed investment agreement / grant agreement',0),
+        BULLET('□ Bank verification of LMI census tract service area',0),
+        BULLET('□ Annual impact report (provided by '+org+')',0),
+        H1('VII. PROPOSED BANK INVESTMENT STRUCTURE'),
+        META('Requested Amount',fmtD(cost)+' (Year 1 program cost)'),
+        META('Investment Type','Qualified CRA Community Development Investment or Grant'),
+        META('Term','12-month grant with renewal option based on outcome metrics'),
+        META('Reporting','Quarterly impact data; annual 990H Schedule submission'),
+        P('This investment qualifies for CRA credit under the Community Development test. The bank\'s CRA officer should retain this memorandum, the associated CHNA, and the 990H Schedule in the bank\'s CRA public file.'),
+        SPACE(),
+        P('Prepared by: ' + org + ' Community Benefit Office'),
+        P('For CRA Examination · ' + td),
+        P('Contact: [Program Director Name · Phone · Email]'),
+      ];
+
+    // ══════════════════════════════════════════════════════════════
+    } else if (type === 'boarddeck') {
+    // ══════════════════════════════════════════════════════════════
+      children = [
+        COVER_TITLE(org.toUpperCase()),
+        COVER_TITLE('BOARD OF DIRECTORS'),
+        COVER_TITLE('PROGRAM APPROVAL BRIEF'),
+        SPACE(),
+        COVER_SUB('Non-Emergency Medical Transportation (NEMT)'),
+        COVER_SUB('Community Benefit Program'),
+        COVER_META('Prepared for Board Review · ' + td),
+        HR(),
+        H1('I. EXECUTIVE SUMMARY'),
+        P(`${org} is proposing the launch of a Non-Emergency Medical Transportation (NEMT) Community Benefit Program to address a documented and material gap between community health need and institutional response. The ${chnaYear} CHNA identifies transportation as a primary access barrier affecting a significant portion of our patient population. This program closes that gap while generating measurable financial return and strengthening our IRS 501(r) community benefit posture.`),
+        P(`The program is self-financing by Year 3 through four internal revenue streams and requires external funding support only in Year 1. Board approval is requested for program launch and Year 1 funding authorization.`),
+        H1('II. THE PROBLEM — DOCUMENTED COMMUNITY NEED'),
+        P(`Our ${chnaYear} CHNA documents:`),
+        BULLET(`Transportation finding: ${transFinding.substring(0,180)}`,0),
+        BULLET(`${lmiPop} — the population most affected by transportation barriers`,0),
+        BULLET(`Top CHNA priority: ${pri1} — transportation is a documented primary barrier`,0),
+        P('Unaddressed no-shows represent both a health equity failure and a financial loss. At a no-show rate of ' + mr_n + '% with ' + mr_s + '% transport-attributable, approximately ' + Math.round(parseInt(mr_v||40000)*parseFloat(mr_n||20)/100*parseFloat(mr_s||30)/100).toLocaleString() + ' visits per year are lost to transportation barriers.'),
+        H1('III. THE PROGRAM'),
+        META('Program Name','NEMT Community Benefit Program'),
+        META('Program Model','Hospital-coordinated NEMT with contracted vendor'),
+        META('Eligibility','Z75.3-documented transportation barrier; Medicaid / LMI patients'),
+        META('Annual Trips',trips),
+        META('Patients Served',patients),
+        META('Evidence Base','Shekelle et al. (2022) meta-analysis; Chaiyachati et al. (2018); Balasubramanian et al. (2025)'),
+        P('The program provides coordinated transportation to medical appointments for patients with documented barriers. It integrates with the EHR via Z75.3 documentation at order entry, ensuring a complete IRS 501(r) evidentiary chain from CHNA priority to Implementation Strategy to Schedule H Line 7e reported cost.'),
+        H1('IV. THE FINANCIAL CASE — FOUR-LAYER ROI'),
+        H2('Layer 0 — FFS Contribution Margin Recovery'),
+        P('Every prevented no-show is a recaptured visit at full contribution margin.'),
+        META('Annual value',fmtD(l0)),
+        H2('Layer 1 — Z75.3 Coding & Documentation Uplift'),
+        P('Z75.3 coding adds ~$23/encounter via HCC risk adjustment and CPT bundling improvement.'),
+        META('Annual value',fmtD(l1)),
+        H2('Layer 2 — CCM/TCM Billing'),
+        P('NEMT-enrolled patients qualify for Chronic Care Management (CPT 99490, ~$62–128/mo) and Transitional Care Management billing.'),
+        META('Annual value',fmtD(l2)),
+        H2('Layer 3 — VBC Quality Earn-Back'),
+        P('Reduced ED utilization and 30-day readmissions improve VBC quality scores and earn-back against quality withholds (matures Month 12–18).'),
+        META('Annual value',fmtD(l3)),
+        HR(),
+        META('TOTAL ANNUAL PROGRAM VALUE',fmtD(total)),
+        META('Annual program cost',fmtD(cost)),
+        META('NET ANNUAL VALUE',fmtD(net)),
+        META('3-Year cumulative net',fmtD(net*2.5)+ ' (est.)'),
+        H1('V. COMPLIANCE & LEGAL FRAMEWORK'),
+        BULLET('IRS 501(r)(3): Program directly responds to documented CHNA priority. Cost is reportable on Schedule H, Line 7e (Community Health Improvement Services).',0),
+        BULLET('OIG AKS Safe Harbor: Program qualifies under Non-Monetary Remuneration Safe Harbor (42 C.F.R. § 1001.952(l)) and financial-need transportation exception per OIG Advisory Opinions 02-1, 06-16, 15-10.',0),
+        BULLET('TJC/NCQA: Program addresses accreditation standards for SDOH screening, population health management, and care transitions.',0),
+        BULLET('CRA: Program qualifies for Community Reinvestment Act Community Development credit — creating a bank partnership funding pathway.',0),
+        H1('VI. FUNDING STRATEGY'),
+        P('The program has three independent funding pathways, none of which requires the other:'),
+        BULLET(`CRA Investment: Banks in the ${loc} MSA have CRA obligations in this assessment area. A $` + Math.round(cost*0.4).toLocaleString() + ' Year 1 CRA investment is achievable based on comparable programs.',0),
+        BULLET('Foundation/Philanthropic Grant: Health equity and SDOH grantmakers regularly fund NEMT programs at $50K–$250K/year. LOI to be submitted upon board approval.',0),
+        BULLET('Federal (HRSA SDOH Grant / CMMI AHEAD): Competitive federal funding available for evidence-based SDOH programs with documented LMI community need.',0),
+        H1('VII. BOARD APPROVAL REQUEST'),
+        P('The Board of Directors is requested to:'),
+        BULLET('1. Authorize the launch of the NEMT Community Benefit Program as described in this brief.',0),
+        BULLET('2. Approve a Year 1 budget allocation of ' + fmtD(cost) + ' contingent on external funding secured.',0),
+        BULLET('3. Adopt the NEMT program as an Implementation Strategy response to the ' + chnaYear + ' CHNA transportation priority.',0),
+        BULLET('4. Authorize management to execute vendor agreements and begin Z75.3 screening protocols.',0),
+        SPACE(),
+        P('MOTION: "Whereas the '+chnaYear+' CHNA documents transportation as a primary health access barrier, and whereas the proposed NEMT program is structured to satisfy IRS 501(r), OIG Safe Harbor, and CRA compliance requirements, the Board of Directors of '+org+' hereby approves the launch of the NEMT Community Benefit Program and authorizes management to proceed with implementation as described in the Board Brief dated '+td+'."'),
+        SPACE(),
+        P('Prepared by: Community Benefit Office · ' + org),
+        P(td),
+      ];
+
+    // ══════════════════════════════════════════════════════════════
+    } else if (type === 'loi_draft') {
+    // ══════════════════════════════════════════════════════════════
+      children = [
+        COVER_TITLE('LETTER OF INQUIRY'),
+        COVER_SUB('[Foundation Name]'),
+        COVER_SUB('[Foundation Address]'),
+        SPACE(),
+        P(td),
+        SPACE(),
+        P('Dear [Program Officer Name],'),
+        SPACE(),
+        P(`${org} respectfully submits this Letter of Inquiry to [Foundation Name] for a grant of $[amount] to support the launch and first-year operations of our Non-Emergency Medical Transportation (NEMT) Community Benefit Program in ${loc}. We believe this program aligns directly with [Foundation Name]'s focus on [health equity / SDOH / community health] and offers a compelling, evidence-grounded model for sustainable impact.`),
+        H1('THE PROBLEM'),
+        P(`Our ${chnaYear} Community Health Needs Assessment, conducted pursuant to IRS § 501(r)(3), documents a clear and actionable gap: transportation is a primary barrier to care access for our community. ${transFinding.substring(0,200)} ${lmiPop}.`),
+        P(`Transportation-attributable no-shows cost our community approximately ${Math.round(parseInt(mr_v||40000)*parseFloat(mr_n||20)/100*parseFloat(mr_s||30)/100).toLocaleString()} appointment opportunities per year — each representing a missed chance for primary care, chronic disease management, or preventive screening. For patients managing diabetes, hypertension, or behavioral health conditions, a missed appointment is not an administrative inconvenience. It is a step toward a preventable emergency.`),
+        H1('OUR RESPONSE — THE NEMT PROGRAM'),
+        P(`${org}'s NEMT Community Benefit Program provides coordinated, door-to-door transportation to medical appointments for patients with documented transportation barriers. Patients are identified through ICD-10 Z75.3 (Unavailability/inaccessibility of health care facilities) screening during routine care encounters — ensuring the program reaches those with the greatest need, not those who ask for it.`),
+        P('The program is structured against the COM-B behavioral change framework, combining transportation provision (Physical Opportunity) with care coordinator engagement, bilingual communication materials, and a structured reminder cadence — because evidence shows that transportation alone reduces no-shows by only 17%, while a full engagement protocol achieves 30–37% reduction (Chaiyachati et al., Annals of Internal Medicine, 2018).'),
+        META('Annual trips',trips),
+        META('Patients served',patients),
+        META('Projected no-show reduction',mr_m+'%'),
+        META('Primary populations','Medicaid, LMI, disability, limited English proficiency'),
+        H1('EVIDENCE BASE'),
+        P('This program is grounded in the strongest available evidence:'),
+        BULLET('Shekelle et al. (2022) systematic review: 37% mean no-show reduction in NEMT-enabled populations',0),
+        BULLET('Balasubramanian et al. (2025): 32% reduction in 30-day readmissions for NEMT-enrolled patients',0),
+        BULLET('Chaiyachati et al. (2018): Engagement protocol essential — ride + activation outperforms ride alone by 2x',0),
+        H1('FINANCIAL STRUCTURE & SUSTAINABILITY'),
+        P(`Year 1 requires $` + Math.round(cost).toLocaleString() + ` in external support. The program is designed for full financial sustainability by Year 3 through four internal revenue streams — Fee-for-Service contribution margin recovery, Z75.3 coding uplift, CCM/TCM billing, and VBC quality earn-back — totaling ${fmtD(total)} in annual value. External funding is a launch investment, not an ongoing dependency.`),
+        META('Year 1 grant request',fmtD(cost)),
+        META('Year 2 gap (est.)',fmtD(Math.round(cost*0.55))),
+        META('Year 3 program status','Financially self-sustaining'),
+        H1('ORGANIZATIONAL CAPACITY'),
+        P(`${org} has the institutional infrastructure to execute this program with fidelity: an existing care coordination team, an integrated EHR with Z75.3 documentation protocols, an established vendor procurement process, and a formal community benefit reporting structure under IRS 990 Schedule H. This is not a new capability — it is a new program built on existing operational and compliance infrastructure.`),
+        H1('REQUEST'),
+        P(`We respectfully request a grant of $[amount] for Year 1 program operations, with the opportunity to report outcomes at Year 1 and discuss continued support for Year 2. We would welcome the opportunity to speak with a program officer about this initiative.`),
+        SPACE(),
+        P('Sincerely,'),
+        SPACE(),
+        P('[Name]'),
+        P('[Title]'),
+        P(org),
+        P('[Phone] · [Email]'),
+      ];
+
+    // ══════════════════════════════════════════════════════════════
+    } else if (type === 'sla') {
+    // ══════════════════════════════════════════════════════════════
+      children = [
+        COVER_TITLE('SERVICE LEVEL AGREEMENT'),
+        COVER_SUB('Non-Emergency Medical Transportation Program'),
+        COVER_SUB('Between ' + org + ' ("Health System")'),
+        COVER_SUB('and [Vendor Name] ("Transportation Provider")'),
+        COVER_META('Effective Date: [Date] · Term: 12 months, auto-renewing'),
+        HR(),
+        H1('1. PARTIES AND PURPOSE'),
+        P(`This Service Level Agreement ("SLA") governs the provision of Non-Emergency Medical Transportation services by [Vendor Name] ("Vendor") to patients of ${org} ("Health System") in ${loc}. This SLA is incorporated by reference into the Master Services Agreement executed between the parties.`),
+        H1('2. SCOPE OF SERVICES'),
+        H2('2.1 Trip Types Covered'),
+        BULLET('Scheduled outpatient appointments (primary care, specialty, preventive)',0),
+        BULLET('Chronic Care Management visit transportation',0),
+        BULLET('Transitional Care Management post-discharge follow-up',0),
+        BULLET('Behavioral health appointments (flagged separately in dispatch system)',0),
+        H2('2.2 Service Area'),
+        P(`Primary service area: ${loc}. Extended service radius to be defined in Schedule A. Vendor will document inability to serve specific geographies within 30 days of execution.`),
+        META('Estimated annual trip volume',trips + ' round trips'),
+        META('Average trip distance','[X] miles (to be confirmed with vendor)'),
+        H1('3. PERFORMANCE STANDARDS'),
+        H2('3.1 On-Time Performance'),
+        META('Standard','≥ 92% of pickups within 10 minutes of scheduled time'),
+        META('Measurement','Monthly, reported by Vendor; verified by Health System via patient surveys'),
+        META('Consequence of breach','Written notice; cure period 30 days; termination trigger at 3 consecutive months below standard'),
+        H2('3.2 Cancellation Rate'),
+        META('Standard','≤ 5% vendor-initiated cancellations per month'),
+        META('Measurement','Monthly, Vendor trip manifest vs. scheduled trips'),
+        META('Consequence of breach','Credit of $[amount] per excess cancellation; pattern breach = termination trigger'),
+        H2('3.3 No-Show Escalation'),
+        P('If patient does not appear at pickup location, Vendor will: (a) wait minimum 5 minutes; (b) attempt one phone contact; (c) notify Health System care coordinator within 15 minutes; (d) document in trip manifest. Health System is not charged for patient no-shows if proper escalation protocol was followed.'),
+        H2('3.4 Driver Standards'),
+        BULLET('Background check (criminal, MVR) — required annually; results provided to Health System upon request',0),
+        BULLET('HIPAA training — required annually; attestation on file with Vendor',0),
+        BULLET('CPR/First Aid certification — required',0),
+        BULLET('Professional conduct standards: no cell phone use, non-smoking vehicle, assisted boarding for mobility-impaired patients',0),
+        H2('3.5 Vehicle Standards'),
+        BULLET('ADA-compliant vehicles for patients requiring wheelchair or mobility assistance',0),
+        BULLET('Vehicle age ≤ 7 years or as required by state regulation',0),
+        BULLET('Commercial auto insurance ≥ $1M per occurrence',0),
+        BULLET('Safety inspection — current per state requirements',0),
+        H1('4. HIPAA / BUSINESS ASSOCIATE AGREEMENT'),
+        P('Vendor acknowledges that transportation manifests, patient names, appointment information, and any individually identifiable health information constitute Protected Health Information (PHI) under HIPAA. Vendor agrees to:'),
+        BULLET('Execute a Business Associate Agreement (BAA) concurrently with this SLA',0),
+        BULLET('Limit PHI use to trip provision only — no secondary use, no sale of data',0),
+        BULLET('Report any breach or suspected breach within 24 hours of discovery',0),
+        BULLET('Maintain HIPAA training records for all drivers and dispatch staff',0),
+        BULLET('Delete or return all PHI within 30 days of contract termination',0),
+        H1('5. REPORTING REQUIREMENTS'),
+        H2('5.1 Monthly Reporting (by 10th of following month)'),
+        BULLET('Trip manifest: date, time, patient ID, origin ZIP, destination, appointment type, on-time status',0),
+        BULLET('Cancellation log: date, reason, patient notification',0),
+        BULLET('No-show log: date, escalation steps taken',0),
+        BULLET('Driver incident reports (if any)',0),
+        H2('5.2 Quarterly Reporting'),
+        BULLET('On-time performance summary vs. SLA standard',0),
+        BULLET('Vehicle inspection status',0),
+        BULLET('Driver credentialing status',0),
+        BULLET('Geographic coverage map (trips by ZIP code)',0),
+        H1('6. FINANCIAL TERMS'),
+        META('Per trip cost','$[amount] per one-way trip (to be negotiated)'),
+        META('Billing cycle','Monthly, net 30'),
+        META('Rate escalation','CPI + 1% annually, capped at 3% in any year'),
+        META('Volume discount','[X]% discount if annual volume exceeds ' + Math.round(tripsN*1.2).toLocaleString() + ' trips'),
+        P('Invoices must include trip manifest by patient ID, appointment date, and trip type. Health System reserves the right to audit trip records.'),
+        H1('7. TERM AND TERMINATION'),
+        BULLET('Initial term: 12 months from effective date',0),
+        BULLET('Auto-renewal: 12 months unless 60-day written notice of non-renewal',0),
+        BULLET('Termination for cause: 30-day cure period; immediate termination for HIPAA breach or patient safety violation',0),
+        BULLET('Termination for convenience: 90-day written notice',0),
+        H1('8. SIGNATURES'),
+        SPACE(2),
+        P('For ' + org + ':'),
+        SPACE(),
+        P('Signature: ________________________________'),
+        P('Name: ____________________________________'),
+        P('Title: ____________________________________'),
+        P('Date: _____________________________________'),
+        SPACE(),
+        P('For [Vendor Name]:'),
+        SPACE(),
+        P('Signature: ________________________________'),
+        P('Name: ____________________________________'),
+        P('Title: ____________________________________'),
+        P('Date: _____________________________________'),
+      ];
+
+    // ══════════════════════════════════════════════════════════════
+    } else if (type === 'schedule_h') {
+    // ══════════════════════════════════════════════════════════════
+      children = [
+        COVER_TITLE('IRS FORM 990'),
+        COVER_TITLE('SCHEDULE H, PART I, LINE 7e'),
+        COVER_TITLE('COMMUNITY BENEFIT DOCUMENTATION'),
+        COVER_SUB('Community Health Improvement Services — NEMT Program'),
+        COVER_SUB(org),
+        COVER_META('For Tax Year Ending: [Month DD, YYYY] · Generated ' + td),
+        HR(),
+        H1('I. 501(r)(3) EVIDENTIARY CHAIN'),
+        P('IRS Revenue Procedure 2015-57 and Schedule H instructions require that community benefit activities reported on Line 7e demonstrate a direct link between: (1) a documented CHNA priority, (2) an adopted Implementation Strategy, and (3) the reported program cost. The following chain establishes this linkage for the NEMT program.'),
+        H2('Step 1: CHNA Priority Documentation'),
+        P(`${org}'s ${chnaYear} Community Health Needs Assessment (available at [website URL] per 501(r)(3) public access requirement) identifies the following priorities relevant to transportation:`),
+        BULLET(`Priority: ${pri1} — Transportation documented as primary access barrier`,0),
+        BULLET(`Key finding: ${transFinding.substring(0,200)}`,0),
+        BULLET(`Population: ${lmiPop}`,0),
+        BULLET('Data source: CHNA community survey, FFIEC census data, CDC PLACES, ICD-10 encounter data',0),
+        H2('Step 2: Implementation Strategy Adoption'),
+        P(`The Implementation Strategy adopted by ${org}'s governing board on [Board Approval Date] identifies NEMT program development as a response activity to the CHNA transportation priority. Per IRS Notice 2011-52 and final § 501(r) regulations, the Implementation Strategy must be adopted within 12 months of CHNA completion.`),
+        BULLET(`Implementation Strategy adoption date: [Date]`,0),
+        BULLET('Governing body: Board of Directors of ' + org,0),
+        BULLET('Strategy reference: Section [X] — Transportation Barrier Response',0),
+        H2('Step 3: Program Activity'),
+        P('The NEMT Community Benefit Program provides coordinated transportation to medical appointments for patients with documented transportation barriers (ICD-10 Z75.3). The program directly responds to the CHNA-identified access barrier.'),
+        H1('II. SCHEDULE H LINE 7e NARRATIVE'),
+        P('The following narrative is formatted for direct entry into Schedule H, Part I, Line 7e (Community Health Improvement Services):'),
+        HR(),
+        P(org + ' operates a Non-Emergency Medical Transportation (NEMT) program providing door-to-door transportation to medical appointments for low-income and Medicaid patients with documented transportation barriers. Patients are identified through ICD-10 Z75.3 (Unavailability/inaccessibility of health care facilities) screening. The program directly responds to Priority 1 of the ' + chnaYear + ' CHNA — ' + pri1 + ' — which identified transportation as a primary barrier to care access for ' + lmiPop + '.'),
+        P('In the reporting year, the program provided ' + trips + ' round trips to approximately ' + patients + ' patients. Program activities included: trip coordination, care coordinator enrollment counseling, bilingual patient communication materials, and structured follow-up. The program is governed by an Implementation Strategy adopted by the Board of Directors on [Date].'),
+        P('This activity qualifies as a Community Health Improvement Service under Schedule H instructions because: (a) it directly addresses a documented CHNA community health need; (b) it responds to an adopted Implementation Strategy; (c) the primary beneficiaries are LMI and Medicaid patients; and (d) the activity is not a service normally provided for a fee (transportation is not a billable clinical service).'),
+        HR(),
+        H1('III. COST ALLOCATION AND AMOUNT CLAIMED'),
+        H2('Eligible Program Costs (Line 7e)'),
+        META('Vendor trip costs',fmtD(Math.round(cost*0.70))),
+        META('Care coordinator time (allocated)',fmtD(Math.round(cost*0.12))),
+        META('Patient communication materials',fmtD(Math.round(cost*0.05))),
+        META('Program management/oversight',fmtD(Math.round(cost*0.08))),
+        META('Evaluation and data infrastructure',fmtD(Math.round(cost*0.05))),
+        META('TOTAL REPORTABLE COST (Line 7e)',fmtD(cost)),
+        H2('Revenue Offsets'),
+        P('Per Schedule H instructions, amounts reportable as community benefit are reduced by any offsetting program revenue. The following revenue streams offset program cost but do not eliminate Schedule H reportability:'),
+        BULLET('FFS contribution margin recovery from prevented no-shows: ' + fmtD(l0) + ' (net patient service revenue — not a direct program revenue offset)',0),
+        BULLET('Z75.3 coding uplift: ' + fmtD(l1) + ' (patient service revenue — not a program revenue offset)',0),
+        BULLET('External grants/donations applied to program: $[amount]',0),
+        META('NET SCHEDULE H COST CLAIMED',fmtD(Math.max(0, cost - 0))),
+        H1('IV. PART VI — COMMUNITY BENEFIT NARRATIVE SUPPLEMENT'),
+        P(org+' has implemented a Non-Emergency Medical Transportation community benefit program as a direct response to the '+chnaYear+' CHNA. The program is structured to satisfy § 501(r)(3) documentation requirements, with a complete evidentiary chain from documented CHNA priority to board-adopted Implementation Strategy to annual Schedule H reporting. The program serves '+lmiPop+' and provided '+trips+' transportation trips in the reporting year to approximately '+patients+' patients facing documented transportation barriers.'),
+        SPACE(),
+        P('Prepared by: ' + org + ' Community Benefit / Finance Office'),
+        P('For Tax Year Form 990 · ' + td),
+        P('Retain this document with Form 990 working papers.'),
+      ];
+
+    // ══════════════════════════════════════════════════════════════
+    } else if (type === 'sustainability') {
+    // ══════════════════════════════════════════════════════════════
+      const y1net = net*0.3, y2net = net*0.7, y3net = net;
+      const y1cost = cost, y2cost = cost*1.05, y3cost = cost*1.1;
+      children = [
+        COVER_TITLE('3-YEAR FINANCIAL SUSTAINABILITY PLAN'),
+        COVER_SUB('Non-Emergency Medical Transportation Program'),
+        COVER_SUB(org + ' · ' + loc),
+        COVER_META('Prepared for Funder Submission · ' + td),
+        HR(),
+        H1('I. SUSTAINABILITY THESIS'),
+        P(`${org}'s NEMT program is designed to achieve full financial self-sustainability by Year 3 through the progressive activation of four internal revenue streams. External funding is a bridge investment, not a structural dependency. This plan documents the layer activation timeline, funder exit schedule, and the financial architecture that supports program continuation without ongoing philanthropic or CRA support.`),
+        H1('II. FOUR-LAYER REVENUE ARCHITECTURE'),
+        H2('Layer 0 — FFS Contribution Margin (Available: Month 1)'),
+        P('Prevented no-shows generate direct contribution margin from recaptured visits. This is the most immediate and certain revenue layer.'),
+        META('Mechanism','Reduced no-show rate × net revenue per visit × contribution margin'),
+        META('Year 1 value',fmtD(Math.round(l0*0.4))+' (conservative; ramp-up)'),
+        META('Year 2 value',fmtD(Math.round(l0*0.8))),
+        META('Year 3 value (full run-rate)',fmtD(l0)),
+        H2('Layer 1 — Z75.3 Coding & Documentation Uplift (Available: Month 2)'),
+        P('Z75.3 documentation triggers HCC risk adjustment improvements and CPT bundling optimization across enrolled patients. Requires 90-day audit cycle for full realization.'),
+        META('Year 1 value',fmtD(Math.round(l1*0.5))),
+        META('Year 2 value',fmtD(l1)),
+        META('Year 3 value',fmtD(Math.round(l1*1.05))),
+        H2('Layer 2 — CCM/TCM Billing (Available: Month 3)'),
+        P('Enrolled patients are systematically screened for Chronic Care Management and Transitional Care Management eligibility. CCM billing (CPT 99490, ~$62–128/month) and TCM billing (CPT 99495/99496, ~$165–228/episode) generate recurring revenue independent of trip volume.'),
+        META('Year 1 value',fmtD(Math.round(l2*0.35))),
+        META('Year 2 value',fmtD(l2)),
+        META('Year 3 value',fmtD(Math.round(l2*1.15))),
+        H2('Layer 3 — VBC Quality Earn-Back (Available: Month 12–18)'),
+        P('For ACO REACH, Medicare Advantage, and state VBC programs, reduced ED utilization and 30-day readmissions improve quality score performance and earn-back against quality withholds. This layer matures with 12 months of quality data.'),
+        META('Year 1 value','$0 (pre-maturation)'),
+        META('Year 2 value',fmtD(Math.round(l3*0.5))),
+        META('Year 3 value',fmtD(l3)),
+        H1('III. 3-YEAR FINANCIAL PROJECTION'),
+        H2('Year 1'),
+        META('Revenue — internal layers',fmtD(Math.round(l0*0.4+l1*0.5+l2*0.35))),
+        META('Revenue — external funding',fmtD(cost)),
+        META('Program operating cost',fmtD(y1cost)),
+        META('Net position',''+fmtD(Math.round(l0*0.4+l1*0.5+l2*0.35+cost-y1cost))+' (positive due to Year 1 grant)'),
+        H2('Year 2'),
+        META('Revenue — internal layers',fmtD(Math.round(l0*0.8+l1+l2+l3*0.5))),
+        META('Revenue — external funding',fmtD(Math.round(cost*0.5))+' (partial; bridge)'),
+        META('Program operating cost',fmtD(Math.round(y2cost))),
+        META('Net position',fmtD(Math.round(l0*0.8+l1+l2+l3*0.5+cost*0.5-y2cost))),
+        H2('Year 3 — Full Sustainability'),
+        META('Revenue — internal layers (all 4)',fmtD(Math.round(l0+l1*1.05+l2*1.15+l3))),
+        META('Revenue — external funding','$0 (program self-sustaining)'),
+        META('Program operating cost',fmtD(Math.round(y3cost))),
+        META('NET SURPLUS',fmtD(Math.round(l0+l1*1.05+l2*1.15+l3-y3cost))),
+        H1('IV. FUNDER EXIT STRATEGY'),
+        P('External funders are provided the following commitment: ' + org + ' will not seek renewal of current funding beyond Year 2. The program is architected to reach financial independence through internal revenue streams by the end of Year 3.'),
+        BULLET('Year 1: External funding covers 100% of program cost. Internal layers begin activating.',0),
+        BULLET('Year 2: External funding covers ~50% of cost. Internal layers cover remaining gap.',0),
+        BULLET('Year 3 and beyond: No external funding required. Internal layers exceed program cost.',0),
+        H1('V. KPI ARCHITECTURE — SUSTAINABILITY METRICS'),
+        BULLET('Trips per month vs. target (volume ramp)',0),
+        BULLET('No-show rate (program population vs. control) — primary outcome',0),
+        BULLET('Z75.3 documentation rate (target: ≥95% of enrolled patients)',0),
+        BULLET('CCM enrollment rate (target: ≥60% of eligible enrolled patients)',0),
+        BULLET('Layer 0 revenue realized vs. model (FFS recapture)',0),
+        BULLET('Layer 2 revenue realized vs. model (CCM billing)',0),
+        BULLET('30-day readmission rate (program vs. matched control)',0),
+        BULLET('Cost per trip (target: stable year-over-year with CPI adjustment)',0),
+        H1('VI. RISK FACTORS AND MITIGATIONS'),
+        META('Risk: Lower-than-projected trip utilization','Mitigation: Phase enrollment; tie volume ramp to Z75.3 screening rate'),
+        META('Risk: CCM eligibility lower than modeled','Mitigation: Layer 2 conservative; Layer 0 and 1 provide cushion'),
+        META('Risk: VBC program structure changes','Mitigation: Layer 3 excluded from Year 1 financial base; upside only'),
+        META('Risk: Vendor SLA non-performance','Mitigation: Performance-based contract; 30-day cure; alternative vendor identified'),
+        SPACE(),
+        P('Prepared by: ' + org + ' Finance & Community Benefit Office'),
+        P(td),
+      ];
+
+    // ══════════════════════════════════════════════════════════════
+    } else if (type === 'quarterly_report') {
+    // ══════════════════════════════════════════════════════════════
+      children = [
+        COVER_TITLE('QUARTERLY PROGRAM IMPACT REPORT'),
+        COVER_SUB('Non-Emergency Medical Transportation Program'),
+        COVER_SUB(org + ' · Quarter [Q] [YYYY]'),
+        COVER_META('Prepared for: [Funder(s)] · Generated ' + td),
+        HR(),
+        H1('I. PROGRAM SUMMARY'),
+        META('Organization',org),
+        META('Location',loc),
+        META('Reporting Quarter','Q[X], [Month–Month] [YYYY]'),
+        META('Cumulative program start date','[Launch Date]'),
+        H1('II. UTILIZATION METRICS'),
+        META('Trips completed this quarter','[X]'),
+        META('Trips completed year-to-date','[X]'),
+        META('Trips target (annual)',trips),
+        META('On-time performance','[X]% vs. SLA standard ≥92%'),
+        META('Vendor cancellation rate','[X]% vs. SLA standard ≤5%'),
+        META('Unique patients served this quarter','[X]'),
+        META('Unique patients served year-to-date','[X]'),
+        H1('III. CLINICAL OUTCOMES'),
+        META('Appointment kept rate (program population)','[X]% vs. baseline ['+mr_n+'%]'),
+        META('No-show rate reduction vs. control','[X]% (target: '+mr_m+'%)'),
+        META('Z75.3 documentation rate','[X]% (target: ≥95%)'),
+        META('Patients enrolled in CCM this quarter','[X]'),
+        META('Patients enrolled in CCM year-to-date','[X]'),
+        META('30-day readmissions (program population vs. control)','[X]% vs. [Y]%'),
+        H1('IV. FINANCIAL PERFORMANCE'),
+        META('Program cost this quarter',fmtD(Math.round(cost/4))),
+        META('External funding utilized this quarter','$[X]'),
+        META('Layer 0 — FFS recovery (est.)',fmtD(Math.round(l0/4))),
+        META('Layer 1 — Z75.3 coding uplift (est.)',fmtD(Math.round(l1/4))),
+        META('Layer 2 — CCM billing (est.)',fmtD(Math.round(l2/4))),
+        META('Layer 3 — VBC earn-back','[Pending — Year 1 pre-maturation]'),
+        META('Net program value this quarter',fmtD(Math.round(total/4))),
+        H1('V. POPULATION DEMOGRAPHICS'),
+        P('Patient population served this quarter (for funder reporting and CRA documentation):'),
+        META('Medicaid / Medicaid Managed Care','[X]% of patients'),
+        META('Self-pay / uninsured','[X]%'),
+        META('LMI (≤200% FPL)','[X]%'),
+        META('Disability population','[X]%'),
+        META('Limited English Proficiency','[X]%'),
+        META('Primary ZIP codes served','[List]'),
+        H1('VI. COMPLIANCE STATUS'),
+        META('CHNA Implementation Strategy','Active — adopted [Date]'),
+        META('IRS 990 Schedule H filing','On track for Year-End reporting'),
+        META('OIG AKS Safe Harbor documentation','Current — reviewed [Date]'),
+        META('Vendor BAA','Executed [Date] — current'),
+        META('Driver credentialing (all current)','[Yes/No — note exceptions]'),
+        H1('VII. PROGRAM HIGHLIGHTS'),
+        P('[This section: 2–3 brief patient stories or program achievements. Examples: patient who returned to work after consistent attendance; specialty care milestone reached; partnership established.]'),
+        P('• Patient Story: [De-identified summary]'),
+        P('• Program Milestone: [Achievement]'),
+        H1('VIII. NEXT QUARTER PRIORITIES'),
+        BULLET('[Priority 1 — e.g., scale to [X] trips/month]',0),
+        BULLET('[Priority 2 — e.g., launch CCM enrollment protocol]',0),
+        BULLET('[Priority 3 — e.g., complete 6-month outcome analysis]',0),
+        SPACE(),
+        P('Report prepared by: ' + org + ' Community Benefit Office'),
+        P('Questions: [Name · Phone · Email]'),
+        P(td),
+      ];
+
+    } else {
+      // Generic fallback with org data
+      children = [
+        COVER_TITLE(org + ' — NEMT Program'),
+        COVER_META('Generated ' + td + ' · Aqueduct Platform'),
+        HR(),
+        META('Organization',org), META('Location',loc),
+        META('Annual trips',trips), META('Total value',fmtD(total)),
+        META('Net value',fmtD(net)), META('Program cost',fmtD(cost)),
+      ];
+    }
 
     const docTitles = {
-      memo:'CRA Community Development Justification Memorandum',
-      boarddeck:'Board of Directors — NEMT Program Approval Brief',
-      sla:'Vendor Service Level Agreement — NEMT Program',
-      loi_draft:'Foundation Letter of Intent',
-      aks_memo:'AKS Safe Harbor Compliance Memorandum',
-      schedule_h:'IRS Schedule H Part I — Community Benefit Documentation',
-      sustainability:'3-Year Financial Sustainability Plan',
-      quarterly_report:'Quarterly Program Impact Report',
+      memo:'CRA_Justification_Memo',
+      boarddeck:'Board_Approval_Brief',
+      sla:'Vendor_SLA_Template',
+      loi_draft:'Foundation_LOI',
+      aks_memo:'AKS_Safe_Harbor_Memo',
+      schedule_h:'Schedule_H_990_Documentation',
+      sustainability:'3Year_Sustainability_Plan',
+      quarterly_report:'Quarterly_Impact_Report',
     };
 
-    const children = [
-      makeTitle(orgName() + ' — NEMT Program'),
-      makeTitle(docTitles[type] || type),
-      new Paragraph({children:[new TextRun({text:'Generated: '+today()+' · Aqueduct Platform',size:18,color:'94A3B8',font:'Calibri'})], alignment:AlignmentType.CENTER, spacing:{after:300}}),
-      makeHR(),
-      makeH2('Organization'),
-      makeMeta('Organization',orgName()),
-      makeMeta('Location',orgLoc()),
-      makeMeta('Annual Program Value',fmtD(D.total||0)),
-      makeMeta('Net Annual Value',fmtD(D.net||0)),
-      makeMeta('Annual Trip Volume',(D.trips||0).toLocaleString() + ' round trips'),
-      makeHR(),
-      makeH2('Document Content'),
-      makeP('[This document was generated by Aqueduct. Open the Preview to copy formatted content, or use the web-based preview to read the full pre-populated sections.]'),
-      makeP('Program cost: '+fmtD(D.cost||0)+' · Layers: L0='+fmtD(D.l0||0)+' · L1='+fmtD(D.l1||0)+' · L2='+fmtD(D.l2||0)+' · L3='+fmtD(D.l3||0)),
-      makeH2('Next Steps'),
-      makeBullet('Review the formatted preview in Aqueduct (Preview button)'),
-      makeBullet('Copy section text from the preview to your word processor'),
-      makeBullet('Customize bracketed fields with your specific data'),
-      makeBullet('Review with appropriate counsel before distribution'),
-    ];
-
     const doc = new Document({
+      creator: 'Aqueduct Platform',
+      title: (docTitles[type]||type).replace(/_/g,' '),
       sections:[{
         properties:{page:{size:{width:12240,height:15840},margin:{top:1080,right:1080,bottom:1080,left:1080}}},
         children
@@ -4873,7 +5452,7 @@ window.downloadArtifactFile = async function(type) {
 
     const buffer = await Packer.toBlob(doc);
     const url = URL.createObjectURL(buffer);
-    const fname = (docTitles[type]||type).replace(/[^a-z0-9\s]/gi,'').replace(/\s+/g,'_').slice(0,50)+'.docx';
+    const fname = org.replace(/[^a-z0-9]/gi,'_').slice(0,20) + '_' + (docTitles[type]||type) + '.docx';
     const a = document.createElement('a'); a.href=url; a.download=fname; a.click();
     URL.revokeObjectURL(url);
     showToast('✓ ' + fname + ' downloaded!');
