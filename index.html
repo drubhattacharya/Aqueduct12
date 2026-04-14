@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
 <title>Aqueduct — Community Benefit Intelligence Platform</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <!-- docx loaded on demand via loadDocxLib() -->
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1407,8 +1406,9 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
         </div>
       </div>
 
-      <div style="margin-top:16px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;">
-        <canvas id="roi-chart" height="180"></canvas>
+      <div style="margin-top:16px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px 20px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Cumulative Net Value — Layer-by-Layer Cascade</div>
+        <div id="roi-waterfall" style="width:100%;"></div>
       </div>
     </div>
   </div>
@@ -2411,7 +2411,6 @@ let _roiCache = {
 };
 
 let _aksScore = 0;
-let _roiChart = null;
 let _funderMode = 'bank';
 
 const FUNDER_PRESETS = {
@@ -2906,33 +2905,127 @@ window.calcROI = function() {
 };
 
 function updateRoiChart(l0, l1, l2, l3, cost) {
-  const ctx = document.getElementById('roi-chart');
-  if (!ctx) return;
-  
-  if (_roiChart) { _roiChart.destroy(); _roiChart = null; }
-  
-  _roiChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Layer 0\nFFS Margin', 'Layer 1\nCoding Uplift', 'Layer 2\nCCM/TCM', 'Layer 3\nVBC Earn-back', 'Program Cost'],
-      datasets: [{
-        data: [l0, l1, l2, l3, -cost],
-        backgroundColor: ['rgba(29,78,216,.7)','rgba(10,107,98,.7)','rgba(180,83,9,.7)','rgba(4,120,87,.7)','rgba(185,28,28,.5)'],
-        borderRadius: 5
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: true,
-      plugins: { legend: { display: false }, tooltip: {
-        callbacks: { label: ctx => { const v=ctx.parsed.y; return (v<0?'-$':'$')+Math.abs(Math.round(v)).toLocaleString(); } }
-      }},
-      scales: {
-        y: { ticks: { callback: v => '$'+Math.abs(Math.round(v)).toLocaleString(), font:{size:10} }, grid:{color:'rgba(0,0,0,.05)'} },
-        x: { ticks: { font:{size:10} }, grid:{display:false} }
-      }
-    }
+  const container = document.getElementById('roi-waterfall');
+  if (!container) return;
+
+  const layers = [
+    { label: 'Layer 0 · FFS Margin',       sub: 'Recaptured visit contribution', value: l0,   color: '#1D4ED8', bg: 'rgba(29,78,216,.12)'  },
+    { label: 'Layer 1 · Coding Uplift',     sub: 'Z75.3 HCC & CPT bundling',      value: l1,   color: '#0A6B62', bg: 'rgba(10,107,98,.12)' },
+    { label: 'Layer 2 · CCM / TCM',         sub: 'Chronic & transitional billing', value: l2,   color: '#B45309', bg: 'rgba(180,83,9,.12)'  },
+    { label: 'Layer 3 · VBC Earn-Back',     sub: 'Quality withhold recovery',      value: l3,   color: '#047857', bg: 'rgba(4,120,87,.12)'  },
+    { label: 'Program Cost',                sub: 'Annual operating cost',          value: -cost, color: '#B91C1C', bg: 'rgba(185,28,28,.08)', isCost: true },
+  ];
+
+  const fmt = n => (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString();
+  const net = l0 + l1 + l2 + l3 - cost;
+
+  // ── Build rows ─────────────────────────────────────────────────────────
+  // Each row: a stacked horizontal bar showing cumulative value up to that layer
+  // Running cumulative (positive layers only, then cost deducted)
+  const cumulative = [];
+  let running = 0;
+  layers.forEach((layer, i) => {
+    const prev = running;
+    running += layer.value;
+    cumulative.push({ prev, curr: running });
   });
+
+  const maxVal = Math.max(l0 + l1 + l2 + l3, cost, 1); // full bar width = sum of gains
+  const BAR_W = 100; // percentage-based
+
+  const rows = layers.map((layer, i) => {
+    const cum = cumulative[i];
+    const isPositive = layer.value >= 0;
+
+    // Bar segment: starts at 0 (for first) or at offset
+    // For positive layers: bar grows right cumulatively
+    // For cost: shown as a separate red reduction bar
+    const segStart = isPositive ? (cumulative[i].prev / maxVal * 100) : (Math.max(0, cum.curr) / maxVal * 100);
+    const segWidth = Math.abs(layer.value) / maxVal * 100;
+    const netAfter = cum.curr;
+
+    return `
+      <div style="display:flex;align-items:center;gap:0;margin-bottom:10px;">
+
+        <!-- Label column -->
+        <div style="width:200px;flex-shrink:0;padding-right:12px;">
+          <div style="font-size:12px;font-weight:700;color:#1E293B;line-height:1.2;">${layer.label}</div>
+          <div style="font-size:10.5px;color:#94A3B8;margin-top:1px;">${layer.sub}</div>
+        </div>
+
+        <!-- Bar column -->
+        <div style="flex:1;position:relative;height:32px;background:rgba(0,0,0,.04);border-radius:5px;overflow:hidden;">
+
+          <!-- Cumulative fill (positive layers) — greyed base of previous -->
+          ${isPositive && i > 0 ? `<div style="position:absolute;top:0;left:0;height:100%;width:${cumulative[i].prev/maxVal*100}%;background:rgba(0,0,0,.06);"></div>` : ''}
+
+          <!-- New segment -->
+          <div style="
+            position:absolute;top:0;
+            left:${isPositive ? cumulative[i].prev/maxVal*100 : Math.max(0,cum.curr)/maxVal*100}%;
+            width:${segWidth}%;
+            height:100%;
+            background:${layer.color};
+            border-radius:${i===0?'5px':'0'} 5px 5px ${i===0?'5px':'0'};
+            opacity:${layer.value===0?0:1};
+            transition:width .5s ease;
+          "></div>
+
+          <!-- Net-after label inside bar -->
+          <div style="
+            position:absolute;top:0;right:6px;height:100%;
+            display:flex;align-items:center;
+            font-size:11px;font-weight:800;
+            color:${isPositive ? layer.color : '#B91C1C'};
+            white-space:nowrap;
+          ">${layer.value !== 0 ? (isPositive ? '+' : '') + fmt(layer.value) : '—'}</div>
+        </div>
+
+        <!-- Running total -->
+        <div style="width:88px;flex-shrink:0;text-align:right;padding-left:10px;">
+          <div style="font-size:12px;font-weight:800;color:${netAfter>=0?'#047857':'#B91C1C'};">${fmt(netAfter)}</div>
+          <div style="font-size:9.5px;color:#94A3B8;text-transform:uppercase;letter-spacing:.05em;">cumulative</div>
+        </div>
+      </div>`;
+  }).join('');
+
+  // ── Net value footer bar ────────────────────────────────────────────────
+  const netBarWidth = Math.abs(net) / maxVal * 100;
+  const netFooter = `
+    <div style="margin-top:6px;padding-top:12px;border-top:1px solid rgba(0,0,0,.08);">
+      <div style="display:flex;align-items:center;gap:0;">
+        <div style="width:200px;flex-shrink:0;padding-right:12px;">
+          <div style="font-size:13px;font-weight:900;color:#001533;">Net Annual Value</div>
+          <div style="font-size:10.5px;color:#94A3B8;">Revenue − operating cost</div>
+        </div>
+        <div style="flex:1;position:relative;height:36px;background:rgba(0,0,0,.04);border-radius:5px;overflow:hidden;">
+          <div style="
+            position:absolute;top:0;left:${net<0?(Math.min(Math.abs(net),maxVal)/maxVal*100):0}%;
+            width:${Math.min(netBarWidth,100)}%;height:100%;
+            background:${net>=0?'linear-gradient(90deg,#047857,#059669)':'linear-gradient(90deg,#B91C1C,#DC2626)'};
+            border-radius:5px;
+            transition:width .5s ease, left .5s ease;
+          "></div>
+          <div style="position:absolute;top:0;right:8px;height:100%;display:flex;align-items:center;">
+            <span style="font-size:14px;font-weight:900;color:${net>=0?'#047857':'#B91C1C'};">${fmt(net)}</span>
+          </div>
+        </div>
+        <div style="width:88px;flex-shrink:0;"></div>
+      </div>
+    </div>`;
+
+  container.innerHTML = `
+    <!-- Scale labels -->
+    <div style="display:flex;gap:0;margin-bottom:8px;padding-left:200px;padding-right:88px;">
+      ${[0,.25,.5,.75,1].map(t => `
+        <div style="flex:1;text-align:${t===0?'left':t===1?'right':'center'};font-size:9.5px;color:#94A3B8;font-weight:600;">
+          ${t===0?'$0':fmt(maxVal*t)}
+        </div>`).join('')}
+    </div>
+    ${rows}
+    ${netFooter}`;
 }
+
 
 window.setPayModel = function(model, btn) {
   document.querySelectorAll('.app-btn, #pm_ffs, #pm_cap').forEach(b => {
