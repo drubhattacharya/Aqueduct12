@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
-<title>Aqueduct — Community Benefit Intelligence Platform</title>
+<title>Aqueduct — Community Benefit Optimization Platform</title>
 <!-- docx loaded on demand via loadDocxLib() -->
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -467,6 +467,7 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
 .complete-banner p{font-size:14px;color:rgba(255,255,255,.6);line-height:1.7;}
 
 /* ── API KEY SECTION ─────────────────────────────────────────────────── */
+.portfolio-row:hover{box-shadow:0 2px 12px rgba(0,0,0,.08);}
 .api-key-wrap{border:1px solid var(--border2);border-radius:10px;padding:16px;background:var(--bg2);margin-top:20px;}
 .api-key-wrap .sec-title{font-size:14px;}
 </style>
@@ -482,21 +483,28 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
       </div>
     </div>
 
-    <!-- Problem headline -->
-    <div style="animation:stepIn .5s .1s ease both;margin-top:40px;">
-      <h1 class="ld-hl">Your community&rsquo;s health needs are documented.<br><em>The funding to address them often isn&rsquo;t.</em></h1>
+    <!-- Headline: CBO positioning -->
+    <div style="animation:stepIn .5s .1s ease both;margin-top:44px;">
+      <h1 class="ld-hl">Most health systems know what their community needs.<br><em>Few know how to optimize what they spend to meet it.</em></h1>
+    </div>
+
+    <!-- Competitive positioning strip -->
+    <div style="animation:stepIn .5s .16s ease both;margin-top:22px;padding:12px 20px;border:1px solid rgba(201,162,39,.2);border-radius:10px;background:rgba(201,162,39,.05);max-width:780px;width:100%;text-align:center;">
+      <span style="font-size:12px;font-weight:700;color:var(--gold2);letter-spacing:.06em;text-transform:uppercase;">Community Benefit Optimization</span>
+      <span style="font-size:12px;color:rgba(255,255,255,.35);margin:0 10px;">·</span>
+      <span style="font-size:12.5px;color:rgba(255,255,255,.55);">The only platform that ranks SDoH interventions by cost-effectiveness, matches them to financing pathways, and generates the documentation to pursue all of them.</span>
     </div>
 
     <!-- 12-step anchor -->
-    <div class="ld-12-anchor" style="animation:stepIn .5s .26s ease both;margin-top:44px;">
+    <div class="ld-12-anchor" style="animation:stepIn .5s .22s ease both;margin-top:40px;">
       <div class="ld-12-num">12 <span style="font-size:.62em;letter-spacing:-.02em;">Steps</span></div>
-      <div class="ld-12-label">to a funded program</div>
+      <div class="ld-12-label">to an optimized, funded program</div>
     </div>
 
     <!-- Journey tagline -->
-    <div style="animation:stepIn .5s .34s ease both;margin-top:20px;display:flex;align-items:center;justify-content:center;gap:14px;">
+    <div style="animation:stepIn .5s .28s ease both;margin-top:18px;display:flex;align-items:center;justify-content:center;gap:14px;">
       <div style="height:1px;width:48px;background:linear-gradient(90deg,transparent,rgba(201,162,39,.3));"></div>
-      <div style="font-family:var(--serif);font-style:italic;font-size:clamp(15px,2vw,19px);color:rgba(255,255,255,.75);letter-spacing:.01em;white-space:nowrap;">From CHNA upload to ready-to-submit application package</div>
+      <div style="font-family:var(--serif);font-style:italic;font-size:clamp(15px,2vw,19px);color:rgba(255,255,255,.75);letter-spacing:.01em;white-space:nowrap;">From CHNA upload to evidence-ranked portfolio to ready-to-submit application package</div>
       <div style="height:1px;width:48px;background:linear-gradient(90deg,rgba(201,162,39,.3),transparent);"></div>
     </div>
 
@@ -535,13 +543,27 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
 
     </div>
 
+    <!-- SDoH domain strip -->
+    <div style="animation:stepIn .5s .38s ease both;margin-top:20px;width:100%;">
+      <div style="font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:center;margin-bottom:10px;">Evidence-Ranked SDoH Intervention Domains</div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <span style="font-size:11px;font-weight:700;padding:5px 13px;border-radius:99px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);background:rgba(255,255,255,.04);">🚗 Transportation / NEMT <span style="color:var(--gold2);margin-left:4px;">★ Reference Case</span></span>
+        <span style="font-size:11px;font-weight:700;padding:5px 13px;border-radius:99px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);background:rgba(255,255,255,.04);">🗣 Language Access / LEP</span>
+        <span style="font-size:11px;font-weight:700;padding:5px 13px;border-radius:99px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);background:rgba(255,255,255,.04);">🥗 Food Insecurity / Nutrition</span>
+        <span style="font-size:11px;font-weight:700;padding:5px 13px;border-radius:99px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);background:rgba(255,255,255,.04);">🏠 Housing Instability</span>
+        <span style="font-size:11px;font-weight:700;padding:5px 13px;border-radius:99px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);background:rgba(255,255,255,.04);">🧠 Behavioral Health Navigation</span>
+      </div>
+    </div>
+
     <!-- CTA -->
-    <div style="animation:stepIn .5s .42s ease both;margin-top:44px;display:flex;flex-direction:column;align-items:center;gap:12px;">
+    <div style="animation:stepIn .5s .44s ease both;margin-top:44px;display:flex;flex-direction:column;align-items:center;gap:12px;">
       <button class="ld-cta-btn" onclick="startPlatform('hospital')">
         Begin the 12 steps &nbsp;→
       </button>
+      <div style="font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.05em;">WHO-CHOICE GCEA methodology &nbsp;·&nbsp; 5 SDoH domains &nbsp;·&nbsp; 6 financing pathways &nbsp;·&nbsp; 12 artifacts</div>
     </div>
 
+  </div>
   </div>
   </div>
 </div>
@@ -552,7 +574,7 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
     <div class="hdr-logo"><img src="data:image/png;base64,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" alt="Aqueduct" style="height:28px;width:auto;"></div>
     <div style="width:1px;height:26px;background:rgba(255,255,255,.15);flex-shrink:0;margin:0 4px;"></div>
     <div class="hdr-brand">
-      <div class="hdr-tag">Community Benefit Intelligence Platform &mdash; <strong>12-Step Funding Workflow</strong></div>
+      <div class="hdr-tag">Community Benefit Optimization Platform &mdash; <strong>SDoH Portfolio &middot; 12-Step Workflow</strong></div>
     </div>
     <div class="hdr-right">
       <div id="hdr-org-chip" class="hdr-org-chip"></div>
@@ -975,6 +997,46 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
       </div>
 
     </div>
+
+      <!-- ══ SDOH PORTFOLIO RECOMMENDATION ENGINE ══════════════════════════ -->
+      <div id="sdoh-portfolio-panel" style="display:none;margin-top:24px;max-width:860px;">
+        <div style="border:1px solid rgba(201,162,39,.25);border-radius:12px;overflow:hidden;">
+          <div style="background:linear-gradient(135deg,#001533,#002455);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+            <div>
+              <div style="font-size:13px;font-weight:800;color:#E2E8F0;margin-bottom:2px;">🎯 SDoH Intervention Portfolio — Evidence-Ranked Recommendations</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.45);">WHO-CHOICE GCEA methodology · Ranked by confidence score · Select interventions to develop</div>
+            </div>
+            <div style="font-size:10px;font-weight:700;color:var(--gold2);background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.2);border-radius:6px;padding:4px 10px;white-space:nowrap;">Community Benefit Optimization</div>
+          </div>
+          <div id="portfolio-rows" style="background:#fff;padding:16px;display:flex;flex-direction:column;gap:8px;"></div>
+          <div style="background:#F8FAFC;padding:12px 18px;border-top:1px solid #E2E8F0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+            <div style="font-size:11px;color:#64748B;line-height:1.5;">Select interventions above to develop. Selected domains will be reflected in your ROI model, engagement protocol, funding applications, and artifact suite.</div>
+            <button onclick="applyPortfolioSelection()" style="background:linear-gradient(135deg,var(--gold),#A07810);color:var(--navy);border:none;border-radius:8px;padding:9px 20px;font-size:12px;font-weight:800;cursor:pointer;font-family:var(--sans);white-space:nowrap;">Apply Selection →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLEAR / Language Access deep-link panel — shows when LEP is selected -->
+      <div id="clear-integration-panel" style="display:none;margin-top:12px;padding:16px 18px;border:1px solid rgba(124,58,237,.2);border-radius:10px;background:rgba(124,58,237,.04);">
+        <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;">
+          <div style="flex:1;">
+            <div style="font-size:13px;font-weight:800;color:#1E293B;margin-bottom:4px;">🗣 CLEAR — Language Access Intelligence Platform</div>
+            <div style="font-size:12px;color:#475569;line-height:1.6;margin-bottom:10px;">Language access has a dedicated platform with a 3-tier LAI assessment (20 KPIs / 10 domains), 7 clinical evidence modules built from 1,000 LEP patient encounters, a 6-lever ROI simulator, and auto-generated deliverable documents. Complete the LAI assessment to establish your organizational baseline before Step 5.</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <a href="https://drubhattacharya.github.io/LEAP10/" target="_blank" style="display:inline-block;font-size:12px;font-weight:700;padding:7px 14px;background:#7C3AED;color:#fff;border-radius:7px;text-decoration:none;">Open CLEAR Platform ↗</a>
+              <a href="https://drubhattacharya.github.io/LEAP10/language_access_index.html" target="_blank" style="display:inline-block;font-size:12px;font-weight:700;padding:7px 14px;background:#fff;color:#7C3AED;border:1.5px solid #7C3AED;border-radius:7px;text-decoration:none;">LAI Self-Assessment ↗</a>
+              <a href="https://drubhattacharya.github.io/LEAP10/roi-simulator.html" target="_blank" style="display:inline-block;font-size:12px;font-weight:700;padding:7px 14px;background:#fff;color:#7C3AED;border:1.5px solid #7C3AED;border-radius:7px;text-decoration:none;">ROI Simulator ↗</a>
+            </div>
+          </div>
+          <div style="text-align:center;flex-shrink:0;">
+            <div style="font-size:28px;font-weight:900;color:#7C3AED;">6</div>
+            <div style="font-size:10px;font-weight:700;color:#94A3B8;text-transform:uppercase;">ROI Levers</div>
+            <div style="font-size:22px;font-weight:900;color:#7C3AED;margin-top:8px;">20</div>
+            <div style="font-size:10px;font-weight:700;color:#94A3B8;text-transform:uppercase;">KPIs</div>
+          </div>
+        </div>
+      </div>
+
   </div>
   <div class="step-foot">
     <p class="step-bridge">Your CHNA establishes the need. The next step determines whether your program structure is legally defensible under the Anti-Kickback Statute and Safe Harbor regulations — the gate every dollar of program value depends on passing.</p>
@@ -1302,6 +1364,77 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
   <div class="step-body">
     <div style="max-width:860px;">
 
+      <!-- Domain-adaptive ROI context banner -->
+      <div id="roi-domain-banner" style="margin-bottom:20px;padding:14px 18px;border-radius:10px;background:rgba(201,162,39,.05);border:1px solid rgba(201,162,39,.15);">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Active ROI Model</div>
+        <div id="roi-domain-list" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:6px;">Enter parameters for each selected domain. NEMT inputs are below. Domain-specific ROI layers append to the total.</div>
+      </div>
+
+      <!-- CLEAR Language Access ROI Bridge (shows when language_access is in portfolio) -->
+      <div id="clear-roi-bridge" style="display:none;margin-bottom:20px;border:1px solid rgba(124,58,237,.2);border-radius:12px;overflow:hidden;">
+        <div style="background:linear-gradient(135deg,#4C1D95,#6D28D9);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+          <div>
+            <div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:2px;">🗣 Language Access ROI — CLEAR 6-Lever Model</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.5);">Enter your CLEAR ROI Simulator total to include it in the portfolio financial case</div>
+          </div>
+          <a href="https://drubhattacharya.github.io/LEAP10/roi-simulator.html" target="_blank" style="font-size:11px;font-weight:700;padding:6px 12px;background:rgba(255,255,255,.15);color:#fff;border-radius:6px;text-decoration:none;white-space:nowrap;">Open ROI Simulator ↗</a>
+        </div>
+        <div style="background:#fff;padding:16px 18px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:14px;">
+            <div class="field-group">
+              <label class="field-label">Annual LEP Encounters</label>
+              <div class="field-hint">Total LEP patient encounters/year</div>
+              <div class="num-input-row"><input id="la_lep_encounters" type="number" class="num-input" value="4500" oninput="updateClearROI()"></div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">CLEAR ROI Total (from Simulator)</label>
+              <div class="field-hint">Paste your calibrated annual total</div>
+              <div class="num-input-row"><span class="num-prefix">$</span><input id="la_roi_total" type="number" class="num-input" placeholder="e.g. 890000" oninput="updateClearROI()"></div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">LAI Score (from Assessment)</label>
+              <div class="field-hint">Your Language Access Index score (0–100)</div>
+              <div class="num-input-row"><input id="la_lai_score" type="number" class="num-input" min="0" max="100" placeholder="e.g. 43" oninput="updateClearROI()"></div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Investment Required</label>
+              <div class="field-hint">Estimated annual program cost</div>
+              <div class="num-input-row"><span class="num-prefix">$</span><input id="la_investment" type="number" class="num-input" placeholder="e.g. 280000" oninput="updateClearROI()"></div>
+            </div>
+          </div>
+          <!-- 6-lever mini breakdown -->
+          <div style="font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">CLEAR 6-Lever Breakdown (optional — enter calibrated values)</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;">
+            <div style="padding:8px 10px;background:#F8FAFC;border-radius:7px;border:1px solid #E2E8F0;">
+              <div style="font-size:10px;color:#64748B;margin-bottom:3px;">L1 · ED Access</div>
+              <div class="num-input-row"><span style="font-size:11px;color:#64748B;">$</span><input id="la_l1" type="number" class="num-input" style="font-size:12px;" placeholder="0" oninput="updateClearROI()"></div>
+            </div>
+            <div style="padding:8px 10px;background:#F8FAFC;border-radius:7px;border:1px solid #E2E8F0;">
+              <div style="font-size:10px;color:#64748B;margin-bottom:3px;">L2 · LOS Reduction</div>
+              <div class="num-input-row"><span style="font-size:11px;color:#64748B;">$</span><input id="la_l2" type="number" class="num-input" style="font-size:12px;" placeholder="0" oninput="updateClearROI()"></div>
+            </div>
+            <div style="padding:8px 10px;background:#F8FAFC;border-radius:7px;border:1px solid #E2E8F0;">
+              <div style="font-size:10px;color:#64748B;margin-bottom:3px;">L3 · Readmission</div>
+              <div class="num-input-row"><span style="font-size:11px;color:#64748B;">$</span><input id="la_l3" type="number" class="num-input" style="font-size:12px;" placeholder="0" oninput="updateClearROI()"></div>
+            </div>
+            <div style="padding:8px 10px;background:#F8FAFC;border-radius:7px;border:1px solid #E2E8F0;">
+              <div style="font-size:10px;color:#64748B;margin-bottom:3px;">L4 · VBP/HCAHPS</div>
+              <div class="num-input-row"><span style="font-size:11px;color:#64748B;">$</span><input id="la_l4" type="number" class="num-input" style="font-size:12px;" placeholder="0" oninput="updateClearROI()"></div>
+            </div>
+            <div style="padding:8px 10px;background:#F8FAFC;border-radius:7px;border:1px solid #E2E8F0;">
+              <div style="font-size:10px;color:#64748B;margin-bottom:3px;">L5 · State Reimb.</div>
+              <div class="num-input-row"><span style="font-size:11px;color:#64748B;">$</span><input id="la_l5" type="number" class="num-input" style="font-size:12px;" placeholder="0" oninput="updateClearROI()"></div>
+            </div>
+            <div style="padding:8px 10px;background:#F8FAFC;border-radius:7px;border:1px solid #E2E8F0;">
+              <div style="font-size:10px;color:#64748B;margin-bottom:3px;">L6 · Malpractice</div>
+              <div class="num-input-row"><span style="font-size:11px;color:#64748B;">$</span><input id="la_l6" type="number" class="num-input" style="font-size:12px;" placeholder="0" oninput="updateClearROI()"></div>
+            </div>
+          </div>
+          <div id="clear-roi-summary" style="padding:10px 14px;background:#F3F0FF;border-radius:8px;font-size:12.5px;color:#4C1D95;font-weight:600;"></div>
+        </div>
+      </div>
+
       <!-- Payment Model Selector -->
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
         <div class="sec-title" style="margin-bottom:0;">Payment Model</div>
@@ -1410,6 +1543,9 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
         <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Cumulative Net Value — Layer-by-Layer Cascade</div>
         <div id="roi-waterfall" style="width:100%;"></div>
       </div>
+
+      <!-- Portfolio total (shows when multiple domains are active) -->
+      <div id="portfolio-total-banner" style="display:none;margin-top:12px;padding:12px 16px;border-radius:8px;background:rgba(4,120,87,.07);border:1px solid rgba(4,120,87,.2);font-size:13px;font-weight:600;color:#047857;"></div>
     </div>
   </div>
         <div style="margin:0 0 16px;padding:14px 18px;background:rgba(201,162,39,.06);border:1px solid rgba(201,162,39,.2);border-radius:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
@@ -1559,7 +1695,7 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
       <div class="step-eyebrow">Step 7 of 12 — Clinical Case · Module 4</div>
       <h2 class="step-title">Define your operations, vendor, and EHR integration model.</h2>
       <p class="step-desc">The operational design of your NEMT program determines its defensibility, scalability, and clinical integration. Select your vendor model, EHR workflow, and SLA structure — and generate the operational specifications for your funder application narrative.</p>
-      <button class="step-mod-badge" onclick="openModule('https://drubhattacharya.github.io/AqueductM4/',null)">📖 Learn More: Module 4 — Operations &amp; Aqueduct Integration</button>
+      <button class="step-mod-badge" onclick="openModule('https://drubhattacharya.github.io/LEAP10/',null)">📖 Learn More: Module 9 — Operations &amp; Vendor Integration</button>
     </div>
   </div>
 
@@ -1567,7 +1703,7 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
     <button class="learn-more-toggle" onclick="toggleLearnMore('lm-6')">
       <span class="lm-icon">📚</span>
       <span class="lm-label">Vendor Management, SLA Design &amp; EHR Integration Essentials</span>
-      <span class="lm-module-chip mod-ref-m4">M4 · Operations</span>
+      <span class="lm-module-chip mod-ref-m9">M9 · Operations</span>
       <span class="lm-arrow">▶</span>
     </button>
     <div class="learn-more-body">
@@ -1583,7 +1719,7 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
         <div class="lm-section-title">SLA Design for Funders</div>
         <div class="lm-text">CRA bank partners and foundation funders will ask how you ensure program quality. Your SLA should include: on-time performance threshold (≥95%), complaints resolution timeline (24-hour), cancellation policy, accessibility standards (wheelchair accessible vehicles available within same wait time), and quarterly reporting requirements. Aqueduct generates a standard SLA framework based on your vendor selection.</div>
       </div>
-      <a class="lm-deep-link" onclick="openModule('https://drubhattacharya.github.io/AqueductM4/',null)" style="text-decoration:none;">📖 Open Module 4 — Full Operations Playbook →</a>
+      <a class="lm-deep-link" onclick="openModule('https://drubhattacharya.github.io/LEAP10/',null)" style="text-decoration:none;">📖 Open Module 4 — Full Operations Playbook →</a>
     </div>
   </div>
 
@@ -1746,8 +1882,8 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
     <div class="step-num-circle">8</div>
     <div class="step-hdr-text">
       <div class="step-eyebrow">Step 8 of 12 — Funding Strategy</div>
-      <h2 class="step-title">Three converging funding frameworks — simultaneously.</h2>
-      <p class="step-desc">IRS 501(r), the Community Reinvestment Act, and philanthropic grantmaking all independently justify funding your NEMT program. Research the current funding landscape for your market using AI-powered analysis of public grant databases, CRA exam records, and foundation filings.</p>
+      <h2 class="step-title">Research all six financing pathways for your SDoH portfolio.</h2>
+      <p class="step-desc">Community Benefit Optimization means knowing every pathway through which your evidence-ranked intervention portfolio can be financed — CRA bank investment, philanthropy, federal grants, state Medicaid waivers, value-based care earn-back, and internal capital reallocation. This step uses AI-powered research to surface named, current opportunities across all pathways relevant to your selected domains.</p>
     </div>
   </div>
 
@@ -1776,17 +1912,23 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
       <!-- AI Funder Research -->
       <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;">
         <div style="background:var(--navy);padding:14px 18px;">
-          <div style="font-size:13px;font-weight:800;color:#E8C84A;margin-bottom:3px;">AI Funder Intelligence</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.5);">Research real-time funding opportunities using your organization's profile and market data. Requires Anthropic API key from Step 0.</div>
+          <div style="font-size:13px;font-weight:800;color:#E8C84A;margin-bottom:3px;">AI Financing Intelligence — 6 Pathways</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);">Research real-time opportunities across all financing pathways using your organization's profile. Requires API key from Step 1.</div>
         </div>
         <div style="padding:16px;background:#fff;">
-          <!-- Mode Selector -->
+          <!-- Pathway Selector -->
+          <div style="margin-bottom:8px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);">Select Financing Pathway</div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">
-            <button onclick="setFunderMode('bank',this)" class="fmode-btn fmode-active" id="fmode_bank">🏦 CRA Banks</button>
-            <button onclick="setFunderMode('philanthropy',this)" class="fmode-btn" id="fmode_phil">🏛️ Foundations</button>
-            <button onclick="setFunderMode('federal',this)" class="fmode-btn" id="fmode_fed">🏛️ Federal</button>
-            <button onclick="setFunderMode('state',this)" class="fmode-btn" id="fmode_state">📋 State / Medicaid</button>
+            <button onclick="setFunderMode('bank',this)" class="fmode-btn fmode-active" id="fmode_bank">🏦 CRA / Bank Investment</button>
+            <button onclick="setFunderMode('philanthropy',this)" class="fmode-btn" id="fmode_phil">🏛️ Philanthropy / Foundation</button>
+            <button onclick="setFunderMode('federal',this)" class="fmode-btn" id="fmode_fed">🇺🇸 Federal Grants (HRSA/CMMI)</button>
+            <button onclick="setFunderMode('state',this)" class="fmode-btn" id="fmode_state">📋 State / Medicaid Waiver</button>
+            <button onclick="setFunderMode('cmmi',this)" class="fmode-btn" id="fmode_cmmi">⚕️ Value-Based Care (ACO/AHEAD)</button>
+            <button onclick="setFunderMode('internal',this)" class="fmode-btn" id="fmode_internal">🏥 Internal Capital Reallocation</button>
           </div>
+
+          <!-- Pathway evidence strip -->
+          <div id="pathway-evidence-strip" style="margin-bottom:14px;padding:10px 14px;border-radius:8px;background:#F8FAFC;border:1px solid #E2E8F0;font-size:12px;color:#334155;line-height:1.6;"></div>
 
           <!-- Preset Queries -->
           <div style="margin-bottom:12px;">
@@ -2224,6 +2366,13 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
   <div class="step-body" style="border-top:none;">
     <div style="max-width:840px;">
 
+      <!-- Pathway-specific document recommendation banner -->
+      <div id="pathway-doc-banner" style="margin-bottom:20px;padding:14px 18px;border-radius:10px;background:rgba(0,0,0,.03);border:1px solid var(--border2);">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Recommended Documents for Your Selected Pathway</div>
+        <div id="pathway-doc-chips" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;"></div>
+        <div style="font-size:11.5px;color:var(--muted);">Primary documents for your pathway are highlighted below. All documents are available regardless of pathway.</div>
+      </div>
+
       <!-- Document Suite -->
       <div class="sec-title" style="margin-bottom:4px;">Application Document Suite</div>
       <div class="sec-sub" style="margin-bottom:16px;">Each document is pre-populated from your program data. <strong>Preview</strong> opens a Word or Excel simulation — <strong>Download</strong> saves the actual file. AI generation (requires API key) available for custom narratives.</div>
@@ -2329,6 +2478,35 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
           </div>
         </div>
 
+        <!-- CLEAR / Language Access artifacts — show when LA is in portfolio -->
+        <div id="clear-artifacts-section" style="display:none;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#7C3AED;margin:16px 0 8px;padding-top:12px;border-top:1px dashed rgba(124,58,237,.2);">🗣 Language Access Artifacts — CLEAR Platform</div>
+
+          <div class="doc-card" style="border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.03);">
+            <div class="doc-icon">📊</div>
+            <div style="flex:1;"><div class="doc-title">LAI Baseline Report — Language Access Corrective Action Plan</div><div class="doc-desc">20-KPI assessment results, domain scores, maturity stage, priority gap analysis, and corrective action recommendations. Generated by CLEAR platform.</div></div>
+            <div style="display:flex;gap:6px;flex-shrink:0;">
+              <a href="https://drubhattacharya.github.io/LEAP10/" target="_blank" class="doc-btn" style="text-decoration:none;">Open CLEAR ↗</a>
+            </div>
+          </div>
+
+          <div class="doc-card" style="border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.03);">
+            <div class="doc-icon">💰</div>
+            <div style="flex:1;"><div class="doc-title">Language Access Financial Strategy Brief</div><div class="doc-desc">Six ROI levers, calibrated figures, investment rationale, and payback timeline. Formatted for CFO and COO presentation.</div></div>
+            <div style="display:flex;gap:6px;flex-shrink:0;">
+              <a href="https://drubhattacharya.github.io/LEAP10/" target="_blank" class="doc-btn" style="text-decoration:none;">Generate in CLEAR ↗</a>
+            </div>
+          </div>
+
+          <div class="doc-card" style="border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.03);">
+            <div class="doc-icon">🗺️</div>
+            <div style="flex:1;"><div class="doc-title">Language Access Implementation Roadmap</div><div class="doc-desc">Four-component action plan with named owners, 90-day and 12-month targets, governance accountability structure, and 30-day commitment. Generated by CLEAR.</div></div>
+            <div style="display:flex;gap:6px;flex-shrink:0;">
+              <a href="https://drubhattacharya.github.io/LEAP10/" target="_blank" class="doc-btn" style="text-decoration:none;">Generate in CLEAR ↗</a>
+            </div>
+          </div>
+        </div>
+
         <div class="doc-card" style="border-color:rgba(201,162,39,.3);background:rgba(201,162,39,.03);">
           <div class="doc-icon">🤖</div>
           <div style="flex:1;"><div class="doc-title">AI Custom Narrative Generation</div><div class="doc-desc">Use AI to draft custom application narratives tailored to a specific funder, grant cycle, or program variation. Requires API key.</div></div>
@@ -2367,7 +2545,7 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
             <div style="font-size:11px;font-weight:700;color:var(--teal);">M3 Review</div>
             <div style="font-size:10px;color:var(--muted);">Engagement</div>
           </button>
-          <button onclick="openModule('https://drubhattacharya.github.io/AqueductM4/',null)" style="border-radius:10px;padding:12px 8px;border:1px solid rgba(91,33,182,.2);background:var(--m4bg);cursor:pointer;font-family:var(--sans);text-align:center;">
+          <button onclick="openModule('https://drubhattacharya.github.io/LEAP10/',null)" style="border-radius:10px;padding:12px 8px;border:1px solid rgba(91,33,182,.2);background:var(--m4bg);cursor:pointer;font-family:var(--sans);text-align:center;">
             <div style="font-size:18px;margin-bottom:5px;">⚙️</div>
             <div style="font-size:11px;font-weight:700;color:var(--purple);">M4 Review</div>
             <div style="font-size:10px;color:var(--muted);">Operations</div>
@@ -3115,6 +3293,393 @@ window.setPresetQuery = function(btn) {
 };
 
 /* ── FUNDER RESEARCH ────────────────────────────────────────────────── */
+/* ── SDOH PORTFOLIO RECOMMENDATION RENDERER ─────────────────────────── */
+window.renderPortfolioRecommendations = function(chnaData) {
+  const panel = document.getElementById('sdoh-portfolio-panel');
+  const rows  = document.getElementById('portfolio-rows');
+  if (!panel || !rows) return;
+
+  const budget = 500000; // default pilot budget
+  const results = window.runGCEA(chnaData, budget);
+  window._gceaResults = results;
+
+  panel.style.display = 'block';
+
+  rows.innerHTML = results.map(d => `
+    <div class="portfolio-row" data-domain="${d.domain}" onclick="togglePortfolioDomain(this,'${d.domain}')"
+      style="display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid ${d.chna_match ? d.color+'40' : '#E2E8F0'};
+      border-radius:10px;cursor:pointer;background:${d.chna_match ? d.bg : '#FAFAFA'};
+      transition:all .15s;${d.domain==='nemt'?'border-color:'+d.color+'60;':''}">
+      <div style="font-size:24px;flex-shrink:0;">${d.icon}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;flex-wrap:wrap;">
+          <span style="font-size:13px;font-weight:800;color:#1E293B;">${d.label}</span>
+          ${d.domain==='nemt' ? '<span style="font-size:10px;font-weight:700;color:'+d.color+';background:'+d.bg+';border:1px solid '+d.color+'30;border-radius:4px;padding:1px 7px;">★ Reference Case</span>' : ''}
+          ${d.chna_match ? '<span style="font-size:10px;font-weight:700;color:#047857;background:rgba(4,120,87,.08);border-radius:4px;padding:1px 7px;">CHNA Match</span>' : ''}
+        </div>
+        <div style="font-size:11.5px;color:#64748B;line-height:1.5;">${d.description.substring(0,120)}…</div>
+        <div style="display:flex;gap:14px;margin-top:6px;flex-wrap:wrap;">
+          <span style="font-size:11px;color:#475569;"><strong>Evidence:</strong> ${d.evidence_quality}</span>
+          <span style="font-size:11px;color:#475569;"><strong>ROI:</strong> ${d.roi_ratio}:1</span>
+          <span style="font-size:11px;color:#475569;"><strong>Time to ROI:</strong> ${d.time_to_roi_months} mo</span>
+          <span style="font-size:11px;color:#475569;"><strong>Schedule H:</strong> ${d.schedule_h_lines.join(', ')}</span>
+        </div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;width:64px;">
+        <div style="font-size:22px;font-weight:900;color:${d.confidence_color};">${d.confidence_score}</div>
+        <div style="font-size:9px;font-weight:700;color:${d.confidence_color};text-transform:uppercase;line-height:1.2;">${d.confidence_label}</div>
+      </div>
+      <div class="portfolio-check" style="width:24px;height:24px;border-radius:50%;border:2px solid #CBD5E1;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;font-weight:800;color:#fff;background:${d.domain==='nemt'?d.color:'transparent'};border-color:${d.domain==='nemt'?d.color:'#CBD5E1'};">
+        ${d.domain==='nemt' ? '✓' : ''}
+      </div>
+    </div>`).join('');
+
+  // Default NEMT selected
+  window._selectedDomains = ['nemt'];
+};
+
+window.togglePortfolioDomain = function(el, domain) {
+  const check = el.querySelector('.portfolio-check');
+  const dObj  = (window._gceaResults||[]).find(d => d.domain === domain) || {};
+  const isSelected = window._selectedDomains.includes(domain);
+
+  if (isSelected && domain !== 'nemt') {
+    // Deselect
+    window._selectedDomains = window._selectedDomains.filter(d => d !== domain);
+    check.style.background = 'transparent';
+    check.style.borderColor = '#CBD5E1';
+    check.textContent = '';
+  } else if (!isSelected) {
+    // Select
+    window._selectedDomains.push(domain);
+    check.style.background = dObj.color || '#1D4ED8';
+    check.style.borderColor = dObj.color || '#1D4ED8';
+    check.textContent = '✓';
+  }
+};
+
+window.applyPortfolioSelection = function() {
+  const domains = window._selectedDomains;
+  const labels  = (window._gceaResults||[])
+    .filter(d => domains.includes(d.domain))
+    .map(d => d.icon + ' ' + d.label);
+
+  // Show/hide CLEAR integration panel based on language_access selection
+  const clearPanel = document.getElementById('clear-integration-panel');
+  if (clearPanel) {
+    clearPanel.style.display = domains.includes('language_access') ? 'block' : 'none';
+  }
+
+  showToast('✓ Portfolio selected: ' + labels.join(', ') + ' — reflected in downstream steps');
+
+  // Update sidebar phase indicator
+  const domainBadge = document.getElementById('selected-domains-badge');
+  if (domainBadge) domainBadge.textContent = domains.length + ' domain' + (domains.length>1?'s':'') + ' selected';
+};
+
+/* ── Hook renderChnaResults to also show portfolio panel ─────────────── */
+const _origRCR2 = window.renderChnaResults;
+window.renderChnaResults = function(data, sourceName) {
+  if (_origRCR2) _origRCR2(data, sourceName);
+  renderPortfolioRecommendations(data);
+};
+
+/* ── Also show portfolio when example data is loaded ────────────────── */
+const _origLEB2 = window.loadExampleBoth;
+window.loadExampleBoth = function() {
+  if (_origLEB2) _origLEB2();
+  renderPortfolioRecommendations(window._aqChna || DEMO_CHNA);
+};
+
+/* ── PATHWAY EVIDENCE STRIPS ─────────────────────────────────────────── */
+const PATHWAY_EVIDENCE = {
+  bank: {
+    label: '🏦 CRA Community Development',
+    evidence: 'Banks with branches in your service area have CRA obligations. SDoH programs serving LMI communities qualify as Community Development activities under 12 C.F.R. § 25.12(g)(3). Typical awards: $100K–$10M+. Housing instability programs have the strongest CRA fit; language access the weakest.',
+    tip: 'Best domains: Housing (highest fit), NEMT, Food Insecurity · Strongest for hospitals near LMI census tracts'
+  },
+  philanthropy: {
+    label: '🏛️ Philanthropic / Foundation Grants',
+    evidence: 'RWJF, Kresge, CommonSpirit CIP, and local community foundations actively fund evidence-grounded SDoH programs. Typical awards: $50K–$5M. Food insecurity (Food is Medicine movement) and behavioral health have the strongest philanthropic funding landscapes in 2024–2025.',
+    tip: 'Best domains: Food Insecurity, Behavioral Health, Housing · Requires sustainability plan and evaluation capacity'
+  },
+  federal: {
+    label: '🇺🇸 Federal Grants — HRSA / CMMI',
+    evidence: 'HRSA SDoH grants: $100K–$7M. CMMI AHEAD model: up to $12M/state cooperative agreement. ACO REACH Health Equity: $30 PBPM equity adjustment. All federal models require HRSN screening (AHC/PRAPARE), health equity plans, and demographic data collection.',
+    tip: 'Best domains: All five equally · CMMI requires state government as lead applicant; hospitals opt in'
+  },
+  state: {
+    label: '📋 State / Medicaid 1115 Waivers',
+    evidence: '18 states have approved 1115 HRSN waivers covering SDoH services. Transportation (NEMT) and food are most commonly covered. Housing is approved in AZ, NY, OR, WA. Policy note (April 2026): Trump administration signaled limits on new HRSN waiver approvals; existing approvals remain in force.',
+    tip: 'Best domains: NEMT, Food Insecurity, Housing · Policy uncertainty — flag in all applications'
+  },
+  cmmi: {
+    label: '⚕️ Value-Based Care — ACO REACH / AHEAD',
+    evidence: 'ACO REACH Health Equity Benchmark Adjustment (HEBA): $30 PBPM for high-equity-need beneficiaries. AHEAD model: up to $21 PBPM. Both require SDoH screening and documented interventions. NEMT and behavioral health navigate no-show reduction directly to quality metrics and earn-back.',
+    tip: 'Best domains: NEMT, Behavioral Health, Language Access · Requires existing VBC contract participation'
+  },
+  internal: {
+    label: '🏥 Internal Capital Reallocation',
+    evidence: 'Language access has the strongest internal ROI case ($1.29M net savings in 8 months, Karliner 2017). Behavioral health collaborative care returns $6 per $1 invested over 4 years (Unützer 2008 AJMC). Frame as margin protection under VBC, not charity. Requires CFO-ready 3-year projection and Schedule H documentation.',
+    tip: 'Best domains: Language Access (fastest payback), Behavioral Health (highest ROI) · Hardest sell for Housing (long payback)'
+  }
+};
+
+/* ── Update setFunderMode to show evidence strip ─────────────────────── */
+const _origSetFunderMode = window.setFunderMode;
+window.setFunderMode = function(mode, btn) {
+  _funderMode = mode;
+  document.querySelectorAll('.fmode-btn').forEach(b => b.classList.remove('fmode-active'));
+  if (btn) btn.classList.add('fmode-active');
+
+  // Update evidence strip
+  const strip = document.getElementById('pathway-evidence-strip');
+  const info  = PATHWAY_EVIDENCE[mode];
+  if (strip && info) {
+    strip.innerHTML = `<div style="font-weight:700;color:#1E293B;margin-bottom:5px;">${info.label}</div>
+      <div style="color:#334155;margin-bottom:5px;">${info.evidence}</div>
+      <div style="font-size:11px;color:#047857;font-weight:600;">💡 ${info.tip}</div>`;
+  }
+
+  // Update preset queries with domain context
+  const selectedDomains = (window._selectedDomains || ['nemt']).map(d => {
+    const obj = (window.SDOH_EVIDENCE_DB || {})[d];
+    return obj ? obj.label : d;
+  }).join(', ');
+
+  updateFunderPresets(mode, selectedDomains);
+};
+
+function updateFunderPresets(mode, domainContext) {
+  const el = document.getElementById('fi_presets');
+  if (!el) return;
+
+  const org  = (document.getElementById('setup_org_name')||{}).value || 'our health system';
+  const city = (document.getElementById('setup_city')||{}).value || 'our service area';
+
+  const presets = {
+    bank:       [`CRA community development investments health equity ${city}`,`bank LMI community health investment nonprofit hospital`,`CRA exam qualified investment SDOH transportation ${city}`],
+    philanthropy:[`foundation grants social determinants health 2025 ${city}`,`RWJF Kresge food insecurity behavioral health grants hospital`,`health equity foundation grants community benefit nonprofit`],
+    federal:    [`HRSA SDOH grants 2025 community health improvement`,`CMMI AHEAD model hospital application process`,`ACO REACH health equity benchmark adjustment eligibility`],
+    state:      [`Medicaid 1115 waiver HRSN services approved states 2025`,`state Medicaid transportation food insecurity covered services`,`In Lieu of Services ILoS SDOH state Medicaid`],
+    cmmi:       [`ACO REACH health equity benchmark PBPM adjustment 2025`,`CMMI AHEAD model application eligibility hospital`,`value based care SDOH earn-back quality withhold`],
+    internal:   [`hospital community benefit ROI schedule H documentation CFO`,`internal capital allocation SDOH margin protection VBC`,`language access interpreter ROI hospital savings evidence`]
+  };
+
+  el.innerHTML = (presets[mode]||[]).map(q =>
+    `<button onclick="document.getElementById('fi_query').value='${q.replace(/'/g,"\\'")}'" style="font-size:11px;padding:5px 10px;border:1px solid var(--border2);border-radius:6px;background:#fff;cursor:pointer;color:var(--navy);font-family:var(--sans);">${q}</button>`
+  ).join('');
+}
+
+/* ── ROI DOMAIN BANNER ────────────────────────────────────────────────── */
+function initRoiDomainBanner() {
+  const banner = document.getElementById('roi-domain-list');
+  if (!banner) return;
+  const domains = window._selectedDomains || ['nemt'];
+  const db = window.SDOH_EVIDENCE_DB || {};
+  banner.innerHTML = domains.map(d => {
+    const obj = db[d] || {};
+    return `<span style="font-size:12px;font-weight:700;padding:4px 12px;border-radius:99px;
+      background:${(obj.bg||'rgba(0,0,0,.06)')};color:${(obj.color||'#374151')};
+      border:1px solid ${(obj.color||'#CBD5E1')}30;">
+      ${obj.icon||'•'} ${obj.label||d}
+    </span>`;
+  }).join('');
+
+  // Show/hide CLEAR bridge
+  const bridge = document.getElementById('clear-roi-bridge');
+  if (bridge) bridge.style.display = domains.includes('language_access') ? 'block' : 'none';
+}
+
+/* ── CLEAR ROI BRIDGE ─────────────────────────────────────────────────── */
+window._clearROI = { total: 0, investment: 0, laiScore: null };
+
+window.updateClearROI = function() {
+  const total = parseFloat(document.getElementById('la_roi_total')?.value) || 0;
+  const invest = parseFloat(document.getElementById('la_investment')?.value) || 0;
+  const lai = parseFloat(document.getElementById('la_lai_score')?.value) || null;
+  const encounters = parseFloat(document.getElementById('la_lep_encounters')?.value) || 4500;
+
+  // Lever breakdown — sum if provided, fall back to total
+  const levers = ['la_l1','la_l2','la_l3','la_l4','la_l5','la_l6']
+    .map(id => parseFloat(document.getElementById(id)?.value) || 0);
+  const leverSum = levers.reduce((a,b)=>a+b,0);
+  const effectiveTotal = leverSum > 0 ? leverSum : total;
+
+  window._clearROI = { total: effectiveTotal, investment: invest, laiScore: lai, encounters };
+
+  const fmt = n => '$' + Math.round(n).toLocaleString();
+  const net = effectiveTotal - invest;
+  const roi = invest > 0 ? ((net / invest) * 100).toFixed(0) : '—';
+
+  const summary = document.getElementById('clear-roi-summary');
+  if (summary) {
+    summary.innerHTML = effectiveTotal > 0
+      ? `✓ Language Access annual value: <strong>${fmt(effectiveTotal)}</strong> · Investment: ${fmt(invest)} · Net: <strong style="color:${net>=0?'#047857':'#B91C1C'}">${fmt(net)}</strong> · ROI: ${roi}%${lai ? ` · LAI Score: ${lai}/100` : ''}`
+      : 'Enter your CLEAR ROI Simulator total above, or open the simulator to calibrate with your data.';
+  }
+
+  // Feed into the combined portfolio total
+  updatePortfolioTotal();
+};
+
+/* ── PORTFOLIO TOTAL (NEMT + All Domains) ─────────────────────────────── */
+window.updatePortfolioTotal = function() {
+  const nemtTotal = window._roiCache?.total || 0;
+  const laTotal   = (window._selectedDomains||[]).includes('language_access') ? (window._clearROI?.total || 0) : 0;
+  const portfolioTotal = nemtTotal + laTotal;
+
+  const el = document.getElementById('portfolio-total-banner');
+  if (!el) return;
+  if (portfolioTotal > 0) {
+    el.style.display = 'block';
+    el.innerHTML = `<strong>Portfolio Total Annual Value:</strong> $${Math.round(portfolioTotal).toLocaleString()} 
+      <span style="font-size:11px;color:var(--muted);margin-left:8px;">(NEMT: $${Math.round(nemtTotal).toLocaleString()} + Language Access: $${Math.round(laTotal).toLocaleString()})</span>`;
+  }
+};
+
+/* ── PATHWAY-SPECIFIC ARTIFACT ROUTING ────────────────────────────────── */
+window.PATHWAY_ARTIFACTS = {
+  bank: {
+    primary:   ['memo','schedule_h','aks_memo'],
+    secondary: ['boarddeck','sustainability'],
+    label:     'CRA Bank Investment',
+    docs: [
+      { type:'memo',        label:'CRA Community Development Justification Memo', desc:'Exam-file ready. Regulatory classification, LMI documentation, proposed investment structure.' },
+      { type:'schedule_h',  label:'IRS Schedule H 990 Documentation', desc:'501(r)(3) evidentiary chain. CHNA→IS→reported cost. Line 7e narrative.' },
+      { type:'aks_memo',    label:'AKS Safe Harbor Compliance Memo', desc:'Safe Harbor criteria analysis. For bank CRA officer and hospital counsel.' },
+      { type:'boarddeck',   label:'Board Approval Brief', desc:'Board motion language, ROI summary, compliance confirmation.' },
+      { type:'sustainability', label:'3-Year Sustainability Plan', desc:'Funder exit strategy. Required for CRA exam file.' },
+    ]
+  },
+  philanthropy: {
+    primary:   ['loi_draft','boarddeck','sustainability'],
+    secondary: ['schedule_h','quarterly_report'],
+    label:     'Philanthropic / Foundation',
+    docs: [
+      { type:'loi_draft',      label:'Foundation Letter of Inquiry (LOI)', desc:'3-page foundation-ready LOI. Need statement, program design, evidence base, budget summary.' },
+      { type:'boarddeck',      label:'Board Approval Brief', desc:'Program narrative with CHNA evidence and ROI summary for board authorization.' },
+      { type:'sustainability', label:'3-Year Sustainability Plan', desc:'Funder exit strategy — most foundations require this before funding.' },
+      { type:'schedule_h',     label:'IRS Schedule H Documentation', desc:'Community benefit evidence chain for grant compliance.' },
+      { type:'quarterly_report', label:'Quarterly Impact Report Template', desc:'Reporting template for grant deliverables and renewal.' },
+    ]
+  },
+  federal: {
+    primary:   ['boarddeck','sustainability','schedule_h'],
+    secondary: ['aks_memo','proforma'],
+    label:     'Federal Grants (HRSA/CMMI)',
+    docs: [
+      { type:'boarddeck',      label:'Program Narrative (Board Brief)', desc:'Logic model, needs statement, evaluation design, CHNA evidence.' },
+      { type:'sustainability', label:'3-Year Sustainability Plan', desc:'Required for all HRSA/CMMI applications — shows Year 3 self-sufficiency.' },
+      { type:'schedule_h',     label:'Schedule H Community Benefit Documentation', desc:'Federal reviewers look for 501(r) compliance and community benefit track record.' },
+      { type:'proforma',       label:'3-Year Pro Forma (.xlsx)', desc:'Budget justification workbook — HRSA-compatible format.' },
+      { type:'quarterly_report', label:'Evaluation Framework', desc:'CMMI requires pre-specified evaluation plan with measurable outcomes.' },
+    ]
+  },
+  state: {
+    primary:   ['schedule_h','memo','boarddeck'],
+    secondary: ['sustainability','loi_draft'],
+    label:     'State / Medicaid Waiver',
+    docs: [
+      { type:'schedule_h',  label:'IRS Schedule H 990 Documentation', desc:'State Medicaid agencies reviewing ILOS/1115 requests look for hospital community benefit documentation.' },
+      { type:'memo',        label:'CRA Community Development Memo', desc:'State economic development reviewers accept CRA-framed community investment documentation.' },
+      { type:'boarddeck',   label:'Board Approval Brief', desc:'Shows institutional commitment — required by state waiver applications.' },
+      { type:'sustainability', label:'3-Year Sustainability Plan', desc:'1115 waivers require budget neutrality demonstration.' },
+    ]
+  },
+  cmmi: {
+    primary:   ['boarddeck','sustainability','quarterly_report'],
+    secondary: ['schedule_h','proforma'],
+    label:     'Value-Based Care (ACO/AHEAD)',
+    docs: [
+      { type:'boarddeck',      label:'ACO REACH / AHEAD Health Equity Brief', desc:'Health Equity Plan documentation. HEBA eligibility evidence. SDoH screening implementation.' },
+      { type:'sustainability', label:'3-Year Sustainability Plan', desc:'VBC programs require multi-year sustainability commitment.' },
+      { type:'quarterly_report', label:'Quarterly KPI Dashboard', desc:'VBC quality metrics tracking — readmission, ED utilization, SDOH screening rates.' },
+      { type:'proforma',       label:'3-Year Pro Forma (.xlsx)', desc:'Per-beneficiary value model — maps to PBPM structure.' },
+    ]
+  },
+  internal: {
+    primary:   ['boarddeck','proforma','sustainability'],
+    secondary: ['aks_memo','schedule_h'],
+    label:     'Internal Capital Reallocation',
+    docs: [
+      { type:'boarddeck',      label:'CFO/Board Investment Brief', desc:'4-layer ROI model, 3-year projection, break-even analysis. The document your CFO needs.' },
+      { type:'proforma',       label:'3-Year Pro Forma (.xlsx)', desc:'Sensitivity analysis matrix. Budget vs. return across trip cost and utilization scenarios.' },
+      { type:'sustainability', label:'3-Year Sustainability Plan', desc:'Shows internal funding phases out by Year 3 as program self-funds.' },
+      { type:'aks_memo',       label:'AKS Safe Harbor Compliance Memo', desc:'Required internal authorization — legal and compliance sign-off before capital deployment.' },
+      { type:'schedule_h',     label:'Schedule H Documentation', desc:'Documents the community benefit value of the capital deployed — strengthens 501(r) posture.' },
+    ]
+  }
+};
+
+/* ── Hook calcROI to update domain banner and portfolio total ─────────── */
+const _origCalcROI = window.calcROI;
+window.calcROI = function() {
+  if (_origCalcROI) _origCalcROI();
+  initRoiDomainBanner();
+  setTimeout(updatePortfolioTotal, 50);
+};
+
+/* ── Initialize domain banner when Step 5 is entered ─────────────────── */
+const _origAdvanceStep2 = window.advanceStep;
+window.advanceStep = function(n) {
+  if (_origAdvanceStep2) _origAdvanceStep2(n);
+  if (n === 5 || n === 6) {
+    setTimeout(initRoiDomainBanner, 100);
+  }
+};
+
+/* ── STEP 12 INITIALIZATION ───────────────────────────────────────────── */
+function initStep12() {
+  // Show/hide CLEAR artifacts section
+  const clearSection = document.getElementById('clear-artifacts-section');
+  if (clearSection) {
+    clearSection.style.display = (window._selectedDomains||[]).includes('language_access') ? 'block' : 'none';
+  }
+
+  // Pathway-specific document banner
+  const mode = window._funderMode || 'bank';
+  const pa = window.PATHWAY_ARTIFACTS?.[mode];
+  const chips = document.getElementById('pathway-doc-chips');
+  const banner = document.getElementById('pathway-doc-banner');
+
+  if (chips && pa) {
+    chips.innerHTML = pa.docs.map(d =>
+      `<span onclick="previewArtifact('${d.type}')" style="font-size:11.5px;font-weight:700;padding:4px 12px;
+        border-radius:99px;cursor:pointer;border:1px solid var(--border2);background:#fff;color:var(--navy);
+        transition:all .15s;" onmouseover="this.style.background='var(--navy)';this.style.color='#fff'"
+        onmouseout="this.style.background='#fff';this.style.color='var(--navy)'">${d.label}</span>`
+    ).join('');
+  }
+
+  if (banner && pa) {
+    banner.querySelector('div:first-child').textContent =
+      `Recommended Documents — ${pa.label} Pathway`;
+  }
+
+  // Highlight primary docs in the doc card list
+  if (pa) {
+    document.querySelectorAll('.doc-card').forEach(card => {
+      const btn = card.querySelector('[onclick*="previewArtifact"]') ||
+                  card.querySelector('[onclick*="downloadArtifactFile"]');
+      const match = btn ? (btn.getAttribute('onclick')||'').match(/'([^']+)'/) : null;
+      const type = match ? match[1] : null;
+      if (type && pa.primary.includes(type)) {
+        card.style.borderColor = 'rgba(201,162,39,.4)';
+        card.style.background  = 'rgba(201,162,39,.03)';
+      }
+    });
+  }
+
+  // Summary doc count
+  const base = 11;
+  const clear = (window._selectedDomains||[]).includes('language_access') ? 3 : 0;
+  const el = document.getElementById('summary_docs');
+  if (el) el.textContent = base + clear;
+}
+
+window.initStep12 = initStep12;
+
 window.runFunderResearch = async function() {
   const queryEl   = document.getElementById('fi_query');
   const query     = queryEl ? queryEl.value.trim() : '';
@@ -3157,7 +3722,12 @@ window.runFunderResearch = async function() {
   const loc    = [city,state].filter(Boolean).join(', ') || 'the service area';
   const roiVal = _roiCache.total ? '$'+Math.round(_roiCache.total).toLocaleString() : 'TBD';
 
-  const sysPrompt = `You are a healthcare funding intelligence specialist supporting ${org} in ${loc}. The organization is developing an evidence-based NEMT (Non-Emergency Medical Transportation) program as a 501(r)/Schedule H Community Health Improvement Service. Estimated annual program value: ${roiVal}. Research mode: ${_funderMode}. Use web search to find current, specific, named funding opportunities. For each opportunity provide: organization/program name, current status, typical award range, eligibility, alignment rationale, and direct URL. Be concrete and actionable.`;
+  const domainContext = (window._selectedDomains||['nemt']).map(d => {
+    const obj = (window.SDOH_EVIDENCE_DB||{})[d];
+    return obj ? obj.label : d;
+  }).join(', ');
+
+  const sysPrompt = `You are a healthcare funding intelligence specialist supporting ${org} in ${loc}. The organization is developing an evidence-based SDoH Community Benefit program covering the following domains: ${domainContext}. This is a 501(r)/Schedule H Community Benefit program. Estimated annual program value: ${roiVal}. Financing pathway: ${_funderMode}. Use web search to find current, specific, named funding opportunities relevant to these SDoH domains. For each opportunity provide: organization/program name, current status, typical award range, eligibility, alignment rationale with the specific SDoH domains, and direct URL. Be concrete and actionable.`;
 
   const payload = JSON.stringify({
     model: 'claude-sonnet-4-20250514',
@@ -3592,13 +4162,17 @@ window.advanceStep = function(n) {
 const _origGoStep = window.goStep;
 window.goStep = function(n) {
   _origGoStep(n);
+  if (n === 12) {
+    setTimeout(initStep12, 100);
+  }
   if (n === 9) {
     populateApplicationSections();
-    // Auto-set CRA as default app type
     const firstBtn = document.querySelector('#app-type-btns .app-btn');
     if (firstBtn && !document.querySelector('#app-type-btns .app-btn[style*="navy"]')) {
       setAppType('cra', firstBtn);
     }
+    const bankBtn = document.getElementById('fmode_bank');
+    if (bankBtn) setFunderMode('bank', bankBtn);
   }
   if (n === 12) {
     // Update summary stats
@@ -3635,6 +4209,270 @@ document.addEventListener('DOMContentLoaded', () => {
   // Steps revealed after startPlatform is called
 });
 </script>
+<!-- ═══ SDOH EVIDENCE DATABASE ═══════════════════════════════════════════
+   WHO-CHOICE GCEA-adapted evidence layer for 5 SDoH intervention domains.
+   Schema: domain, label, icon, evidence_quality, effectiveness_estimate,
+   effectiveness_metric, effect_or, cost_per_person_year, time_to_roi_months,
+   roi_ratio, net_cost_per_averted_event, schedule_h_lines, applicable_population,
+   financing_pathway_fit, key_citations, null_calibration_rr, compliance_driver
+   ═════════════════════════════════════════════════════════════════════════════ -->
+<script>
+/* ═══ SDOH EVIDENCE DATABASE (WHO-CHOICE GCEA adapted, 2024–2025) ══════════ */
+window.SDOH_EVIDENCE_DB = {
+
+  nemt: {
+    domain:               'nemt',
+    label:                'Non-Emergency Medical Transportation',
+    icon:                 '🚗',
+    color:                '#1D4ED8',
+    bg:                   'rgba(29,78,216,.08)',
+    evidence_quality:     'moderate',   // RCT null finding (Chaiyachati 2018); positive meta-analysis
+    effectiveness_estimate: 37,          // % reduction in odds of no-show (pooled OR 0.63)
+    effectiveness_metric: 'reduction in no-show odds',
+    effect_or:            0.63,          // pooled OR; 95% CI 0.48–0.83
+    cost_per_person_year: 268,           // net savings/user/year (Powers 2019 AJPH)
+    program_cost_py:      1200,          // all-in program cost per enrolled patient/year
+    time_to_roi_months:   6,
+    roi_ratio:            3.2,           // conservative; advocacy sources claim higher
+    net_per_averted_event: 268,
+    schedule_h_lines:     ['7e','7g'],
+    applicable_population: ['Medicaid','dual-eligible','rural','disability','LMI'],
+    financing_fit: {
+      cra: 'high', hrsa: 'moderate', medicaid_waiver: 'high',
+      cmmi: 'high', philanthropy: 'moderate', internal: 'moderate'
+    },
+    key_citations: [
+      'Shekelle et al. (2022) BMC Public Health — OR 0.63 (95% CI 0.48–0.83) pooled',
+      'Chaiyachati et al. (2018) JAMA Internal Medicine — null RCT; rideshare only, n=786',
+      'Powers et al. (2019) AJPH — $268/user/year net savings',
+      'Balasubramanian et al. (2025) JAMA Network Open — outpatient follow-up reduces readmission aOR 0.33',
+    ],
+    null_calibration_rr:  1.59,          // inverse of OR 0.63
+    compliance_driver:    'IRS 501(r)(3) / Schedule H Line 7e; OIG AKS Safe Harbor 42 CFR §1001.952(l)',
+    description:          'Coordinated transportation to medical appointments for patients with documented transportation barriers (Z75.3). Reference case with most complete compliance infrastructure.',
+    caution:              'Z75.3 does NOT map to any HCC in current CMS RAF models. The $23/encounter claim is unverifiable. CCM/TCM capture rates in NEMT populations have no peer-reviewed data.'
+  },
+
+  language_access: {
+    domain:               'language_access',
+    label:                'Language Access & LEP Services',
+    icon:                 '🗣',
+    color:                '#7C3AED',
+    bg:                   'rgba(124,58,237,.08)',
+    evidence_quality:     'high',        // strong RCT + natural experiment evidence
+    effectiveness_estimate: 25,          // 4.4pp readmission reduction (Karliner 2017)
+    effectiveness_metric: 'reduction in 30-day readmissions',
+    effect_or:            0.75,          // readmission OR derived from Karliner 2017
+    cost_per_person_year: 279,           // Jacobs et al. 2004; ~1.5% of inpatient costs
+    program_cost_py:      279,
+    time_to_roi_months:   1,             // fastest ROI of all domains
+    roi_ratio:            4.6,           // $1.29M savings / ~$280K program cost (Karliner 8 mo)
+    net_per_averted_event: 161404,       // monthly hospital savings Karliner 2017
+    schedule_h_lines:     ['7e','7g'],
+    applicable_population: ['LEP','immigrant','refugee','foreign-born','low-literacy'],
+    financing_fit: {
+      cra: 'low', hrsa: 'moderate', medicaid_waiver: 'moderate',
+      cmmi: 'high', philanthropy: 'moderate', internal: 'high'
+    },
+    key_citations: [
+      'Karliner et al. (2017) Medical Care — 30-day readmission 17.8% → 13.4%; $161K/mo savings',
+      'Divi et al. (2007) Intl J Quality Health Care — LEP adverse event rate 49.1% vs 29.5% English',
+      'Jacobs et al. (2004) AJPH — 78% less ED use with interpreter; $279/person/year cost',
+      'Schulson et al. (2018) JGIM — OR 1.09 excess ED admission for LEP patients',
+      'Lindholm et al. (2012) — +0.75–1.47 additional inpatient days without professional interpretation',
+      'Hong et al. (2019) — HR 0.77: 23% lower condition-related readmission with interpreter',
+    ],
+    roi_levers: {
+      ed_access:    { label:'ED Admission Avoidance + Return Visits + Stroke', citation:'Schulson 2018 JGIM' },
+      los:          { label:'Inpatient LOS Reduction', citation:'Lindholm 2012 — +1.0 day/encounter default' },
+      readmission:  { label:'Teach-Back Readmission Avoidance', citation:'Hong 2019 — HR 0.77, 23% reduction' },
+      vbp:          { label:'VBP / HCAHPS Communication Domain', citation:'HCAHPS LEP communication gap' },
+      state_reimb:  { label:'State Medicaid Interpreter Reimbursement', citation:'State-specific — 14 states' },
+      malpractice:  { label:'Malpractice Cost Avoidance', citation:'CRICO Strategies — 7× severity concentration' },
+    },
+    clear_platform_url:   'https://drubhattacharya.github.io/LEAP10/',
+    lai_assessment_url:   'https://drubhattacharya.github.io/LEAP10/language_access_index.html',
+    roi_simulator_url:    'https://drubhattacharya.github.io/LEAP10/roi-simulator.html',
+    null_calibration_rr:  1.92,
+    compliance_driver:    'Title VI Civil Rights Act (legally mandated); IRS 501(r) FAP accessibility; Schedule H 7e/7g; OCR settlement risk',
+    description:          'Professional interpreter services, multilingual patient education, and culturally competent care coordination for LEP patients. 6-lever ROI model with 1,000-encounter evidence base. Fastest time-to-ROI of all 5 domains.',
+    caution:              'Title VI creates a compliance floor, not a community benefit ceiling. The LAI (Language Access Index) 3-tier assessment instrument quantifies the organizational gap before investment is sized.'
+  },
+
+  food_insecurity: {
+    domain:               'food_insecurity',
+    label:                'Food Insecurity & Nutrition Programs',
+    icon:                 '🥗',
+    color:                '#B45309',
+    bg:                   'rgba(180,83,9,.08)',
+    evidence_quality:     'high',        // multiple RCTs; cost-saving in 49/50 states
+    effectiveness_estimate: 16,          // net 16% reduction in monthly healthcare costs
+    effectiveness_metric: 'reduction in monthly healthcare costs',
+    effect_or:            0.53,          // 47% lower hospitalization odds food-insecure→MTM
+    cost_per_person_year: 4000,          // MTM program cost; $3K–$5K range
+    program_cost_py:      4000,
+    time_to_roi_months:   3,
+    roi_ratio:            1.85,          // average 85% ROI (range 1%–287%, Basu 2024)
+    net_per_averted_event: 2640,         // $220/month net savings after meal costs
+    schedule_h_lines:     ['7e','7i'],
+    applicable_population: ['food-insecure','SNAP-eligible','diabetes','CHF','CKD','Medicaid'],
+    financing_fit: {
+      cra: 'moderate', hrsa: 'high', medicaid_waiver: 'high',
+      cmmi: 'high', philanthropy: 'high', internal: 'moderate'
+    },
+    key_citations: [
+      'Berkowitz et al. (2018) AJMC — food insecurity IRR 1.47 for hospitalizations (95% CI 1.12–1.93)',
+      'Berkowitz et al. (2019) JAMA IM — medically tailored meals: 47% hospitalization reduction',
+      'Basu et al. (2024) Health Affairs Scholar — average 85% ROI; cost-saving in 49/50 states',
+      'Gundersen & Ziliak (2015) Health Affairs — $2,500/year higher costs for food-insecure families',
+    ],
+    null_calibration_rr:  1.47,          // IRR for hospitalizations (Berkowitz 2018)
+    compliance_driver:    'IRS Schedule H Line 7e (if clinical outcomes documented); Line 7i for food bank contributions; 1115 waivers (CA, MA, NJ, NC, OR, WA)',
+    description:          'Medically tailored meal programs, food pharmacy, SNAP navigation, and produce prescriptions for patients with food insecurity and diet-sensitive chronic conditions.',
+    caution:              'Line 7e classification requires documented clinical outcomes link. Programs without outcome measurement may only qualify for Line 7i. MTM program cost ($4K/person/year) requires sustainable funding before internal reallocation is feasible.'
+  },
+
+  housing: {
+    domain:               'housing',
+    label:                'Housing Instability Programs',
+    icon:                 '🏠',
+    color:                '#0A6B62',
+    bg:                   'rgba(10,107,98,.08)',
+    evidence_quality:     'moderate',    // strong RCT (Sadowski 2009 JAMA) but high cost
+    effectiveness_estimate: 15,          // 15% Medicaid expenditure reduction (NY MRT)
+    effectiveness_metric: 'reduction in Medicaid expenditures',
+    effect_or:            0.72,          // estimated OR for hospitalization from Kushel 2006
+    cost_per_person_year: 13400,         // supportive housing annual cost
+    program_cost_py:      13400,
+    time_to_roi_months:   12,            // longest payback period of all domains
+    roi_ratio:            1.44,          // $1.44 per $1 invested (Community Guide systematic review)
+    net_per_averted_event: 23000,        // range $23K–$52K for top-decile utilizers
+    schedule_h_lines:     ['Part II Line 1','7e'],
+    applicable_population: ['chronically-homeless','housing-unstable','high-utilizer','co-occurring','Medicaid'],
+    financing_fit: {
+      cra: 'high', hrsa: 'moderate', medicaid_waiver: 'high',
+      cmmi: 'moderate', philanthropy: 'high', internal: 'low'
+    },
+    key_citations: [
+      'Kushel et al. (2006) JGIM — housing instability and higher ED/hospitalization rates',
+      'Sadowski et al. (2009) JAMA — RCT: significant reduction in hospitalizations/ED at 18 months',
+      'Larimer et al. (2009) JAMA — Housing First: $13,400/year housing vs $43,000 in health costs',
+      'NY MRT (2017) — 15% Medicaid expenditure reduction; $23K–$52K savings per high-utilizer',
+    ],
+    null_calibration_rr:  1.39,          // estimated from Kushel 2006
+    compliance_driver:    'IRS Schedule H Part II Line 1 (physical improvements/housing); crossover to 7e with documented health outcomes; CRA Community Development (strongest domain fit)',
+    description:          'Housing First programs, supportive housing coordination, transitional housing navigation, and tenant advocacy for chronically homeless and housing-unstable patients.',
+    caution:              'Highest program cost ($13,400/person/year) and longest payback. Best suited to high-utilizer populations. CRA bank partnership is the strongest financing pathway. Internal reallocation alone is not sufficient at scale.'
+  },
+
+  behavioral_health: {
+    domain:               'behavioral_health',
+    label:                'Behavioral Health Navigation',
+    icon:                 '🧠',
+    color:                '#047857',
+    bg:                   'rgba(4,120,87,.08)',
+    evidence_quality:     'high',        // IMPACT RCT gold standard; 6:1 ROI published
+    effectiveness_estimate: 45,          // 45% vs 19% depression response (IMPACT RCT)
+    effectiveness_metric: 'depression response rate vs usual care',
+    effect_or:            3.45,          // OR 3.45 (95% CI 2.71–4.38) IMPACT trial
+    cost_per_person_year: 553,           // IMPACT model cost
+    program_cost_py:      553,
+    time_to_roi_months:   12,            // 4-year full ROI; partial at 12 months
+    roi_ratio:            6.0,           // $6 per $1 invested (Unützer 2008 AJMC)
+    net_per_averted_event: 3363,         // lower total healthcare costs per patient over 4 years
+    schedule_h_lines:     ['7e','7g'],
+    applicable_population: ['depression','anxiety','SUD','co-occurring','LMI','Medicaid'],
+    financing_fit: {
+      cra: 'low', hrsa: 'high', medicaid_waiver: 'moderate',
+      cmmi: 'high', philanthropy: 'high', internal: 'high'
+    },
+    key_citations: [
+      'Unützer et al. (2002) JAMA — IMPACT RCT: OR 3.45 depression response; >100 depression-free days',
+      'Unützer et al. (2008) AJMC — $3,363 lower total healthcare costs over 4 years; 6:1 ROI',
+      'Chiles et al. (1999) meta-analysis — 17% medical cost reduction from BH treatment',
+      'Milliman (2018) — comorbid BH patients cost 2–3× more than medical-only patients',
+    ],
+    null_calibration_rr:  1.82,          // cost ratio without treatment (17% vs 0% reduction)
+    compliance_driver:    'IRS Schedule H Line 7e (community navigation/outreach); Line 7g (subsidized clinical services operating at a loss); CMMI AHEAD and ACO REACH health equity requirements',
+    description:          'Collaborative care model integration, behavioral health navigation, peer support programs, and co-located mental health services for patients with depression, anxiety, and substance use disorders.',
+    caution:              'The 6:1 ROI requires 4-year time horizon. Year 1 ROI will be lower (~1.5:1). Transportation is a primary driver of behavioral health no-shows (50% rate vs 15% general); NEMT + BH navigation combined exceeds additive effect.'
+  }
+};
+
+/* ── GCEA EXPANSION PATH ENGINE ─────────────────────────────────────────────
+   WHO-CHOICE adapted: ranked by ACER (cost per averted adverse event),
+   accounting for CHNA priority match, evidence quality, and budget constraint.
+   Returns ranked recommendations with confidence scores.
+   ─────────────────────────────────────────────────────────────────────────── */
+window.runGCEA = function(chnaData, budgetEnvelope) {
+  const domains = Object.values(SDOH_EVIDENCE_DB);
+
+  // Map CHNA priorities to domain flags
+  const chnaText = JSON.stringify(chnaData).toLowerCase();
+  const domainMatch = {
+    nemt:              ['transport','nemt','no-show','access','travel','mobility'].some(k => chnaText.includes(k)),
+    language_access:   ['language','lep','limited english','interpreter','foreign','linguistic','bilingual'].some(k => chnaText.includes(k)),
+    food_insecurity:   ['food','hunger','nutrition','snap','meal','insecur','diet'].some(k => chnaText.includes(k)),
+    housing:           ['hous','homeless','unstable','shelter','evict','rent'].some(k => chnaText.includes(k)),
+    behavioral_health: ['mental','behav','depression','anxiety','substance','opioid','psychi','addiction'].some(k => chnaText.includes(k))
+  };
+
+  // CHNA priority rank boost (if it's in top 3 CHNA priorities, +20 points)
+  const priorityNames = (chnaData.priorities||[]).map(p => (p.name||'').toLowerCase());
+  const priorityBoost = {
+    nemt:              priorityNames.some(n => ['access','transport'].some(k => n.includes(k))) ? 20 : 0,
+    language_access:   priorityNames.some(n => ['language','access','lep'].some(k => n.includes(k))) ? 20 : 0,
+    food_insecurity:   priorityNames.some(n => ['food','nutrition','hunger'].some(k => n.includes(k))) ? 20 : 0,
+    housing:           priorityNames.some(n => ['hous','homeless'].some(k => n.includes(k))) ? 20 : 0,
+    behavioral_health: priorityNames.some(n => ['mental','behav','substance','depress'].some(k => n.includes(k))) ? 20 : 0,
+  };
+
+  // Evidence quality score
+  const evidenceScore = { high: 25, moderate: 15, low: 5 };
+
+  // Budget feasibility (can the hospital fund it within $500K pilot envelope?)
+  const PILOT_BUDGET = budgetEnvelope || 500000;
+  const patientsPilot = {
+    nemt: Math.round(PILOT_BUDGET / 1200),
+    language_access: Math.round(PILOT_BUDGET / 279),
+    food_insecurity: Math.round(PILOT_BUDGET / 4000),
+    housing: Math.round(PILOT_BUDGET / 13400),
+    behavioral_health: Math.round(PILOT_BUDGET / 553),
+  };
+
+  // Composite ACER score (lower cost per averted event = better)
+  const maxCost = Math.max(...domains.map(d => d.net_per_averted_event));
+
+  return domains.map(d => {
+    const chnaMatch  = domainMatch[d.domain] ? 25 : 5;
+    const evidence   = evidenceScore[d.evidence_quality] || 10;
+    const priority   = priorityBoost[d.domain] || 0;
+    const costScore  = Math.round((1 - d.cost_per_person_year / 14000) * 15); // 0–15
+    const roiScore   = Math.min(15, Math.round(d.roi_ratio * 3));             // 0–15
+    const confidence = Math.min(100, chnaMatch + evidence + priority + costScore + roiScore);
+
+    return {
+      ...d,
+      chna_match:          domainMatch[d.domain],
+      confidence_score:    confidence,
+      confidence_label:    confidence >= 70 ? 'High Confidence' : confidence >= 45 ? 'Moderate' : 'Emerging Evidence',
+      confidence_color:    confidence >= 70 ? '#047857' : confidence >= 45 ? '#B45309' : '#6B7280',
+      pilots_per_budget:   patientsPilot[d.domain],
+      selected:            false,
+    };
+  }).sort((a,b) => b.confidence_score - a.confidence_score);
+};
+
+/* Store selected domains for downstream steps */
+window._selectedDomains = ['nemt']; // default to NEMT as reference case
+window._gceaResults = null;
+
+window.setSelectedDomains = function(domains) {
+  window._selectedDomains = domains;
+};
+</script>
+<!-- ═══ END SDOH EVIDENCE DATABASE ══════════════════════════════════════════ -->
+
 <!-- ═══ CHNA + 990H FULL DATA SYSTEM ════════════════════════════════════════ -->
 <script>
 /* ══ DEMO DATA ═══════════════════════════════════════════════════════════ */
