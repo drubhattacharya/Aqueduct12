@@ -707,6 +707,16 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
   </div>
 </header>
 
+<!-- ══ DOMAIN ACTIVE BAR ════════════════════════════════════════════════ -->
+<div id="domain-active-bar" style="display:none;background:#fff;border-bottom:2px solid #F1F5F9;padding:0 24px;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:8px 0;flex-wrap:wrap;">
+    <div style="font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#94A3B8;white-space:nowrap;">Building:</div>
+    <div id="dab-domains" style="display:flex;gap:6px;flex-wrap:wrap;flex:1;"></div>
+    <div id="dab-pathway" style="font-size:11.5px;font-weight:700;color:#475569;white-space:nowrap;padding:3px 10px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px;"></div>
+    <button onclick="openQuickStart()" style="font-size:10.5px;font-weight:700;padding:4px 10px;background:#fff;border:1px solid #CBD5E1;border-radius:6px;cursor:pointer;color:#64748B;font-family:var(--sans);">Edit →</button>
+  </div>
+</div>
+
 <!-- ══ APP BODY ══════════════════════════════════════════════════════════ -->
 <div class="app-body">
 
@@ -1224,7 +1234,10 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
   </div>
 
   <div class="step-body">
-    <div style="max-width:760px;">
+    
+      <!-- Domain context zone for step 3 -->
+      <div id="dctx-3" style="display:none;max-width:860px;margin:-8px 0 20px;"></div>
+<div style="max-width:760px;">
       <div class="sec-title">Safe Harbor Compliance Checklist</div>
       <div class="sec-sub">Answer each question honestly. Your responses generate a compliance posture assessment and recommendations for program design adjustments if needed.</div>
 
@@ -1383,7 +1396,10 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
   </div>
 
   <div class="step-body">
-    <div style="max-width:760px;">
+    
+      <!-- Domain context zone for step 4 -->
+      <div id="dctx-4" style="display:none;max-width:860px;margin:-8px 0 20px;"></div>
+<div style="max-width:760px;">
       <div class="sec-title">Accreditation Standards Alignment</div>
       <div class="sec-sub">Select the standards your NEMT program addresses or will address. Each selection generates specific alignment language for your funding application.</div>
 
@@ -1500,7 +1516,10 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
   </div>
 
   <div class="step-body">
-    <div style="max-width:860px;">
+    
+      <!-- Domain context zone for step 5 -->
+      <div id="dctx-5" style="display:none;max-width:860px;margin:-8px 0 20px;"></div>
+<div style="max-width:860px;">
 
       <!-- Domain-adaptive ROI context banner -->
       <div id="roi-domain-banner" style="margin-bottom:20px;padding:14px 18px;border-radius:10px;background:rgba(201,162,39,.05);border:1px solid rgba(201,162,39,.15);">
@@ -1741,7 +1760,10 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
   </div>
 
   <div class="step-body">
-    <div style="max-width:760px;">
+    
+      <!-- Domain context zone for step 6 -->
+      <div id="dctx-6" style="display:none;max-width:860px;margin:-8px 0 20px;"></div>
+<div style="max-width:760px;">
       <div class="sec-title">COM-B Component Selection</div>
       <div class="sec-sub">Select the engagement levers your program will implement. Each selection generates specific protocol language for your application and implementation plan.</div>
 
@@ -1862,7 +1884,10 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
   </div>
 
   <div class="step-body">
-    <div style="max-width:760px;">
+    
+      <!-- Domain context zone for step 7 -->
+      <div id="dctx-7" style="display:none;max-width:860px;margin:-8px 0 20px;"></div>
+<div style="max-width:760px;">
 
       <!-- Vendor Type -->
       <div style="margin-bottom:24px;">
@@ -3856,6 +3881,11 @@ function launchProgram() {
   } else if (typeof goStep === 'function') {
     goStep(1);
   }
+  // Sync domain bar and context after navigation settles
+  setTimeout(function() {
+    if (typeof window.syncDomainState === 'function') window.syncDomainState();
+    if (typeof updatePathwayProfileCard === 'function') updatePathwayProfileCard();
+  }, 400);
 }
 
 // Initialize NEMT as pre-checked when QS opens
@@ -4070,6 +4100,184 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /* ══════════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════════
+   MULTI-DOMAIN SYNC ENGINE
+   ═══════════════════════════════════════════════════════════════════════ */
+(function() {
+
+var DOMAIN_CHIP = {
+  nemt:              { label:'🚗 Transportation / NEMT',  color:'#1D4ED8', bg:'#EFF6FF', bd:'#BFDBFE' },
+  language_access:   { label:'🗣 Language Access',        color:'#7C3AED', bg:'#F5F3FF', bd:'#DDD6FE' },
+  food_insecurity:   { label:'🥗 Food Insecurity',        color:'#B45309', bg:'#FFFBEB', bd:'#FDE68A' },
+  housing:           { label:'🏠 Housing Instability',    color:'#0A6B62', bg:'#F0FDFA', bd:'#99F6E4' },
+  behavioral_health: { label:'🧠 Behavioral Health',      color:'#047857', bg:'#F0FDF4', bd:'#BBF7D0' },
+};
+var PATH_LABEL = {
+  bank:'🏦 CRA Bank', philanthropy:'🏛 Foundation', federal:'🇺🇸 Federal Grant',
+  state:'📋 Medicaid Waiver', cmmi:'⚕️ VBC / ACO', internal:'🏥 Internal Capital',
+};
+
+var DOMAIN_CONTEXT = {
+  3: {
+    language_access: {
+      color:'#7C3AED', bg:'#F5F3FF', bd:'#DDD6FE',
+      title:'Language Access — Regulatory & Compliance Framework',
+      subtitle:'Title VI · Section 1557 · OCR enforcement · CLAS Standards',
+      link:'https://drubhattacharya.github.io/LEAP10/', linkLabel:'CLEAR Module 6 — Governance',
+      sections:[
+        { icon:'⚖️', heading:'Title VI of Civil Rights Act (42 U.S.C. § 2000d)',
+          body:'Prohibits discrimination based on national origin by any entity receiving federal financial assistance. As a Medicare/Medicaid provider, your hospital is a covered entity. Language barriers that impede access to care constitute national-origin discrimination. Title VI is a compliance floor — not a community benefit ceiling — making language access both a legal obligation AND a fundable community benefit program.' },
+        { icon:'🏥', heading:'Section 1557 of the ACA — Nondiscrimination in Health Programs',
+          body:'Extends Title VI obligations specifically to health programs. Requires: (1) notices of nondiscrimination in 15 languages prevalent in the service area, (2) taglines in those languages, (3) language assistance at no cost to patients, (4) qualified interpreter availability. OCR enforces through complaint investigations; enforcement actions include mandatory Corrective Action Plans and civil monetary penalties.' },
+        { icon:'📋', heading:'CLAS Standards (HHS Office of Minority Health, 2013)',
+          body:'15 National Standards for Culturally and Linguistically Appropriate Services. Principal Standard 1: provide effective, equitable, understandable, and respectful quality care responsive to diverse cultural health beliefs. Standards 5–8 specifically address language access: offer language assistance, provide verbal offers and written notices in preferred language, ensure interpreter competency, provide accessible materials. Your CLEAR LAI score is a direct measure of CLAS Standards compliance readiness.' },
+        { icon:'⚠️', heading:'OCR Enforcement & Malpractice Risk',
+          body:'OCR investigations can result in mandatory system-wide corrective action plans. Separately: CRICO Strategies data shows language-barrier claims generate approximately 7× the severity concentration of general malpractice claims. Average defense cost: $118K per incident regardless of outcome (NHeLP 2010). Unlike NEMT where AKS Safe Harbor analysis is the primary compliance gate, language access programs actually reduce AKS risk because interpreter services are a legally mandated obligation, not discretionary remuneration.' },
+      ]
+    }
+  },
+  4: {
+    language_access: {
+      color:'#7C3AED', bg:'#F5F3FF', bd:'#DDD6FE',
+      title:'Language Access — Accreditation & Quality Standards',
+      subtitle:'TJC RC.02.01.01 · TJC PC.02.01.21 · HCAHPS Communication · NCQA MHC',
+      link:'https://drubhattacharya.github.io/LEAP10/', linkLabel:'CLEAR Module 6 — Governance',
+      sections:[
+        { icon:'🏛️', heading:'TJC RC.02.01.01 — Communication in Patient\'s Preferred Language',
+          body:'The Joint Commission requires hospitals to identify patients\' preferred language for discussing health care and to address those needs throughout the care episode. This standard is directly surveyable — TJC surveyors will ask whether LEP patients received qualified interpreter services and whether services were documented in the medical record. Non-compliance is an accreditation finding.' },
+        { icon:'🏛️', heading:'TJC PC.02.01.21 — Patient Right to Interpretation & Communication Aids',
+          body:'Patients have an explicit right to interpretive services under TJC standards. The hospital must communicate with patients who speak a different language. This standard creates a direct link between the language access program and TJC accreditation maintenance — it is not a best-practice recommendation, it is a surveyable standard.' },
+        { icon:'📊', heading:'HCAHPS Communication Domain — VBP Financial Impact',
+          body:'LEP patients consistently score 8–12 percentage points lower than English-proficient patients on HCAHPS communication domain questions. Under CMS Value-Based Purchasing, HCAHPS accounts for 25% of the Total Performance Score. Closing the LEP communication gap directly improves VBP reimbursement. The CLEAR ROI model\'s VBP lever quantifies this gap in dollars for your specific payer mix and LEP population share.' },
+        { icon:'✅', heading:'NCQA Multicultural Health Care (MHC) Standards',
+          body:'NCQA\'s 2024 MHC standards require collection of race, ethnicity, and language (REaL) data, stratification of HEDIS measures by race/ethnicity, and CLAS-aligned services. Your Language Access Index (LAI) 3-tier assessment score at CLEAR Phase 1 directly maps to NCQA MHC readiness — making the LAI an accreditation readiness instrument as well as a community benefit baseline.' },
+      ]
+    }
+  },
+  5: {
+    language_access: {
+      color:'#7C3AED', bg:'#F5F3FF', bd:'#DDD6FE',
+      title:'Language Access — 6-Lever ROI Model',
+      subtitle:'Time to ROI: 1 month (fastest of all 5 domains) · Karliner 2017: $161K savings/month · 4.6:1 ROI ratio',
+      link:'https://drubhattacharya.github.io/LEAP10/roi-simulator.html', linkLabel:'Open CLEAR ROI Simulator',
+      callout: true,
+      sections:[
+        { icon:'🏥', heading:'Lever 1 — ED Admission Avoidance + Return Visits + Stroke',
+          body:'Schulson et al. (2018, JGIM): LEP patients have OR 1.09 for ED admission. 79.2% of LEP 48-hour ED return visits are for the same complaint vs. 14.5% for English-proficient patients. The stroke access gap (delayed tPA administration from consent delays) is independently priced. Combined ED lever is typically the largest for hospitals with high ED LEP volume.' },
+        { icon:'🛏️', heading:'Lever 2 — Inpatient LOS Reduction',
+          body:'Lindholm et al. (2012): LEP patients average +0.75 to +1.47 additional inpatient days without professional interpretation — due to discharge comprehension failures and delayed consent documentation. At $2,100/bed-day, the conservative default of 1.0 additional day across your LEP inpatient population represents significant avoidable cost independent of all other levers.' },
+        { icon:'🔄', heading:'Lever 3 — Teach-Back Readmission Avoidance',
+          body:'Hong et al. (2019): discharge teach-back with professional interpretation yields HR 0.77 — 23% lower condition-related readmission for LEP patients. Karliner et al. (2017, Medical Care): 119 readmissions averted in 8 months following bedside interpreter phone deployment = $161,404/month in net savings. This is the most directly evidenced lever with the largest published dollar figure.' },
+        { icon:'💰', heading:'Levers 4–6 — VBP / HCAHPS, State Medicaid Reimbursement, Malpractice',
+          body:'Lever 4: HCAHPS LEP communication gap reduces VBP performance score — quantifiable per your payer mix. Lever 5: 14 states offer Medicaid interpreter reimbursement (rates from $1.10–$2.00/minute OPI up to state-specific structures). Lever 6: malpractice cost avoidance — CRICO data: 7× severity concentration for language-barrier claims; $118K average defense cost regardless of outcome. Open the CLEAR ROI Simulator to calibrate all 6 levers with your actual encounter volume and costs.' },
+      ]
+    }
+  },
+  6: {
+    language_access: {
+      color:'#7C3AED', bg:'#F5F3FF', bd:'#DDD6FE',
+      title:'Language Access — Patient Engagement & Interpreter Deployment Protocol',
+      subtitle:'Preferred language documentation · Interpreter dispatch workflow · CLEAR Module 4',
+      link:'https://drubhattacharya.github.io/LEAP10/', linkLabel:'CLEAR Module 4 — Discharge & Comprehension',
+      sections:[
+        { icon:'📋', heading:'Preferred Language Documentation — The Structural Prerequisite',
+          body:'The highest-impact language access engagement intervention is not training — it is a hard-stop EHR field requiring preferred language documentation at registration. Without this, interpreter dispatch cannot be systematic. Target: ≥95% of patients with preferred language documented before any clinical encounter. CLEAR Module 6 documents that only 2.3% of health systems achieve all-complete documentation compliance — this is the accountability gap.' },
+        { icon:'🔔', heading:'Interpreter Dispatch — Embedding the Trigger',
+          body:'CLEAR Module 1 finding from 1,000 LEP encounters: interpreter delay concentrates in OB and advanced maternal care because the interpreter request trigger is not embedded in the triage workflow. The structural fix is a required interpreter dispatch field in the ED triage and OB triage EHR workflows — not a policy document, not staff training. Technology without workflow redesign does not reduce delay.' },
+        { icon:'📱', heading:'Technology Model — Tiered Approach',
+          body:'OPI (Over-Phone Interpretation): immediate; lowest cost; appropriate for intake and brief interactions. VRI (Video Remote Interpreting): near-real-time; works at bedside; requires device. In-person: highest quality for complex clinical conversations; requires advance scheduling. A complete program uses all three in a tiered model — acuity and complexity determine the mode.' },
+        { icon:'📊', heading:'Engagement Outcome Metrics',
+          body:'% interpreted encounters, interpreter response time, patient preferred-language satisfaction (stratify HCAHPS by language), documentation completeness rate. These feed the CLEAR LAI 20-KPI assessment and the VBP lever calculation. CLEAR Module 6 governance section defines the accountability structure for maintaining these metrics.' },
+      ]
+    }
+  },
+  7: {
+    language_access: {
+      color:'#7C3AED', bg:'#F5F3FF', bd:'#DDD6FE',
+      title:'Language Access — Interpreter Services Operations & Vendor Structure',
+      subtitle:'VRI/OPI/in-person model · BAA requirements · $279/LEP patient/year benchmark',
+      link:'https://drubhattacharya.github.io/LEAP10/', linkLabel:'CLEAR Phase 4 — Implementation Roadmap',
+      sections:[
+        { icon:'🔧', heading:'Interpreter Service Vendor Categories',
+          body:'Language Service Organizations (LSOs) — full-service; provide in-person, VRI, and OPI (Language Line, GLOBO, Stratus Video). VRI-specialized platforms — Voyce, InDemand Interpreting — hospital-grade video with clinical workflow integration. Community-based interpreter programs — appropriate for outreach, not clinical encounters. For clinical encounters: HIPAA BAA required, medical interpreter certification (CMI or CHI), language coverage documentation for your top 10 LEP languages by volume.' },
+        { icon:'📊', heading:'Cost Structure & Benchmarks',
+          body:'OPI: $1.10–$1.80/minute; typical encounter 8–12 minutes = $9–$22/encounter. VRI: $1.25–$2.00/minute plus device cost ($600–$900/unit). In-person: $45–$100/hour with 2-hour minimum. Program annual cost benchmark: $279/LEP patient/year (Jacobs 2004, AJPH) — this is the Aqueduct evidence database figure and the investment basis for the CLEAR ROI model. At 4,500 annual LEP encounters, all-in program cost ≈ $280,000–$320,000/year.' },
+        { icon:'📋', heading:'HIPAA & Compliance Requirements for Interpreter Vendors',
+          body:'Interpreter interactions involve PHI. Requirements: (1) Business Associate Agreement (BAA) with all interpreter vendors; (2) HIPAA training attestation for all interpreters; (3) Prohibition on using family members or unqualified staff as interpreters for clinical decisions — documented in TJC standards and OCR guidance; (4) Documentation of each interpreted encounter in the medical record including interpreter type, language, and duration.' },
+        { icon:'📈', heading:'Operational KPIs',
+          body:'% encounters with documented preferred language; % LEP encounters with qualified interpreter; OPI/VRI average response time; LEP patient HCAHPS communication score vs. English-proficient baseline; documentation completeness rate. These are the metrics that feed the CLEAR LAI 20-KPI assessment and the 6-lever ROI simulator — connecting your operational reality to your funder application financial narrative.' },
+      ]
+    }
+  }
+};
+
+function renderDomainBar() {
+  var bar = document.getElementById('domain-active-bar');
+  var dd  = document.getElementById('dab-domains');
+  var dp  = document.getElementById('dab-pathway');
+  if (!bar || !dd || !dp) return;
+  var domains = window._selectedDomains || ['nemt'];
+  var pathway = window._funderMode || 'bank';
+  bar.style.display = (domains.length > 1 || (domains[0] !== 'nemt') || pathway !== 'bank') ? 'block' : 'none';
+  dd.innerHTML = domains.map(function(d) {
+    var c = DOMAIN_CHIP[d] || { label:d, color:'#374151', bg:'#F1F5F9', bd:'#E2E8F0' };
+    return '<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;background:'+c.bg+';border:1px solid '+c.bd+';color:'+c.color+';">'+c.label+'</span>';
+  }).join('');
+  dp.textContent = PATH_LABEL[pathway] || pathway;
+}
+
+function renderDomainContext(stepNum) {
+  var container = document.getElementById('dctx-' + stepNum);
+  if (!container) return;
+  var domains = window._selectedDomains || ['nemt'];
+  var stepCtx = DOMAIN_CONTEXT[stepNum] || {};
+  var extras = domains.filter(function(d) { return d !== 'nemt' && stepCtx[d]; });
+  if (extras.length === 0) { container.style.display = 'none'; return; }
+  container.style.display = 'block';
+  container.innerHTML = extras.map(function(domain) {
+    var ctx = stepCtx[domain];
+    var secs = (ctx.sections||[]).map(function(s) {
+      return '<div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #F1F5F9;">' +
+        '<div style="font-size:12.5px;font-weight:700;color:#1E293B;margin-bottom:4px;">' + s.icon + ' ' + s.heading + '</div>' +
+        '<div style="font-size:12.5px;color:#475569;line-height:1.75;">' + s.body + '</div></div>';
+    }).join('');
+    return '<div style="border:1.5px solid '+ctx.bd+';border-radius:12px;overflow:hidden;margin-bottom:16px;">' +
+      '<div style="background:'+ctx.bg+';padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid '+ctx.bd+';">' +
+        '<div><div style="font-size:13px;font-weight:800;color:'+ctx.color+';margin-bottom:2px;">'+ctx.title+'</div>' +
+        '<div style="font-size:11px;color:#64748B;">'+ctx.subtitle+'</div></div>' +
+        (ctx.link ? '<a href="'+ctx.link+'" target="_blank" style="font-size:11.5px;font-weight:700;padding:6px 12px;background:'+ctx.color+';color:#fff;border-radius:7px;text-decoration:none;white-space:nowrap;">'+ctx.linkLabel+' ↗</a>' : '') +
+      '</div><div style="padding:16px 18px;background:#fff;">'+secs+'</div></div>';
+  }).join('');
+  if (stepNum === 5 && domains.indexOf('language_access') > -1) {
+    var bridge = document.getElementById('clear-roi-bridge');
+    if (bridge) bridge.style.display = 'block';
+  }
+}
+
+window.syncDomainState = function() {
+  renderDomainBar();
+  for (var i = 3; i <= 7; i++) renderDomainContext(i);
+};
+
+var _origGSD = window.goStep;
+window.goStep = function(n) {
+  if (_origGSD) _origGSD(n);
+  renderDomainBar();
+  if (n >= 3 && n <= 7) setTimeout(function(){ renderDomainContext(n); }, 60);
+};
+
+var _origASD = window.advanceStep;
+window.advanceStep = function(n) {
+  if (_origASD) _origASD(n);
+  renderDomainBar();
+  if (n+1 >= 3 && n+1 <= 7) setTimeout(function(){ renderDomainContext(n+1); }, 80);
+};
+
+document.addEventListener('DOMContentLoaded', function() { renderDomainBar(); });
+
+})(); // end domain sync IIFE
+/* ═══════════════════════════════════════════════════════════════════════ */
 
 window.initRoiDomainBanner = function() {
   const banner = document.getElementById('roi-domain-list');
