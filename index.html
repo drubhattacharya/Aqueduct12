@@ -477,144 +477,219 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
   <div class="landing-inner">
 
     <!-- Logo -->
-    <div style="animation:stepIn .5s ease both;margin-top:8px;">
+    <div style="animation:stepIn .5s ease both;">
       <div class="landing-logo-wrap">
         <div class="landing-logo"><img src="data:image/png;base64,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" alt="Aqueduct"></div>
       </div>
     </div>
 
-    <!-- Headline: CBO positioning -->
+    <!-- Headline -->
     <div style="animation:stepIn .5s .1s ease both;margin-top:44px;">
       <h1 class="ld-hl">Most health systems know what their community needs.<br><em>Few know how to optimize what they spend to meet it.</em></h1>
     </div>
 
-    <!-- Competitive positioning strip -->
-    <div style="animation:stepIn .5s .16s ease both;margin-top:22px;padding:12px 20px;border:1px solid rgba(201,162,39,.2);border-radius:10px;background:rgba(201,162,39,.05);max-width:780px;width:100%;text-align:center;">
-      <span style="font-size:12px;font-weight:700;color:var(--gold2);letter-spacing:.06em;text-transform:uppercase;">Community Benefit Optimization</span>
-      <span style="font-size:12px;color:rgba(255,255,255,.35);margin:0 10px;">·</span>
-      <span style="font-size:12.5px;color:rgba(255,255,255,.55);">The only platform that ranks SDoH interventions by cost-effectiveness, matches them to financing pathways, and generates the documentation to pursue all of them.</span>
+    <!-- Positioning strip -->
+    <div style="animation:stepIn .5s .16s ease both;margin-top:20px;padding:10px 18px;border:1px solid rgba(201,162,39,.2);border-radius:8px;background:rgba(201,162,39,.05);max-width:680px;text-align:center;">
+      <span style="font-size:11.5px;color:rgba(255,255,255,.5);">The only platform that ranks SDoH interventions by evidence-based ROI, matches them to all 6 financing pathways, and generates a pathway-specific document suite — in 12 guided steps.</span>
     </div>
 
-    <!-- 12-step anchor -->
-    <div class="ld-12-anchor" style="animation:stepIn .5s .22s ease both;margin-top:40px;">
-      <div class="ld-12-num">12 <span style="font-size:.62em;letter-spacing:-.02em;">Steps</span></div>
-      <div class="ld-12-label">to an optimized, funded program</div>
-    </div>
-
-    <!-- Journey tagline -->
-    <div style="animation:stepIn .5s .28s ease both;margin-top:18px;display:flex;align-items:center;justify-content:center;gap:14px;">
-      <div style="height:1px;width:48px;background:linear-gradient(90deg,transparent,rgba(201,162,39,.3));"></div>
-      <div style="font-family:var(--serif);font-style:italic;font-size:clamp(15px,2vw,19px);color:rgba(255,255,255,.75);letter-spacing:.01em;white-space:nowrap;">From CHNA upload to evidence-ranked portfolio to ready-to-submit application package</div>
-      <div style="height:1px;width:48px;background:linear-gradient(90deg,rgba(201,162,39,.3),transparent);"></div>
-    </div>
-
-    <!-- Step sequence -->
-    <div style="animation:stepIn .5s .34s ease both;margin-top:28px;width:100%;display:flex;align-items:stretch;gap:0;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08);">
-
-      <div style="flex:1;padding:22px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;background:rgba(71,85,109,.12);border-right:1px solid rgba(255,255,255,.07);">
-        <div style="font-size:22px;">⚖️</div>
-        <div style="font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);">Steps 1–4</div>
-        <div style="font-size:12px;font-weight:800;color:#fff;">Compliance Foundation</div>
+    <!-- Phase sequence -->
+    <div style="animation:stepIn .5s .24s ease both;margin-top:32px;width:100%;display:flex;align-items:stretch;gap:0;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.08);">
+      <div style="flex:1;padding:18px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;background:rgba(71,85,109,.12);border-right:1px solid rgba(255,255,255,.07);">
+        <div style="font-size:18px;">⚖️</div>
+        <div style="font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.35);">Steps 1–4</div>
+        <div style="font-size:11px;font-weight:800;color:#fff;">Compliance Foundation</div>
       </div>
-
-      <div style="width:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:rgba(201,162,39,.45);">→</div>
-
-      <div style="flex:1;padding:22px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;background:rgba(201,162,39,.07);border-right:1px solid rgba(255,255,255,.07);">
-        <div style="font-size:22px;">📊</div>
-        <div style="font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);">Steps 5–7</div>
-        <div style="font-size:12px;font-weight:800;color:#fff;">Financial &amp; Clinical Case</div>
+      <div style="width:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:rgba(201,162,39,.35);">→</div>
+      <div style="flex:1;padding:18px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;background:rgba(201,162,39,.07);border-right:1px solid rgba(255,255,255,.07);">
+        <div style="font-size:18px;">📊</div>
+        <div style="font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.35);">Steps 5–7</div>
+        <div style="font-size:11px;font-weight:800;color:#fff;">Financial Case</div>
       </div>
-
-      <div style="width:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:rgba(201,162,39,.45);">→</div>
-
-      <div style="flex:1;padding:22px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;background:rgba(29,78,216,.08);border-right:1px solid rgba(255,255,255,.07);">
-        <div style="font-size:22px;">💰</div>
-        <div style="font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);">Steps 8–10</div>
-        <div style="font-size:12px;font-weight:800;color:#fff;">Funding Strategy</div>
+      <div style="width:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:rgba(201,162,39,.35);">→</div>
+      <div style="flex:1;padding:18px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;background:rgba(29,78,216,.08);border-right:1px solid rgba(255,255,255,.07);">
+        <div style="font-size:18px;">💰</div>
+        <div style="font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.35);">Steps 8–10</div>
+        <div style="font-size:11px;font-weight:800;color:#fff;">Funding Strategy</div>
       </div>
-
-      <div style="width:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:rgba(201,162,39,.45);">→</div>
-
-      <div style="flex:1;padding:22px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;background:rgba(4,120,87,.08);">
-        <div style="font-size:22px;">📄</div>
-        <div style="font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);">Steps 11–12</div>
-        <div style="font-size:12px;font-weight:800;color:#fff;">Application Package</div>
+      <div style="width:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:rgba(201,162,39,.35);">→</div>
+      <div style="flex:1;padding:18px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;background:rgba(4,120,87,.08);">
+        <div style="font-size:18px;">📄</div>
+        <div style="font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.35);">Steps 11–12</div>
+        <div style="font-size:11px;font-weight:800;color:#fff;">Application Package</div>
       </div>
-
-    </div>
-
-    <!-- SDoH domain strip -->
-    <div style="animation:stepIn .5s .38s ease both;margin-top:20px;width:100%;">
-      <div style="font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2);text-align:center;margin-bottom:10px;">Evidence-Ranked SDoH Intervention Domains</div>
-      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-        <span style="font-size:11px;font-weight:700;padding:5px 13px;border-radius:99px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);background:rgba(255,255,255,.04);">🚗 Transportation / NEMT <span style="color:var(--gold2);margin-left:4px;">★ Reference Case</span></span>
-        <span style="font-size:11px;font-weight:700;padding:5px 13px;border-radius:99px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);background:rgba(255,255,255,.04);">🗣 Language Access / LEP</span>
-        <span style="font-size:11px;font-weight:700;padding:5px 13px;border-radius:99px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);background:rgba(255,255,255,.04);">🥗 Food Insecurity / Nutrition</span>
-        <span style="font-size:11px;font-weight:700;padding:5px 13px;border-radius:99px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);background:rgba(255,255,255,.04);">🏠 Housing Instability</span>
-        <span style="font-size:11px;font-weight:700;padding:5px 13px;border-radius:99px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);background:rgba(255,255,255,.04);">🧠 Behavioral Health Navigation</span>
-      </div>
-    </div>
-
-    <!-- Pathway Quick-Select -->
-    <div style="animation:stepIn .5s .38s ease both;margin-top:36px;width:100%;max-width:860px;">
-      <div style="font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25);text-align:center;margin-bottom:14px;">Choose your primary focus — or explore all</div>
-
-      <!-- SDoH Domain Cards -->
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px;">
-        <button id="ld_dom_nemt" onclick="ldSelectDomain('nemt',this)" class="ld-domain-btn ld-dom-active" style="padding:12px 6px;border-radius:10px;border:1.5px solid rgba(29,78,216,.5);background:rgba(29,78,216,.12);cursor:pointer;font-family:var(--sans);transition:all .2s;">
-          <div style="font-size:20px;margin-bottom:5px;">🚗</div>
-          <div style="font-size:10px;font-weight:800;color:#fff;line-height:1.3;">Transportation<br><span style="color:rgba(255,255,255,.4);font-size:9px;">NEMT · Reference Case</span></div>
-        </button>
-        <button id="ld_dom_language_access" onclick="ldSelectDomain('language_access',this)" class="ld-domain-btn" style="padding:12px 6px;border-radius:10px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);cursor:pointer;font-family:var(--sans);transition:all .2s;">
-          <div style="font-size:20px;margin-bottom:5px;">🗣</div>
-          <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.65);line-height:1.3;">Language<br><span style="color:rgba(255,255,255,.3);font-size:9px;">Access · LEP</span></div>
-        </button>
-        <button id="ld_dom_food_insecurity" onclick="ldSelectDomain('food_insecurity',this)" class="ld-domain-btn" style="padding:12px 6px;border-radius:10px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);cursor:pointer;font-family:var(--sans);transition:all .2s;">
-          <div style="font-size:20px;margin-bottom:5px;">🥗</div>
-          <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.65);line-height:1.3;">Food<br><span style="color:rgba(255,255,255,.3);font-size:9px;">Insecurity · MTM</span></div>
-        </button>
-        <button id="ld_dom_housing" onclick="ldSelectDomain('housing',this)" class="ld-domain-btn" style="padding:12px 6px;border-radius:10px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);cursor:pointer;font-family:var(--sans);transition:all .2s;">
-          <div style="font-size:20px;margin-bottom:5px;">🏠</div>
-          <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.65);line-height:1.3;">Housing<br><span style="color:rgba(255,255,255,.3);font-size:9px;">Instability</span></div>
-        </button>
-        <button id="ld_dom_behavioral_health" onclick="ldSelectDomain('behavioral_health',this)" class="ld-domain-btn" style="padding:12px 6px;border-radius:10px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);cursor:pointer;font-family:var(--sans);transition:all .2s;">
-          <div style="font-size:20px;margin-bottom:5px;">🧠</div>
-          <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.65);line-height:1.3;">Behavioral<br><span style="color:rgba(255,255,255,.3);font-size:9px;">Health · IMPACT</span></div>
-        </button>
-      </div>
-
-      <!-- Financing Pathway -->
-      <div style="font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25);text-align:center;margin-bottom:10px;">Primary financing pathway</div>
-      <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;">
-        <button id="ld_path_bank" onclick="ldSelectPath('bank',this)" class="ld-path-btn ld-path-active" style="font-size:11px;font-weight:700;padding:7px 14px;border-radius:8px;border:1.5px solid rgba(201,162,39,.4);background:rgba(201,162,39,.12);color:var(--gold2);cursor:pointer;font-family:var(--sans);transition:all .2s;">🏦 CRA Bank</button>
-        <button id="ld_path_philanthropy" onclick="ldSelectPath('philanthropy',this)" class="ld-path-btn" style="font-size:11px;font-weight:700;padding:7px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);cursor:pointer;font-family:var(--sans);transition:all .2s;">🏛 Foundation</button>
-        <button id="ld_path_federal" onclick="ldSelectPath('federal',this)" class="ld-path-btn" style="font-size:11px;font-weight:700;padding:7px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);cursor:pointer;font-family:var(--sans);transition:all .2s;">🇺🇸 Federal Grant</button>
-        <button id="ld_path_state" onclick="ldSelectPath('state',this)" class="ld-path-btn" style="font-size:11px;font-weight:700;padding:7px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);cursor:pointer;font-family:var(--sans);transition:all .2s;">📋 Medicaid Waiver</button>
-        <button id="ld_path_cmmi" onclick="ldSelectPath('cmmi',this)" class="ld-path-btn" style="font-size:11px;font-weight:700;padding:7px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);cursor:pointer;font-family:var(--sans);transition:all .2s;">⚕️ VBC / ACO</button>
-        <button id="ld_path_internal" onclick="ldSelectPath('internal',this)" class="ld-path-btn" style="font-size:11px;font-weight:700;padding:7px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);cursor:pointer;font-family:var(--sans);transition:all .2s;">🏥 Internal Capital</button>
-      </div>
-    </div>
-
-    <!-- Live artifact preview strip -->
-    <div id="ld-artifact-strip" style="animation:stepIn .5s .44s ease both;width:100%;max-width:860px;padding:12px 16px;border:1px solid rgba(255,255,255,.08);border-radius:10px;background:rgba(255,255,255,.04);margin-bottom:24px;">
-      <div style="font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:8px;">Documents you'll generate — catered to your selections</div>
-      <div id="ld-artifact-list" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
     </div>
 
     <!-- CTA -->
-    <div style="animation:stepIn .5s .5s ease both;display:flex;flex-direction:column;align-items:center;gap:12px;">
-      <button class="ld-cta-btn" onclick="startPlatformFromLanding()">
+    <div style="animation:stepIn .5s .32s ease both;margin-top:40px;display:flex;flex-direction:column;align-items:center;gap:10px;">
+      <button class="ld-cta-btn" onclick="openQuickStart()">
         Build my program &nbsp;→
       </button>
-      <div style="font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.05em;">WHO-CHOICE GCEA methodology &nbsp;·&nbsp; 5 SDoH domains &nbsp;·&nbsp; 6 financing pathways &nbsp;·&nbsp; up to 14 artifacts</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.05em;">WHO-CHOICE GCEA &nbsp;·&nbsp; 5 SDoH domains &nbsp;·&nbsp; 6 financing pathways &nbsp;·&nbsp; 12 artifacts</div>
     </div>
 
-  </div>
   </div>
   </div>
 </div>
 
-<!-- ══ TOP HEADER ════════════════════════════════════════════════════════ -->
+<!-- ══ QUICK START WIZARD ════════════════════════════════════════════════ -->
+<div id="qs-modal" style="display:none;position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;border-radius:20px;width:100%;max-width:640px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.3);">
+
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,#001533,#002050);padding:24px 28px;">
+      <div style="font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px;" id="qs-step-label">Step 1 of 2</div>
+      <div style="font-size:20px;font-weight:800;color:#fff;line-height:1.2;" id="qs-title">What's your primary SDoH focus?</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.45);margin-top:4px;" id="qs-subtitle">Select one or more intervention domains. You can add more later.</div>
+      <!-- Progress bar -->
+      <div style="height:3px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:16px;overflow:hidden;">
+        <div id="qs-progress" style="height:100%;width:50%;background:var(--gold);border-radius:2px;transition:width .3s ease;"></div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div style="padding:24px 28px;" id="qs-body">
+
+      <!-- SCREEN 1: Domain Selection -->
+      <div id="qs-screen-1">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+
+          <label id="qs-d-nemt" onclick="qsToggleDomain('nemt')" style="display:flex;align-items:center;gap:14px;padding:14px 16px;border:2px solid #E2E8F0;border-radius:12px;cursor:pointer;transition:all .15s;background:#fff;">
+            <div style="width:40px;height:40px;border-radius:10px;background:rgba(29,78,216,.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🚗</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;font-weight:700;color:#1E293B;">Transportation / NEMT</div>
+              <div style="font-size:12px;color:#64748B;margin-top:2px;">No-show reduction · 4-layer ROI · AKS Safe Harbor · <span style="color:#1D4ED8;font-weight:600;">★ Reference Case</span></div>
+            </div>
+            <div class="qs-check" id="qsc-nemt" style="width:22px;height:22px;border-radius:50%;border:2px solid #CBD5E1;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;transition:all .15s;"></div>
+          </label>
+
+          <label id="qs-d-language_access" onclick="qsToggleDomain('language_access')" style="display:flex;align-items:center;gap:14px;padding:14px 16px;border:2px solid #E2E8F0;border-radius:12px;cursor:pointer;transition:all .15s;background:#fff;">
+            <div style="width:40px;height:40px;border-radius:10px;background:rgba(124,58,237,.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🗣</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;font-weight:700;color:#1E293B;">Language Access / LEP</div>
+              <div style="font-size:12px;color:#64748B;margin-top:2px;">6-lever ROI · Title VI compliance · $1.29M savings in 8 months · CLEAR platform</div>
+            </div>
+            <div class="qs-check" id="qsc-language_access" style="width:22px;height:22px;border-radius:50%;border:2px solid #CBD5E1;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;transition:all .15s;"></div>
+          </label>
+
+          <label id="qs-d-food_insecurity" onclick="qsToggleDomain('food_insecurity')" style="display:flex;align-items:center;gap:14px;padding:14px 16px;border:2px solid #E2E8F0;border-radius:12px;cursor:pointer;transition:all .15s;background:#fff;">
+            <div style="width:40px;height:40px;border-radius:10px;background:rgba(180,83,9,.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🥗</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;font-weight:700;color:#1E293B;">Food Insecurity / Nutrition</div>
+              <div style="font-size:12px;color:#64748B;margin-top:2px;">Medically tailored meals · 85% avg ROI · 47% hospitalization reduction · 1115 waivers</div>
+            </div>
+            <div class="qs-check" id="qsc-food_insecurity" style="width:22px;height:22px;border-radius:50%;border:2px solid #CBD5E1;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;transition:all .15s;"></div>
+          </label>
+
+          <label id="qs-d-housing" onclick="qsToggleDomain('housing')" style="display:flex;align-items:center;gap:14px;padding:14px 16px;border:2px solid #E2E8F0;border-radius:12px;cursor:pointer;transition:all .15s;background:#fff;">
+            <div style="width:40px;height:40px;border-radius:10px;background:rgba(10,107,98,.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🏠</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;font-weight:700;color:#1E293B;">Housing Instability</div>
+              <div style="font-size:12px;color:#64748B;margin-top:2px;">Housing First · $1.44 per $1 invested · 15% Medicaid reduction · CRA bank fit</div>
+            </div>
+            <div class="qs-check" id="qsc-housing" style="width:22px;height:22px;border-radius:50%;border:2px solid #CBD5E1;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;transition:all .15s;"></div>
+          </label>
+
+          <label id="qs-d-behavioral_health" onclick="qsToggleDomain('behavioral_health')" style="display:flex;align-items:center;gap:14px;padding:14px 16px;border:2px solid #E2E8F0;border-radius:12px;cursor:pointer;transition:all .15s;background:#fff;">
+            <div style="width:40px;height:40px;border-radius:10px;background:rgba(4,120,87,.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🧠</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;font-weight:700;color:#1E293B;">Behavioral Health Navigation</div>
+              <div style="font-size:12px;color:#64748B;margin-top:2px;">IMPACT collaborative care · 6:1 ROI · $3,363 lower costs per patient</div>
+            </div>
+            <div class="qs-check" id="qsc-behavioral_health" style="width:22px;height:22px;border-radius:50%;border:2px solid #CBD5E1;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;transition:all .15s;"></div>
+          </label>
+
+        </div>
+        <div id="qs-domain-error" style="display:none;font-size:12px;color:#B91C1C;margin-top:8px;">Please select at least one domain to continue.</div>
+      </div>
+
+      <!-- SCREEN 2: Pathway Selection -->
+      <div id="qs-screen-2" style="display:none;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+
+          <label id="qs-p-bank" onclick="qsSelectPath('bank')" style="display:flex;align-items:center;gap:14px;padding:12px 16px;border:2px solid #E2E8F0;border-radius:10px;cursor:pointer;transition:all .15s;background:#fff;">
+            <div style="font-size:22px;flex-shrink:0;">🏦</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#1E293B;">CRA Bank Investment</div>
+              <div style="font-size:11.5px;color:#64748B;">Community Reinvestment Act · $100K–$10M+ · Exam-file documentation required</div>
+            </div>
+            <div class="qs-radio" id="qsr-bank" style="width:20px;height:20px;border-radius:50%;border:2px solid #CBD5E1;flex-shrink:0;transition:all .15s;"></div>
+          </label>
+
+          <label id="qs-p-philanthropy" onclick="qsSelectPath('philanthropy')" style="display:flex;align-items:center;gap:14px;padding:12px 16px;border:2px solid #E2E8F0;border-radius:10px;cursor:pointer;transition:all .15s;background:#fff;">
+            <div style="font-size:22px;flex-shrink:0;">🏛</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#1E293B;">Philanthropic / Foundation Grant</div>
+              <div style="font-size:11.5px;color:#64748B;">RWJF, Kresge, CommonSpirit CIP · LOI + sustainability plan required</div>
+            </div>
+            <div class="qs-radio" id="qsr-philanthropy" style="width:20px;height:20px;border-radius:50%;border:2px solid #CBD5E1;flex-shrink:0;transition:all .15s;"></div>
+          </label>
+
+          <label id="qs-p-federal" onclick="qsSelectPath('federal')" style="display:flex;align-items:center;gap:14px;padding:12px 16px;border:2px solid #E2E8F0;border-radius:10px;cursor:pointer;transition:all .15s;background:#fff;">
+            <div style="font-size:22px;flex-shrink:0;">🇺🇸</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#1E293B;">Federal Grant — HRSA / CMMI</div>
+              <div style="font-size:11.5px;color:#64748B;">$100K–$7M · Program narrative + logic model + evaluation design</div>
+            </div>
+            <div class="qs-radio" id="qsr-federal" style="width:20px;height:20px;border-radius:50%;border:2px solid #CBD5E1;flex-shrink:0;transition:all .15s;"></div>
+          </label>
+
+          <label id="qs-p-state" onclick="qsSelectPath('state')" style="display:flex;align-items:center;gap:14px;padding:12px 16px;border:2px solid #E2E8F0;border-radius:10px;cursor:pointer;transition:all .15s;background:#fff;">
+            <div style="font-size:22px;flex-shrink:0;">📋</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#1E293B;">State / Medicaid Waiver (1115 / ILOS)</div>
+              <div style="font-size:11.5px;color:#64748B;">18 states approved · HRSN services · Budget neutrality documentation</div>
+            </div>
+            <div class="qs-radio" id="qsr-state" style="width:20px;height:20px;border-radius:50%;border:2px solid #CBD5E1;flex-shrink:0;transition:all .15s;"></div>
+          </label>
+
+          <label id="qs-p-cmmi" onclick="qsSelectPath('cmmi')" style="display:flex;align-items:center;gap:14px;padding:12px 16px;border:2px solid #E2E8F0;border-radius:10px;cursor:pointer;transition:all .15s;background:#fff;">
+            <div style="font-size:22px;flex-shrink:0;">⚕️</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#1E293B;">Value-Based Care — ACO REACH / AHEAD</div>
+              <div style="font-size:11.5px;color:#64748B;">$30 PBPM health equity adjustment · Quality earn-back · SDoH screening required</div>
+            </div>
+            <div class="qs-radio" id="qsr-cmmi" style="width:20px;height:20px;border-radius:50%;border:2px solid #CBD5E1;flex-shrink:0;transition:all .15s;"></div>
+          </label>
+
+          <label id="qs-p-internal" onclick="qsSelectPath('internal')" style="display:flex;align-items:center;gap:14px;padding:12px 16px;border:2px solid #E2E8F0;border-radius:10px;cursor:pointer;transition:all .15s;background:#fff;">
+            <div style="font-size:22px;flex-shrink:0;">🏥</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#1E293B;">Internal Capital Reallocation</div>
+              <div style="font-size:11.5px;color:#64748B;">CFO investment brief · 3-year pro forma · Break-even analysis</div>
+            </div>
+            <div class="qs-radio" id="qsr-internal" style="width:20px;height:20px;border-radius:50%;border:2px solid #CBD5E1;flex-shrink:0;transition:all .15s;"></div>
+          </label>
+
+        </div>
+        <div id="qs-path-error" style="display:none;font-size:12px;color:#B91C1C;margin-top:8px;">Please select a financing pathway to continue.</div>
+      </div>
+
+      <!-- SCREEN 3: Summary before launch -->
+      <div id="qs-screen-3" style="display:none;">
+        <div style="padding:16px;border:1px solid #E2E8F0;border-radius:12px;background:#F8FAFC;margin-bottom:16px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#64748B;margin-bottom:10px;">Your Program Configuration</div>
+          <div id="qs-summary-domains" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;"></div>
+          <div id="qs-summary-path" style="font-size:13px;color:#475569;margin-bottom:12px;"></div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#64748B;margin-bottom:6px;">Documents you'll generate</div>
+          <div id="qs-summary-docs" style="display:flex;gap:5px;flex-wrap:wrap;"></div>
+        </div>
+        <div style="font-size:12px;color:#64748B;line-height:1.6;">The platform will guide you through 12 steps to complete the evidence case, ROI model, and application package for your selected program and pathway.</div>
+      </div>
+
+    </div>
+
+    <!-- Footer buttons -->
+    <div style="padding:16px 28px 20px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #F1F5F9;">
+      <button id="qs-back-btn" onclick="qsBack()" style="display:none;font-size:13px;font-weight:600;color:#64748B;background:none;border:1px solid #E2E8F0;border-radius:8px;padding:8px 16px;cursor:pointer;font-family:var(--sans);">← Back</button>
+      <div style="flex:1;"></div>
+      <button id="qs-next-btn" onclick="qsNext()" style="font-size:13px;font-weight:800;color:var(--navy);background:linear-gradient(135deg,var(--gold),#A07810);border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-family:var(--sans);">Select domains →</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ END QUICK START WIZARD ════════════════════════════════════════════ --> ════════════════════════════════════════════════════════ -->
 <header class="top-hdr">
   <div class="hdr-inner">
     <div class="hdr-logo"><img src="data:image/png;base64,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" alt="Aqueduct" style="height:28px;width:auto;"></div>
@@ -3535,13 +3610,264 @@ function updateFunderPresets(mode, domainContext) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   LANDING PATHWAY SELECTOR ENGINE
-   Powers the domain + pathway selection on the landing page, syncs to
-   all downstream steps, and drives artifact preview strip.
+   QUICK START WIZARD ENGINE — clean, self-contained
    ═══════════════════════════════════════════════════════════════════════ */
+(function() {
 
-window._ldDomains  = ['nemt'];        // pre-selected domain(s)
-window._ldPathway  = 'bank';          // pre-selected financing pathway
+var _qsScreen = 1;
+var _qsDomains = ['nemt'];   // NEMT pre-selected
+var _qsPath    = '';
+
+var DOMAIN_META = {
+  nemt:              { label:'Transportation / NEMT',         icon:'🚗', color:'#1D4ED8', bg:'#EFF6FF', border:'#BFDBFE' },
+  language_access:   { label:'Language Access / LEP',         icon:'🗣', color:'#7C3AED', bg:'#F5F3FF', border:'#DDD6FE' },
+  food_insecurity:   { label:'Food Insecurity / Nutrition',   icon:'🥗', color:'#B45309', bg:'#FFFBEB', border:'#FDE68A' },
+  housing:           { label:'Housing Instability',           icon:'🏠', color:'#0A6B62', bg:'#F0FDFA', border:'#99F6E4' },
+  behavioral_health: { label:'Behavioral Health Navigation',  icon:'🧠', color:'#047857', bg:'#F0FDF4', border:'#BBF7D0' },
+};
+
+var PATH_META = {
+  bank:        { label:'CRA Bank Investment',               icon:'🏦' },
+  philanthropy:{ label:'Philanthropic / Foundation Grant',  icon:'🏛' },
+  federal:     { label:'Federal Grant — HRSA / CMMI',       icon:'🇺🇸' },
+  state:       { label:'State / Medicaid Waiver',           icon:'📋' },
+  cmmi:        { label:'Value-Based Care — ACO REACH',      icon:'⚕️' },
+  internal:    { label:'Internal Capital Reallocation',     icon:'🏥' },
+};
+
+var PATH_DOCS = {
+  bank:        ['CRA Justification Memo','AKS Safe Harbor Memo','Schedule H Documentation','Board Approval Brief','Sustainability Plan'],
+  philanthropy:['Foundation LOI','Board Approval Brief','Sustainability Plan','Schedule H Documentation','Quarterly Impact Report'],
+  federal:     ['Program Narrative','3-Year Pro Forma','Sustainability Plan','Schedule H Documentation','Evaluation Framework'],
+  state:       ['Schedule H Documentation','CRA Justification Memo','Board Approval Brief','Sustainability Plan'],
+  cmmi:        ['Board Approval Brief','Sustainability Plan','Quarterly KPI Dashboard','3-Year Pro Forma'],
+  internal:    ['Board Approval Brief (CFO)','3-Year Pro Forma','Sustainability Plan','AKS Safe Harbor Memo','Schedule H Documentation'],
+};
+
+window.openQuickStart = function() {
+  _qsScreen = 1;
+  _qsDomains = ['nemt'];
+  _qsPath = '';
+  renderQsScreen();
+  var m = document.getElementById('qs-modal');
+  if (m) { m.style.display = 'flex'; m.style.opacity = '0'; setTimeout(function(){ m.style.transition='opacity .2s'; m.style.opacity='1'; },10); }
+};
+
+window.qsToggleDomain = function(domain) {
+  var idx = _qsDomains.indexOf(domain);
+  if (idx > -1 && _qsDomains.length > 1) {
+    _qsDomains.splice(idx, 1);
+  } else if (idx === -1) {
+    _qsDomains.push(domain);
+  }
+  // Update check circles
+  ['nemt','language_access','food_insecurity','housing','behavioral_health'].forEach(function(d) {
+    var check = document.getElementById('qsc-' + d);
+    var row   = document.getElementById('qs-d-' + d);
+    var meta  = DOMAIN_META[d] || {};
+    var sel   = _qsDomains.indexOf(d) > -1;
+    if (check) {
+      check.style.background  = sel ? meta.color : 'transparent';
+      check.style.borderColor = sel ? meta.color : '#CBD5E1';
+      check.textContent       = sel ? '✓' : '';
+    }
+    if (row) {
+      row.style.borderColor = sel ? meta.color : '#E2E8F0';
+      row.style.background  = sel ? meta.bg   : '#fff';
+    }
+  });
+  var err = document.getElementById('qs-domain-error');
+  if (err) err.style.display = 'none';
+  updateQsNextLabel();
+};
+
+window.qsSelectPath = function(path) {
+  _qsPath = path;
+  ['bank','philanthropy','federal','state','cmmi','internal'].forEach(function(p) {
+    var radio = document.getElementById('qsr-' + p);
+    var row   = document.getElementById('qs-p-' + p);
+    var sel   = p === path;
+    if (radio) {
+      radio.style.background  = sel ? '#001533' : 'transparent';
+      radio.style.borderColor = sel ? '#001533' : '#CBD5E1';
+    }
+    if (row) {
+      row.style.borderColor = sel ? '#001533' : '#E2E8F0';
+      row.style.background  = sel ? '#F8FAFC' : '#fff';
+    }
+  });
+  var err = document.getElementById('qs-path-error');
+  if (err) err.style.display = 'none';
+  updateQsNextLabel();
+};
+
+window.qsNext = function() {
+  if (_qsScreen === 1) {
+    if (_qsDomains.length === 0) {
+      var err = document.getElementById('qs-domain-error');
+      if (err) err.style.display = 'block';
+      return;
+    }
+    _qsScreen = 2;
+    renderQsScreen();
+  } else if (_qsScreen === 2) {
+    if (!_qsPath) {
+      var err = document.getElementById('qs-path-error');
+      if (err) err.style.display = 'block';
+      return;
+    }
+    _qsScreen = 3;
+    renderQsScreen();
+    renderQsSummary();
+  } else if (_qsScreen === 3) {
+    launchProgram();
+  }
+};
+
+window.qsBack = function() {
+  if (_qsScreen > 1) { _qsScreen--; renderQsScreen(); }
+};
+
+function renderQsScreen() {
+  // Show/hide screens
+  for (var i = 1; i <= 3; i++) {
+    var s = document.getElementById('qs-screen-' + i);
+    if (s) s.style.display = i === _qsScreen ? 'block' : 'none';
+  }
+  // Progress bar
+  var prog = document.getElementById('qs-progress');
+  if (prog) prog.style.width = Math.round((_qsScreen / 3) * 100) + '%';
+  // Step label
+  var lbl = document.getElementById('qs-step-label');
+  if (lbl) lbl.textContent = 'Step ' + _qsScreen + ' of 3';
+  // Title + subtitle
+  var titles = ['What\'s your primary SDoH focus?', 'How do you want to fund it?', 'Your program is configured.'];
+  var subs   = ['Select one or more intervention domains. You can refine this at any time.', 'Choose the primary financing pathway. This shapes your artifact suite.', 'Confirm your selections to enter the platform.'];
+  var t = document.getElementById('qs-title');
+  var s2 = document.getElementById('qs-subtitle');
+  if (t) t.textContent = titles[_qsScreen - 1];
+  if (s2) s2.textContent = subs[_qsScreen - 1];
+  // Back button
+  var back = document.getElementById('qs-back-btn');
+  if (back) back.style.display = _qsScreen > 1 ? 'block' : 'none';
+  // Re-render domain selections if returning to screen 1
+  if (_qsScreen === 1) {
+    _qsDomains.forEach(function(d) { qsToggleDomain2(d, true); });
+  }
+  // Re-render path if returning to screen 2
+  if (_qsScreen === 2 && _qsPath) {
+    qsSelectPath(_qsPath);
+  }
+  updateQsNextLabel();
+}
+
+function qsToggleDomain2(domain, selected) {
+  var check = document.getElementById('qsc-' + domain);
+  var row   = document.getElementById('qs-d-' + domain);
+  var meta  = DOMAIN_META[domain] || {};
+  if (check) {
+    check.style.background  = selected ? meta.color : 'transparent';
+    check.style.borderColor = selected ? meta.color : '#CBD5E1';
+    check.textContent       = selected ? '✓' : '';
+  }
+  if (row) {
+    row.style.borderColor = selected ? meta.color : '#E2E8F0';
+    row.style.background  = selected ? meta.bg : '#fff';
+  }
+}
+
+function updateQsNextLabel() {
+  var btn = document.getElementById('qs-next-btn');
+  if (!btn) return;
+  if (_qsScreen === 1) btn.textContent = 'Choose pathway →';
+  else if (_qsScreen === 2) btn.textContent = 'Review my program →';
+  else btn.textContent = 'Build my program →';
+}
+
+function renderQsSummary() {
+  // Domains
+  var dd = document.getElementById('qs-summary-domains');
+  if (dd) {
+    dd.innerHTML = _qsDomains.map(function(d) {
+      var m = DOMAIN_META[d] || {};
+      return '<span style="font-size:12px;font-weight:700;padding:4px 11px;border-radius:99px;background:' + m.bg + ';border:1px solid ' + m.border + ';color:' + m.color + ';">' + m.icon + ' ' + m.label + '</span>';
+    }).join('');
+  }
+  // Pathway
+  var pp = document.getElementById('qs-summary-path');
+  var pm = PATH_META[_qsPath] || {};
+  if (pp) pp.textContent = pm.icon + '  ' + pm.label;
+  // Documents
+  var docs = PATH_DOCS[_qsPath] || [];
+  var la = _qsDomains.indexOf('language_access') > -1;
+  if (la) docs = docs.concat(['LAI Baseline Report (CLEAR)','Language Access Financial Brief','Implementation Roadmap']);
+  var sd = document.getElementById('qs-summary-docs');
+  if (sd) {
+    sd.innerHTML = docs.map(function(d) {
+      return '<span style="font-size:11px;padding:3px 9px;border-radius:5px;background:#F1F5F9;border:1px solid #E2E8F0;color:#334155;">📄 ' + d + '</span>';
+    }).join('');
+  }
+}
+
+function launchProgram() {
+  // Sync to platform state
+  window._selectedDomains = _qsDomains.slice();
+  window._funderMode      = _qsPath;
+  window._ldDomains       = _qsDomains.slice();
+  window._ldPathway       = _qsPath;
+
+  // Close modal
+  var m = document.getElementById('qs-modal');
+  if (m) { m.style.opacity='0'; setTimeout(function(){ m.style.display='none'; },250); }
+
+  // Hide landing
+  var landing = document.getElementById('landing-overlay');
+  if (landing) {
+    landing.style.opacity = '0';
+    landing.style.transition = 'opacity .35s ease';
+    setTimeout(function(){ landing.style.display='none'; }, 360);
+  }
+
+  // Render portfolio panel in Step 2 (no CHNA needed)
+  var synth = {
+    priorities: _qsDomains.map(function(d,i) { return { name: (window.SDOH_EVIDENCE_DB||{})[d]?.label||d, rank:i+1 }; })
+  };
+  window._aqChna = synth;
+  if (typeof renderPortfolioRecommendations === 'function') {
+    setTimeout(function(){ renderPortfolioRecommendations(synth); }, 200);
+  }
+
+  // Update pathway profile card in Step 1
+  if (typeof updatePathwayProfileCard === 'function') updatePathwayProfileCard();
+
+  // Update funder mode
+  if (typeof setFunderMode === 'function') {
+    var modeBtn = document.getElementById('fmode_' + _qsPath);
+    if (modeBtn) {
+      document.querySelectorAll('.fmode-btn').forEach(function(b){ b.classList.remove('fmode-active'); });
+      modeBtn.classList.add('fmode-active');
+      setFunderMode(_qsPath, modeBtn);
+    }
+  }
+
+  // Go to Step 1
+  if (typeof window.startPlatform === 'function') {
+    window.startPlatform('hospital');
+  } else if (typeof goStep === 'function') {
+    goStep(1);
+  }
+}
+
+// Initialize NEMT as pre-checked when QS opens
+document.addEventListener('DOMContentLoaded', function() {
+  qsToggleDomain2('nemt', true);
+});
+
+})(); // end IIFE
+
+/* ═══════════════════════════════════════════════════════════════════════ */
+
+window.initRoiDomainBanner = function() {
 
 const DOMAIN_COLORS = {
   nemt:              { color:'#1D4ED8', border:'rgba(29,78,216,.5)',  bg:'rgba(29,78,216,.12)' },
