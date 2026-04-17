@@ -567,7 +567,7 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
             <div style="width:40px;height:40px;border-radius:10px;background:rgba(124,58,237,.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🗣</div>
             <div style="flex:1;">
               <div style="font-size:14px;font-weight:700;color:#1E293B;">Language Access / LEP</div>
-              <div style="font-size:12px;color:#64748B;margin-top:2px;">6-lever ROI · Title VI compliance · $1.29M savings in 8 months · CLEAR platform</div>
+              <div style="font-size:12px;color:#64748B;margin-top:2px;">6-lever ROI · Title VI compliance · $1.29M savings in 8 months</div>
             </div>
             <div class="qs-check" id="qsc-language_access" style="width:22px;height:22px;border-radius:50%;border:2px solid #CBD5E1;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;transition:all .15s;"></div>
           </label>
@@ -1164,23 +1164,109 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
         </div>
       </div>
 
-      <!-- CLEAR / Language Access deep-link panel — shows when LEP is selected -->
-      <div id="clear-integration-panel" style="display:none;margin-top:12px;padding:16px 18px;border:1px solid rgba(124,58,237,.2);border-radius:10px;background:rgba(124,58,237,.04);">
-        <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;">
-          <div style="flex:1;">
-            <div style="font-size:13px;font-weight:800;color:#1E293B;margin-bottom:4px;">🗣 CLEAR — Language Access Intelligence Platform</div>
-            <div style="font-size:12px;color:#475569;line-height:1.6;margin-bottom:10px;">Language access has a dedicated platform with a 3-tier LAI assessment (20 KPIs / 10 domains), 7 clinical evidence modules built from 1,000 LEP patient encounters, a 6-lever ROI simulator, and auto-generated deliverable documents. Complete the LAI assessment to establish your organizational baseline before Step 5.</div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <a href="https://drubhattacharya.github.io/LEAP10/" target="_blank" style="display:inline-block;font-size:12px;font-weight:700;padding:7px 14px;background:#7C3AED;color:#fff;border-radius:7px;text-decoration:none;">Open CLEAR Platform ↗</a>
-              <a href="https://drubhattacharya.github.io/LEAP10/language_access_index.html" target="_blank" style="display:inline-block;font-size:12px;font-weight:700;padding:7px 14px;background:#fff;color:#7C3AED;border:1.5px solid #7C3AED;border-radius:7px;text-decoration:none;">LAI Self-Assessment ↗</a>
-              <a href="https://drubhattacharya.github.io/LEAP10/roi-simulator.html" target="_blank" style="display:inline-block;font-size:12px;font-weight:700;padding:7px 14px;background:#fff;color:#7C3AED;border:1.5px solid #7C3AED;border-radius:7px;text-decoration:none;">ROI Simulator ↗</a>
+      <!-- Language Access tools — shown when LEP domain is selected -->
+      <div id="clear-integration-panel" style="display:none;margin-top:14px;">
+        <div style="border:1.5px solid #DDD6FE;border-radius:12px;overflow:hidden;">
+          <div style="background:linear-gradient(135deg,#4C1D95,#6D28D9);padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+            <div>
+              <div style="font-size:12.5px;font-weight:800;color:#fff;margin-bottom:1px;">🗣 Language Access — Baseline Assessment</div>
+              <div style="font-size:10.5px;color:rgba(255,255,255,.5);">8 questions · Readiness score feeds your Step 5 ROI model and Step 12 artifacts</div>
+            </div>
+            <div id="la-score-badge" style="display:none;background:rgba(255,255,255,.15);border-radius:8px;padding:6px 14px;text-align:center;">
+              <div style="font-size:22px;font-weight:900;color:#fff;line-height:1;" id="la-score-num">—</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em;">/ 21 Score</div>
             </div>
           </div>
-          <div style="text-align:center;flex-shrink:0;">
-            <div style="font-size:28px;font-weight:900;color:#7C3AED;">6</div>
-            <div style="font-size:10px;font-weight:700;color:#94A3B8;text-transform:uppercase;">ROI Levers</div>
-            <div style="font-size:22px;font-weight:900;color:#7C3AED;margin-top:8px;">20</div>
-            <div style="font-size:10px;font-weight:700;color:#94A3B8;text-transform:uppercase;">KPIs</div>
+          <div style="background:#fff;padding:16px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+              <div style="background:#F8FAFC;border-radius:9px;padding:13px;border:1px solid #E2E8F0;">
+                <div style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#7C3AED;margin-bottom:9px;">Documentation & Access</div>
+                <div class="field-group" style="margin-bottom:9px;">
+                  <label class="field-label" style="font-size:11px;">% patients with preferred language in EHR</label>
+                  <select id="la_q1" class="field-select" style="font-size:11.5px;" onchange="calcLAScore()">
+                    <option value="0">Less than 20%</option><option value="1">20–50%</option>
+                    <option value="2">50–80%</option><option value="3">80–95%</option>
+                    <option value="4">95–100% (target)</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" style="font-size:11px;">Current interpreter delivery model</label>
+                  <select id="la_q2" class="field-select" style="font-size:11.5px;" onchange="calcLAScore()">
+                    <option value="0">Ad hoc / family members only</option>
+                    <option value="1">OPI (phone) only</option>
+                    <option value="2">OPI + VRI</option>
+                    <option value="3">OPI + VRI + In-person staff</option>
+                  </select>
+                </div>
+              </div>
+              <div style="background:#F8FAFC;border-radius:9px;padding:13px;border:1px solid #E2E8F0;">
+                <div style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#7C3AED;margin-bottom:9px;">Clinical Quality</div>
+                <div class="field-group" style="margin-bottom:9px;">
+                  <label class="field-label" style="font-size:11px;">Average interpreter response time</label>
+                  <select id="la_q3" class="field-select" style="font-size:11.5px;" onchange="calcLAScore()">
+                    <option value="0">Not tracked</option><option value="1">Greater than 15 min</option>
+                    <option value="2">5–15 minutes</option><option value="3">Under 5 minutes</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" style="font-size:11px;">LEP discharge instructions in preferred language</label>
+                  <select id="la_q4" class="field-select" style="font-size:11.5px;" onchange="calcLAScore()">
+                    <option value="0">Rarely / never</option><option value="1">Sometimes</option>
+                    <option value="2">Usually</option><option value="3">Always (documented)</option>
+                  </select>
+                </div>
+              </div>
+              <div style="background:#F8FAFC;border-radius:9px;padding:13px;border:1px solid #E2E8F0;">
+                <div style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#7C3AED;margin-bottom:9px;">Compliance Infrastructure</div>
+                <div class="field-group" style="margin-bottom:9px;">
+                  <label class="field-label" style="font-size:11px;">All interpreter vendors have current HIPAA BAA?</label>
+                  <select id="la_q5" class="field-select" style="font-size:11.5px;" onchange="calcLAScore()">
+                    <option value="0">No</option><option value="1">Partially</option>
+                    <option value="2">Yes — all vendors covered</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" style="font-size:11px;">OCR language access complaint in last 3 years?</label>
+                  <select id="la_q6" class="field-select" style="font-size:11.5px;" onchange="calcLAScore()">
+                    <option value="0">Yes — active or recently resolved</option>
+                    <option value="1">No / Don't know</option>
+                  </select>
+                </div>
+              </div>
+              <div style="background:#F8FAFC;border-radius:9px;padding:13px;border:1px solid #E2E8F0;">
+                <div style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#7C3AED;margin-bottom:9px;">Financial Tracking</div>
+                <div class="field-group" style="margin-bottom:9px;">
+                  <label class="field-label" style="font-size:11px;">Annual interpreter program cost tracked?</label>
+                  <select id="la_q7" class="field-select" style="font-size:11.5px;" onchange="calcLAScore()">
+                    <option value="0">No tracking</option><option value="1">Rough estimate only</option>
+                    <option value="2">Detailed by service line</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" style="font-size:11px;">LEP vs. non-LEP outcomes tracked separately?</label>
+                  <select id="la_q8" class="field-select" style="font-size:11.5px;" onchange="calcLAScore()">
+                    <option value="0">No outcome stratification</option>
+                    <option value="1">Basic (readmission only)</option>
+                    <option value="2">Full (readmission + LOS + HCAHPS)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div id="la-score-result" style="display:none;margin-bottom:12px;padding:13px 15px;border-radius:9px;background:#F5F3FF;border:1px solid #DDD6FE;">
+              <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+                <div style="text-align:center;flex-shrink:0;">
+                  <div style="font-size:34px;font-weight:900;color:#6D28D9;line-height:1;" id="la-score-display">—</div>
+                  <div style="font-size:9px;font-weight:700;color:#94A3B8;text-transform:uppercase;">/21</div>
+                  <div style="font-size:11px;font-weight:800;margin-top:3px;" id="la-tier-label"></div>
+                </div>
+                <div style="flex:1;">
+                  <div style="font-size:12.5px;font-weight:700;color:#1E293B;margin-bottom:3px;" id="la-score-headline"></div>
+                  <div style="font-size:12px;color:#475569;line-height:1.6;margin-bottom:5px;" id="la-score-detail"></div>
+                  <div style="font-size:11px;color:#6D28D9;font-weight:700;" id="la-priority-gap"></div>
+                </div>
+              </div>
+            </div>
+            <button onclick="calcLAScore(true)" style="background:linear-gradient(135deg,#6D28D9,#7C3AED);color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:12px;font-weight:800;cursor:pointer;font-family:var(--sans);">Calculate Readiness Score →</button>
           </div>
         </div>
       </div>
@@ -1528,67 +1614,56 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
         <div style="font-size:11.5px;color:var(--muted);margin-top:6px;">Enter parameters for each selected domain. NEMT inputs are below. Domain-specific ROI layers append to the total.</div>
       </div>
 
-      <!-- CLEAR Language Access ROI Bridge (shows when language_access is in portfolio) -->
+      <!-- Language Access ROI Calculator (shows when language_access is in portfolio) -->
       <div id="clear-roi-bridge" style="display:none;margin-bottom:20px;border:1px solid rgba(124,58,237,.2);border-radius:12px;overflow:hidden;">
-        <div style="background:linear-gradient(135deg,#4C1D95,#6D28D9);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+        <div style="background:linear-gradient(135deg,#4C1D95,#6D28D9);padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
           <div>
-            <div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:2px;">🗣 Language Access ROI — CLEAR 6-Lever Model</div>
-            <div style="font-size:11px;color:rgba(255,255,255,.5);">Enter your CLEAR ROI Simulator total to include it in the portfolio financial case</div>
+            <div style="font-size:12.5px;font-weight:800;color:#fff;margin-bottom:1px;">🗣 Language Access — 6-Lever ROI Model</div>
+            <div style="font-size:10.5px;color:rgba(255,255,255,.45);">Karliner 2017 · Schulson 2018 · Hong 2019 · Lindholm 2012 · Jacobs 2004</div>
           </div>
-          <a href="https://drubhattacharya.github.io/LEAP10/roi-simulator.html" target="_blank" style="font-size:11px;font-weight:700;padding:6px 12px;background:rgba(255,255,255,.15);color:#fff;border-radius:6px;text-decoration:none;white-space:nowrap;">Open ROI Simulator ↗</a>
+          <div id="la-roi-total-badge" style="display:none;background:rgba(255,255,255,.15);border-radius:8px;padding:6px 14px;text-align:center;">
+            <div style="font-size:18px;font-weight:900;color:#fff;line-height:1;" id="la-roi-badge-num">$0</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em;">Annual Value</div>
+          </div>
         </div>
         <div style="background:#fff;padding:16px 18px;">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:14px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:14px;">
             <div class="field-group">
               <label class="field-label">Annual LEP Encounters</label>
               <div class="field-hint">Total LEP patient encounters/year</div>
-              <div class="num-input-row"><input id="la_lep_encounters" type="number" class="num-input" value="4500" oninput="updateClearROI()"></div>
+              <div class="num-input-row"><input id="la_lep_encounters" type="number" class="num-input" value="4500" oninput="calcLAROI()"></div>
             </div>
             <div class="field-group">
-              <label class="field-label">CLEAR ROI Total (from Simulator)</label>
-              <div class="field-hint">Paste your calibrated annual total</div>
-              <div class="num-input-row"><span class="num-prefix">$</span><input id="la_roi_total" type="number" class="num-input" placeholder="e.g. 890000" oninput="updateClearROI()"></div>
+              <label class="field-label">Cost per Inpatient Bed-Day</label>
+              <div class="field-hint">Default: national average $2,100</div>
+              <div class="num-input-row"><span class="num-prefix">$</span><input id="la_bed_day" type="number" class="num-input" value="2100" oninput="calcLAROI()"></div>
             </div>
             <div class="field-group">
-              <label class="field-label">LAI Score (from Assessment)</label>
-              <div class="field-hint">Your Language Access Index score (0–100)</div>
-              <div class="num-input-row"><input id="la_lai_score" type="number" class="num-input" min="0" max="100" placeholder="e.g. 43" oninput="updateClearROI()"></div>
+              <label class="field-label">Cost per Averted Readmission</label>
+              <div class="field-hint">Default: CMS average $14,500</div>
+              <div class="num-input-row"><span class="num-prefix">$</span><input id="la_readmit_cost" type="number" class="num-input" value="14500" oninput="calcLAROI()"></div>
             </div>
             <div class="field-group">
-              <label class="field-label">Investment Required</label>
-              <div class="field-hint">Estimated annual program cost</div>
-              <div class="num-input-row"><span class="num-prefix">$</span><input id="la_investment" type="number" class="num-input" placeholder="e.g. 280000" oninput="updateClearROI()"></div>
+              <label class="field-label">Annual Interpreter Investment</label>
+              <div class="field-hint">Current or projected program cost</div>
+              <div class="num-input-row"><span class="num-prefix">$</span><input id="la_investment" type="number" class="num-input" placeholder="e.g. 280000" oninput="calcLAROI()"></div>
             </div>
           </div>
-          <!-- 6-lever mini breakdown -->
-          <div style="font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">CLEAR 6-Lever Breakdown (optional — enter calibrated values)</div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;">
-            <div style="padding:8px 10px;background:#F8FAFC;border-radius:7px;border:1px solid #E2E8F0;">
-              <div style="font-size:10px;color:#64748B;margin-bottom:3px;">L1 · ED Access</div>
-              <div class="num-input-row"><span style="font-size:11px;color:#64748B;">$</span><input id="la_l1" type="number" class="num-input" style="font-size:12px;" placeholder="0" oninput="updateClearROI()"></div>
-            </div>
-            <div style="padding:8px 10px;background:#F8FAFC;border-radius:7px;border:1px solid #E2E8F0;">
-              <div style="font-size:10px;color:#64748B;margin-bottom:3px;">L2 · LOS Reduction</div>
-              <div class="num-input-row"><span style="font-size:11px;color:#64748B;">$</span><input id="la_l2" type="number" class="num-input" style="font-size:12px;" placeholder="0" oninput="updateClearROI()"></div>
-            </div>
-            <div style="padding:8px 10px;background:#F8FAFC;border-radius:7px;border:1px solid #E2E8F0;">
-              <div style="font-size:10px;color:#64748B;margin-bottom:3px;">L3 · Readmission</div>
-              <div class="num-input-row"><span style="font-size:11px;color:#64748B;">$</span><input id="la_l3" type="number" class="num-input" style="font-size:12px;" placeholder="0" oninput="updateClearROI()"></div>
-            </div>
-            <div style="padding:8px 10px;background:#F8FAFC;border-radius:7px;border:1px solid #E2E8F0;">
-              <div style="font-size:10px;color:#64748B;margin-bottom:3px;">L4 · VBP/HCAHPS</div>
-              <div class="num-input-row"><span style="font-size:11px;color:#64748B;">$</span><input id="la_l4" type="number" class="num-input" style="font-size:12px;" placeholder="0" oninput="updateClearROI()"></div>
-            </div>
-            <div style="padding:8px 10px;background:#F8FAFC;border-radius:7px;border:1px solid #E2E8F0;">
-              <div style="font-size:10px;color:#64748B;margin-bottom:3px;">L5 · State Reimb.</div>
-              <div class="num-input-row"><span style="font-size:11px;color:#64748B;">$</span><input id="la_l5" type="number" class="num-input" style="font-size:12px;" placeholder="0" oninput="updateClearROI()"></div>
-            </div>
-            <div style="padding:8px 10px;background:#F8FAFC;border-radius:7px;border:1px solid #E2E8F0;">
-              <div style="font-size:10px;color:#64748B;margin-bottom:3px;">L6 · Malpractice</div>
-              <div class="num-input-row"><span style="font-size:11px;color:#64748B;">$</span><input id="la_l6" type="number" class="num-input" style="font-size:12px;" placeholder="0" oninput="updateClearROI()"></div>
+          <div style="font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;">Evidence-Based Lever Breakdown — auto-calculated, adjust inputs to calibrate</div>
+          <div id="la-roi-levers" style="display:flex;flex-direction:column;gap:4px;margin-bottom:12px;"></div>
+          <div id="la-roi-summary" style="display:none;padding:12px 16px;background:#F5F3FF;border-radius:8px;border:1px solid #DDD6FE;">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+              <div>
+                <div style="font-size:10.5px;color:#64748B;margin-bottom:2px;">Language Access Annual Value</div>
+                <div style="font-size:22px;font-weight:900;color:#6D28D9;" id="la-roi-grand-total">$0</div>
+              </div>
+              <div style="text-align:right;font-size:11.5px;color:#64748B;line-height:2;">
+                Investment: <strong id="la-roi-invest-show" style="color:#1E293B;">—</strong><br>
+                Net Value: <strong id="la-roi-net-show">—</strong><br>
+                ROI Ratio: <strong id="la-roi-ratio-show" style="color:#047857;">—</strong>
+              </div>
             </div>
           </div>
-          <div id="clear-roi-summary" style="padding:10px 14px;background:#F3F0FF;border-radius:8px;font-size:12.5px;color:#4C1D95;font-weight:600;"></div>
         </div>
       </div>
 
@@ -1855,7 +1930,7 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
       <div class="step-eyebrow">Step 7 of 12 — Clinical Case · Module 4</div>
       <h2 class="step-title">Define your operations, vendor, and EHR integration model.</h2>
       <p class="step-desc">The operational design of your NEMT program determines its defensibility, scalability, and clinical integration. Select your vendor model, EHR workflow, and SLA structure — and generate the operational specifications for your funder application narrative.</p>
-      <button class="step-mod-badge" onclick="openModule('https://drubhattacharya.github.io/LEAP10/',null)">📖 Learn More: Module 9 — Operations &amp; Vendor Integration</button>
+      <button class="step-mod-badge" onclick="openModule('#la-tools',null)">📖 Learn More: Module 9 — Operations &amp; Vendor Integration</button>
     </div>
   </div>
 
@@ -1879,7 +1954,7 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
         <div class="lm-section-title">SLA Design for Funders</div>
         <div class="lm-text">CRA bank partners and foundation funders will ask how you ensure program quality. Your SLA should include: on-time performance threshold (≥95%), complaints resolution timeline (24-hour), cancellation policy, accessibility standards (wheelchair accessible vehicles available within same wait time), and quarterly reporting requirements. Aqueduct generates a standard SLA framework based on your vendor selection.</div>
       </div>
-      <a class="lm-deep-link" onclick="openModule('https://drubhattacharya.github.io/LEAP10/',null)" style="text-decoration:none;">📖 Open Module 4 — Full Operations Playbook →</a>
+      <a class="lm-deep-link" onclick="openModule('#la-tools',null)" style="text-decoration:none;">📖 Open Module 4 — Full Operations Playbook →</a>
     </div>
   </div>
 
@@ -2641,31 +2716,34 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
           </div>
         </div>
 
-        <!-- CLEAR / Language Access artifacts — show when LA is in portfolio -->
+        <!-- Language Access Artifacts — show when LA is in portfolio -->
         <div id="clear-artifacts-section" style="display:none;">
-          <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#7C3AED;margin:16px 0 8px;padding-top:12px;border-top:1px dashed rgba(124,58,237,.2);">🗣 Language Access Artifacts — CLEAR Platform</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#7C3AED;margin:16px 0 8px;padding-top:12px;border-top:1px dashed rgba(124,58,237,.2);">🗣 Language Access Artifacts</div>
 
-          <div class="doc-card" style="border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.03);">
+          <div class="doc-card" style="border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.02);">
             <div class="doc-icon">📊</div>
-            <div style="flex:1;"><div class="doc-title">LAI Baseline Report — Language Access Corrective Action Plan</div><div class="doc-desc">20-KPI assessment results, domain scores, maturity stage, priority gap analysis, and corrective action recommendations. Generated by CLEAR platform.</div></div>
+            <div style="flex:1;"><div class="doc-title">Language Access Baseline Report</div><div class="doc-desc">Readiness score, domain gaps, priority findings, and corrective action plan — generated from your Step 2 assessment answers.</div></div>
             <div style="display:flex;gap:6px;flex-shrink:0;">
-              <a href="https://drubhattacharya.github.io/LEAP10/" target="_blank" class="doc-btn" style="text-decoration:none;">Open CLEAR ↗</a>
+              <button class="doc-btn" style="background:#fff;border:1.5px solid var(--border2);color:var(--navy);box-shadow:none;" onclick="previewArtifact('la_baseline')">👁 Preview</button>
+              <button class="doc-btn" style="background:#7C3AED;border-color:#7C3AED;" onclick="downloadArtifactFile('la_baseline')">⬇ .docx</button>
             </div>
           </div>
 
-          <div class="doc-card" style="border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.03);">
+          <div class="doc-card" style="border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.02);">
             <div class="doc-icon">💰</div>
-            <div style="flex:1;"><div class="doc-title">Language Access Financial Strategy Brief</div><div class="doc-desc">Six ROI levers, calibrated figures, investment rationale, and payback timeline. Formatted for CFO and COO presentation.</div></div>
+            <div style="flex:1;"><div class="doc-title">Language Access Financial Case</div><div class="doc-desc">6-lever ROI model, evidence anchors, investment rationale, and payback timeline — formatted for CFO and senior leadership presentation.</div></div>
             <div style="display:flex;gap:6px;flex-shrink:0;">
-              <a href="https://drubhattacharya.github.io/LEAP10/" target="_blank" class="doc-btn" style="text-decoration:none;">Generate in CLEAR ↗</a>
+              <button class="doc-btn" style="background:#fff;border:1.5px solid var(--border2);color:var(--navy);box-shadow:none;" onclick="previewArtifact('la_financial')">👁 Preview</button>
+              <button class="doc-btn" style="background:#7C3AED;border-color:#7C3AED;" onclick="downloadArtifactFile('la_financial')">⬇ .docx</button>
             </div>
           </div>
 
-          <div class="doc-card" style="border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.03);">
+          <div class="doc-card" style="border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.02);">
             <div class="doc-icon">🗺️</div>
-            <div style="flex:1;"><div class="doc-title">Language Access Implementation Roadmap</div><div class="doc-desc">Four-component action plan with named owners, 90-day and 12-month targets, governance accountability structure, and 30-day commitment. Generated by CLEAR.</div></div>
+            <div style="flex:1;"><div class="doc-title">Language Access Implementation Roadmap</div><div class="doc-desc">Four-component action plan with named owners, 90-day and 12-month targets, governance accountability structure, and 30-day commitment — formatted for executive endorsement.</div></div>
             <div style="display:flex;gap:6px;flex-shrink:0;">
-              <a href="https://drubhattacharya.github.io/LEAP10/" target="_blank" class="doc-btn" style="text-decoration:none;">Generate in CLEAR ↗</a>
+              <button class="doc-btn" style="background:#fff;border:1.5px solid var(--border2);color:var(--navy);box-shadow:none;" onclick="previewArtifact('la_roadmap')">👁 Preview</button>
+              <button class="doc-btn" style="background:#7C3AED;border-color:#7C3AED;" onclick="downloadArtifactFile('la_roadmap')">⬇ .docx</button>
             </div>
           </div>
         </div>
@@ -2708,7 +2786,7 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
             <div style="font-size:11px;font-weight:700;color:var(--teal);">M3 Review</div>
             <div style="font-size:10px;color:var(--muted);">Engagement</div>
           </button>
-          <button onclick="openModule('https://drubhattacharya.github.io/LEAP10/',null)" style="border-radius:10px;padding:12px 8px;border:1px solid rgba(91,33,182,.2);background:var(--m4bg);cursor:pointer;font-family:var(--sans);text-align:center;">
+          <button onclick="openModule('#la-tools',null)" style="border-radius:10px;padding:12px 8px;border:1px solid rgba(91,33,182,.2);background:var(--m4bg);cursor:pointer;font-family:var(--sans);text-align:center;">
             <div style="font-size:18px;margin-bottom:5px;">⚙️</div>
             <div style="font-size:11px;font-weight:700;color:var(--purple);">M4 Review</div>
             <div style="font-size:10px;color:var(--muted);">Operations</div>
@@ -3825,7 +3903,7 @@ function renderQsSummary() {
   // Documents
   var docs = PATH_DOCS[_qsPath] || [];
   var la = _qsDomains.indexOf('language_access') > -1;
-  if (la) docs = docs.concat(['LAI Baseline Report (CLEAR)','Language Access Financial Brief','Implementation Roadmap']);
+  if (la) docs = docs.concat(['Language Access Baseline Report','Language Access Financial Brief','Implementation Roadmap']);
   var sd = document.getElementById('qs-summary-docs');
   if (sd) {
     sd.innerHTML = docs.map(function(d) {
@@ -4084,7 +4162,7 @@ function updatePathwayProfileCard() {
     const total = (pa.docs?.length||0) + clearCount;
     pa2.innerHTML = `<div style="font-size:11.5px;color:var(--navy);font-weight:700;">${total} documents will be generated</div>` +
       pa.docs.map(d => `<span style="font-size:11px;color:#475569;padding:3px 8px;background:#F1F5F9;border-radius:5px;border:1px solid #E2E8F0;">📄 ${d.label}</span>`).join('') +
-      (clearCount > 0 ? `<span style="font-size:11px;color:#7C3AED;padding:3px 8px;background:#F5F3FF;border-radius:5px;border:1px solid #DDD6FE;">📊 3 CLEAR Language Access Artifacts</span>` : '');
+      (clearCount > 0 ? `<span style="font-size:11px;color:#7C3AED;padding:3px 8px;background:#F5F3FF;border-radius:5px;border:1px solid #DDD6FE;">📊 3 Language Access Artifacts</span>` : '');
   }
 
   // Update Step 2 bridge
@@ -4124,14 +4202,14 @@ var DOMAIN_CONTEXT = {
       color:'#7C3AED', bg:'#F5F3FF', bd:'#DDD6FE',
       title:'Language Access — Regulatory & Compliance Framework',
       subtitle:'Title VI · Section 1557 · OCR enforcement · CLAS Standards',
-      link:'https://drubhattacharya.github.io/LEAP10/', linkLabel:'CLEAR Module 6 — Governance',
+      link:'#la-tools', linkLabel:'Language Access Compliance Framework',
       sections:[
         { icon:'⚖️', heading:'Title VI of Civil Rights Act (42 U.S.C. § 2000d)',
           body:'Prohibits discrimination based on national origin by any entity receiving federal financial assistance. As a Medicare/Medicaid provider, your hospital is a covered entity. Language barriers that impede access to care constitute national-origin discrimination. Title VI is a compliance floor — not a community benefit ceiling — making language access both a legal obligation AND a fundable community benefit program.' },
         { icon:'🏥', heading:'Section 1557 of the ACA — Nondiscrimination in Health Programs',
           body:'Extends Title VI obligations specifically to health programs. Requires: (1) notices of nondiscrimination in 15 languages prevalent in the service area, (2) taglines in those languages, (3) language assistance at no cost to patients, (4) qualified interpreter availability. OCR enforces through complaint investigations; enforcement actions include mandatory Corrective Action Plans and civil monetary penalties.' },
         { icon:'📋', heading:'CLAS Standards (HHS Office of Minority Health, 2013)',
-          body:'15 National Standards for Culturally and Linguistically Appropriate Services. Principal Standard 1: provide effective, equitable, understandable, and respectful quality care responsive to diverse cultural health beliefs. Standards 5–8 specifically address language access: offer language assistance, provide verbal offers and written notices in preferred language, ensure interpreter competency, provide accessible materials. Your CLEAR LAI score is a direct measure of CLAS Standards compliance readiness.' },
+          body:'15 National Standards for Culturally and Linguistically Appropriate Services. Principal Standard 1: provide effective, equitable, understandable, and respectful quality care responsive to diverse cultural health beliefs. Standards 5–8 specifically address language access: offer language assistance, provide verbal offers and written notices in preferred language, ensure interpreter competency, provide accessible materials. Your Language Access Readiness Score is a direct measure of CLAS Standards compliance readiness.' },
         { icon:'⚠️', heading:'OCR Enforcement & Malpractice Risk',
           body:'OCR investigations can result in mandatory system-wide corrective action plans. Separately: CRICO Strategies data shows language-barrier claims generate approximately 7× the severity concentration of general malpractice claims. Average defense cost: $118K per incident regardless of outcome (NHeLP 2010). Unlike NEMT where AKS Safe Harbor analysis is the primary compliance gate, language access programs actually reduce AKS risk because interpreter services are a legally mandated obligation, not discretionary remuneration.' },
       ]
@@ -4142,16 +4220,16 @@ var DOMAIN_CONTEXT = {
       color:'#7C3AED', bg:'#F5F3FF', bd:'#DDD6FE',
       title:'Language Access — Accreditation & Quality Standards',
       subtitle:'TJC RC.02.01.01 · TJC PC.02.01.21 · HCAHPS Communication · NCQA MHC',
-      link:'https://drubhattacharya.github.io/LEAP10/', linkLabel:'CLEAR Module 6 — Governance',
+      link:'#la-tools', linkLabel:'Language Access Compliance Framework',
       sections:[
         { icon:'🏛️', heading:'TJC RC.02.01.01 — Communication in Patient\'s Preferred Language',
           body:'The Joint Commission requires hospitals to identify patients\' preferred language for discussing health care and to address those needs throughout the care episode. This standard is directly surveyable — TJC surveyors will ask whether LEP patients received qualified interpreter services and whether services were documented in the medical record. Non-compliance is an accreditation finding.' },
         { icon:'🏛️', heading:'TJC PC.02.01.21 — Patient Right to Interpretation & Communication Aids',
           body:'Patients have an explicit right to interpretive services under TJC standards. The hospital must communicate with patients who speak a different language. This standard creates a direct link between the language access program and TJC accreditation maintenance — it is not a best-practice recommendation, it is a surveyable standard.' },
         { icon:'📊', heading:'HCAHPS Communication Domain — VBP Financial Impact',
-          body:'LEP patients consistently score 8–12 percentage points lower than English-proficient patients on HCAHPS communication domain questions. Under CMS Value-Based Purchasing, HCAHPS accounts for 25% of the Total Performance Score. Closing the LEP communication gap directly improves VBP reimbursement. The CLEAR ROI model\'s VBP lever quantifies this gap in dollars for your specific payer mix and LEP population share.' },
+          body:'LEP patients consistently score 8–12 percentage points lower than English-proficient patients on HCAHPS communication domain questions. Under CMS Value-Based Purchasing, HCAHPS accounts for 25% of the Total Performance Score. Closing the LEP communication gap directly improves VBP reimbursement. The Language Access ROI model\'s VBP lever quantifies this gap in dollars for your specific payer mix and LEP population share.' },
         { icon:'✅', heading:'NCQA Multicultural Health Care (MHC) Standards',
-          body:'NCQA\'s 2024 MHC standards require collection of race, ethnicity, and language (REaL) data, stratification of HEDIS measures by race/ethnicity, and CLAS-aligned services. Your Language Access Index (LAI) 3-tier assessment score at CLEAR Phase 1 directly maps to NCQA MHC readiness — making the LAI an accreditation readiness instrument as well as a community benefit baseline.' },
+          body:'NCQA\'s 2024 MHC standards require collection of race, ethnicity, and language (REaL) data, stratification of HEDIS measures by race/ethnicity, and CLAS-aligned services. Your Language Access Readiness Score directly maps to NCQA MHC standards — making it both an accreditation readiness instrument and a community benefit baseline.' },
       ]
     }
   },
@@ -4160,7 +4238,7 @@ var DOMAIN_CONTEXT = {
       color:'#7C3AED', bg:'#F5F3FF', bd:'#DDD6FE',
       title:'Language Access — 6-Lever ROI Model',
       subtitle:'Time to ROI: 1 month (fastest of all 5 domains) · Karliner 2017: $161K savings/month · 4.6:1 ROI ratio',
-      link:'https://drubhattacharya.github.io/LEAP10/roi-simulator.html', linkLabel:'Open CLEAR ROI Simulator',
+      link:'#la-tools', linkLabel:'View ROI Model Below',
       callout: true,
       sections:[
         { icon:'🏥', heading:'Lever 1 — ED Admission Avoidance + Return Visits + Stroke',
@@ -4170,7 +4248,7 @@ var DOMAIN_CONTEXT = {
         { icon:'🔄', heading:'Lever 3 — Teach-Back Readmission Avoidance',
           body:'Hong et al. (2019): discharge teach-back with professional interpretation yields HR 0.77 — 23% lower condition-related readmission for LEP patients. Karliner et al. (2017, Medical Care): 119 readmissions averted in 8 months following bedside interpreter phone deployment = $161,404/month in net savings. This is the most directly evidenced lever with the largest published dollar figure.' },
         { icon:'💰', heading:'Levers 4–6 — VBP / HCAHPS, State Medicaid Reimbursement, Malpractice',
-          body:'Lever 4: HCAHPS LEP communication gap reduces VBP performance score — quantifiable per your payer mix. Lever 5: 14 states offer Medicaid interpreter reimbursement (rates from $1.10–$2.00/minute OPI up to state-specific structures). Lever 6: malpractice cost avoidance — CRICO data: 7× severity concentration for language-barrier claims; $118K average defense cost regardless of outcome. Open the CLEAR ROI Simulator to calibrate all 6 levers with your actual encounter volume and costs.' },
+          body:'Lever 4: HCAHPS LEP communication gap reduces VBP performance score — quantifiable per your payer mix. Lever 5: 14 states offer Medicaid interpreter reimbursement (rates from $1.10–$2.00/minute OPI up to state-specific structures). Lever 6: malpractice cost avoidance — CRICO data: 7× severity concentration for language-barrier claims; $118K average defense cost regardless of outcome. Open the Language Access ROI Calculator to calibrate all 6 levers with your actual encounter volume and costs.' },
       ]
     }
   },
@@ -4178,17 +4256,17 @@ var DOMAIN_CONTEXT = {
     language_access: {
       color:'#7C3AED', bg:'#F5F3FF', bd:'#DDD6FE',
       title:'Language Access — Patient Engagement & Interpreter Deployment Protocol',
-      subtitle:'Preferred language documentation · Interpreter dispatch workflow · CLEAR Module 4',
-      link:'https://drubhattacharya.github.io/LEAP10/', linkLabel:'CLEAR Module 4 — Discharge & Comprehension',
+      subtitle:'Preferred language documentation · Interpreter dispatch workflow · Evidence-based',
+      link:'#la-tools', linkLabel:'Language Access — Discharge & Comprehension',
       sections:[
         { icon:'📋', heading:'Preferred Language Documentation — The Structural Prerequisite',
-          body:'The highest-impact language access engagement intervention is not training — it is a hard-stop EHR field requiring preferred language documentation at registration. Without this, interpreter dispatch cannot be systematic. Target: ≥95% of patients with preferred language documented before any clinical encounter. CLEAR Module 6 documents that only 2.3% of health systems achieve all-complete documentation compliance — this is the accountability gap.' },
+          body:'The highest-impact language access engagement intervention is not training — it is a hard-stop EHR field requiring preferred language documentation at registration. Without this, interpreter dispatch cannot be systematic. Target: ≥95% of patients with preferred language documented before any clinical encounter. Evidence shows that only 2.3% of health systems achieve all-complete documentation compliance — this is the accountability gap.' },
         { icon:'🔔', heading:'Interpreter Dispatch — Embedding the Trigger',
-          body:'CLEAR Module 1 finding from 1,000 LEP encounters: interpreter delay concentrates in OB and advanced maternal care because the interpreter request trigger is not embedded in the triage workflow. The structural fix is a required interpreter dispatch field in the ED triage and OB triage EHR workflows — not a policy document, not staff training. Technology without workflow redesign does not reduce delay.' },
+          body:'Published evidence from 1,000 LEP patient encounter analyses: interpreter delay concentrates in OB and advanced maternal care because the interpreter request trigger is not embedded in the triage workflow. The structural fix is a required interpreter dispatch field in the ED triage and OB triage EHR workflows — not a policy document, not staff training. Technology without workflow redesign does not reduce delay.' },
         { icon:'📱', heading:'Technology Model — Tiered Approach',
           body:'OPI (Over-Phone Interpretation): immediate; lowest cost; appropriate for intake and brief interactions. VRI (Video Remote Interpreting): near-real-time; works at bedside; requires device. In-person: highest quality for complex clinical conversations; requires advance scheduling. A complete program uses all three in a tiered model — acuity and complexity determine the mode.' },
         { icon:'📊', heading:'Engagement Outcome Metrics',
-          body:'% interpreted encounters, interpreter response time, patient preferred-language satisfaction (stratify HCAHPS by language), documentation completeness rate. These feed the CLEAR LAI 20-KPI assessment and the VBP lever calculation. CLEAR Module 6 governance section defines the accountability structure for maintaining these metrics.' },
+          body:'% interpreted encounters, interpreter response time, patient preferred-language satisfaction (stratify HCAHPS by language), documentation completeness rate. These feed the Language Access Readiness Assessment and the VBP lever calculation. The governance framework defines the accountability structure for maintaining these metrics.' },
       ]
     }
   },
@@ -4197,16 +4275,16 @@ var DOMAIN_CONTEXT = {
       color:'#7C3AED', bg:'#F5F3FF', bd:'#DDD6FE',
       title:'Language Access — Interpreter Services Operations & Vendor Structure',
       subtitle:'VRI/OPI/in-person model · BAA requirements · $279/LEP patient/year benchmark',
-      link:'https://drubhattacharya.github.io/LEAP10/', linkLabel:'CLEAR Phase 4 — Implementation Roadmap',
+      link:'#la-tools', linkLabel:'Language Access Implementation Roadmap',
       sections:[
         { icon:'🔧', heading:'Interpreter Service Vendor Categories',
           body:'Language Service Organizations (LSOs) — full-service; provide in-person, VRI, and OPI (Language Line, GLOBO, Stratus Video). VRI-specialized platforms — Voyce, InDemand Interpreting — hospital-grade video with clinical workflow integration. Community-based interpreter programs — appropriate for outreach, not clinical encounters. For clinical encounters: HIPAA BAA required, medical interpreter certification (CMI or CHI), language coverage documentation for your top 10 LEP languages by volume.' },
         { icon:'📊', heading:'Cost Structure & Benchmarks',
-          body:'OPI: $1.10–$1.80/minute; typical encounter 8–12 minutes = $9–$22/encounter. VRI: $1.25–$2.00/minute plus device cost ($600–$900/unit). In-person: $45–$100/hour with 2-hour minimum. Program annual cost benchmark: $279/LEP patient/year (Jacobs 2004, AJPH) — this is the Aqueduct evidence database figure and the investment basis for the CLEAR ROI model. At 4,500 annual LEP encounters, all-in program cost ≈ $280,000–$320,000/year.' },
+          body:'OPI: $1.10–$1.80/minute; typical encounter 8–12 minutes = $9–$22/encounter. VRI: $1.25–$2.00/minute plus device cost ($600–$900/unit). In-person: $45–$100/hour with 2-hour minimum. Program annual cost benchmark: $279/LEP patient/year (Jacobs 2004, AJPH) — this is the Aqueduct evidence database figure and the investment basis for the Language Access ROI model. At 4,500 annual LEP encounters, all-in program cost ≈ $280,000–$320,000/year.' },
         { icon:'📋', heading:'HIPAA & Compliance Requirements for Interpreter Vendors',
           body:'Interpreter interactions involve PHI. Requirements: (1) Business Associate Agreement (BAA) with all interpreter vendors; (2) HIPAA training attestation for all interpreters; (3) Prohibition on using family members or unqualified staff as interpreters for clinical decisions — documented in TJC standards and OCR guidance; (4) Documentation of each interpreted encounter in the medical record including interpreter type, language, and duration.' },
         { icon:'📈', heading:'Operational KPIs',
-          body:'% encounters with documented preferred language; % LEP encounters with qualified interpreter; OPI/VRI average response time; LEP patient HCAHPS communication score vs. English-proficient baseline; documentation completeness rate. These are the metrics that feed the CLEAR LAI 20-KPI assessment and the 6-lever ROI simulator — connecting your operational reality to your funder application financial narrative.' },
+          body:'% encounters with documented preferred language; % LEP encounters with qualified interpreter; OPI/VRI average response time; LEP patient HCAHPS communication score vs. English-proficient baseline; documentation completeness rate. These are the metrics that feed the Language Access Readiness Assessment and the 6-lever ROI simulator — connecting your operational reality to your funder application financial narrative.' },
       ]
     }
   }
@@ -4313,7 +4391,7 @@ window.initRoiDomainBanner = function() {
   if (bridge) bridge.style.display = domains.includes('language_access') ? 'block' : 'none';
 }
 
-/* ── CLEAR ROI BRIDGE ─────────────────────────────────────────────────── */
+/* ── LANGUAGE ACCESS ROI ENGINE ─────────────────────────────────────────────────── */
 window._clearROI = { total: 0, investment: 0, laiScore: null };
 
 window.updateClearROI = function() {
@@ -4338,7 +4416,7 @@ window.updateClearROI = function() {
   if (summary) {
     summary.innerHTML = effectiveTotal > 0
       ? `✓ Language Access annual value: <strong>${fmt(effectiveTotal)}</strong> · Investment: ${fmt(invest)} · Net: <strong style="color:${net>=0?'#047857':'#B91C1C'}">${fmt(net)}</strong> · ROI: ${roi}%${lai ? ` · LAI Score: ${lai}/100` : ''}`
-      : 'Enter your CLEAR ROI Simulator total above, or open the simulator to calibrate with your data.';
+      : 'Enter your Language Access ROI Calculator total above, or open the simulator to calibrate with your data.';
   }
 
   // Feed into the combined portfolio total
@@ -5142,9 +5220,9 @@ window.SDOH_EVIDENCE_DB = {
       state_reimb:  { label:'State Medicaid Interpreter Reimbursement', citation:'State-specific — 14 states' },
       malpractice:  { label:'Malpractice Cost Avoidance', citation:'CRICO Strategies — 7× severity concentration' },
     },
-    clear_platform_url:   'https://drubhattacharya.github.io/LEAP10/',
-    lai_assessment_url:   'https://drubhattacharya.github.io/LEAP10/language_access_index.html',
-    roi_simulator_url:    'https://drubhattacharya.github.io/LEAP10/roi-simulator.html',
+    clear_platform_url:   '#la-tools',
+    lai_assessment_url:   '#la-tools',
+    roi_simulator_url:    '#la-tools',
     null_calibration_rr:  1.92,
     compliance_driver:    'Title VI Civil Rights Act (legally mandated); IRS 501(r) FAP accessibility; Schedule H 7e/7g; OCR settlement risk',
     description:          'Professional interpreter services, multilingual patient education, and culturally competent care coordination for LEP patients. 6-lever ROI model with 1,000-encounter evidence base. Fastest time-to-ROI of all 5 domains.',
@@ -7317,6 +7395,290 @@ function loadDocxLib() {
   _docxLoadPromise = tryLoad(URLS);
   return _docxLoadPromise;
 }
+/* ═══════════════════════════════════════════════════════════════════════
+   LANGUAGE ACCESS — SCORING · ROI · ARTIFACT GENERATORS
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Readiness Score ─────────────────────────────────────────────────── */
+window.calcLAScore = function(showResult) {
+  const q = id => parseInt((document.getElementById(id)||{value:'0'}).value)||0;
+  const score = q('la_q1')+q('la_q2')+q('la_q3')+q('la_q4')+q('la_q5')+q('la_q6')+q('la_q7')+q('la_q8');
+  window._laScore = score;
+  const badge = document.getElementById('la-score-badge');
+  const num   = document.getElementById('la-score-num');
+  if (badge) badge.style.display = 'block';
+  if (num)   num.textContent = score;
+  if (!showResult) return;
+  const TIERS = [
+    { max:6,  label:'Initial / High Risk',  color:'#B91C1C',
+      head:'Significant gaps — active compliance risk.',
+      body:'Structural gaps in interpreter delivery, documentation, and financial tracking. Creates OCR complaint exposure, TJC survey risk, and quantifiable losses in LOS, readmissions, and malpractice.',
+      gap:'Priority: Establish OPI+VRI delivery and preferred language hard-stop in EHR registration — these two structural changes have the highest impact.' },
+    { max:11, label:'Developing',            color:'#B45309',
+      head:'Foundation in place — documentation and tracking gaps remain.',
+      body:'Basic interpreter services exist but documentation completeness, response times, and outcome stratification lag. The financial case for closing these gaps is strongest in LOS reduction and readmission avoidance.',
+      gap:'Priority: Embed interpreter request trigger in ED triage workflow and begin tracking LEP vs. non-LEP readmission rates separately.' },
+    { max:16, label:'Established',           color:'#1D4ED8',
+      head:'Strong infrastructure — optimization opportunities available.',
+      body:'Interpreter delivery and compliance infrastructure are solid. Remaining gaps are in outcome stratification and financial tracking precision, which limit accurate ROI quantification for funder applications.',
+      gap:'Priority: Stratify HCAHPS scores by preferred language and document the LEP communication domain gap — this activates the VBP lever in the ROI model.' },
+    { max:21, label:'Optimized',             color:'#047857',
+      head:'Best-in-class language access infrastructure.',
+      body:'Comprehensive language access with strong compliance, clinical quality, and financial tracking. Focus on sustaining performance and leveraging data to support the financial case for continued investment.',
+      gap:'Strength: Your data supports a strong financial case across all 5 ROI levers.' },
+  ];
+  const tier = TIERS.find(t => score <= t.max) || TIERS[3];
+  const setEl = (id, val, color) => { const el = document.getElementById(id); if (el) { el.textContent = val; if (color) el.style.color = color; } };
+  setEl('la-score-display', score);
+  setEl('la-tier-label', tier.label, tier.color);
+  setEl('la-score-headline', tier.head);
+  setEl('la-score-detail', tier.body);
+  setEl('la-priority-gap', tier.gap);
+  const res = document.getElementById('la-score-result');
+  if (res) res.style.display = 'block';
+  window._laBaseline = { score, tier: tier.label,
+    q1:q('la_q1'), q2:q('la_q2'), q3:q('la_q3'), q4:q('la_q4'),
+    q5:q('la_q5'), q6:q('la_q6'), q7:q('la_q7'), q8:q('la_q8') };
+  if (typeof showToast === 'function') showToast('✓ Language Access Readiness: '+score+'/21 — '+tier.label);
+};
+
+/* ── 6-Lever ROI Calculator ──────────────────────────────────────────── */
+window.calcLAROI = function() {
+  const num = id => parseFloat((document.getElementById(id)||{value:0}).value)||0;
+  const n    = num('la_lep_encounters') || 4500;
+  const bday = num('la_bed_day')        || 2100;
+  const rcst = num('la_readmit_cost')   || 14500;
+  const inv  = num('la_investment');
+  const fmt  = v => '$' + Math.round(v).toLocaleString();
+  // Evidence-based lever formulas (conservative midpoints)
+  const l1 = n * 0.15 * 0.09 * 0.40 * 0.60 * 11000;   // ED access (Schulson 2018)
+  const l2 = n * 0.20 * 1.0  * 0.60 * bday;            // LOS (Lindholm 2012)
+  const l3 = n * 0.20 * 0.178 * 0.23 * 0.60 * rcst;    // Readmission (Hong 2019 / Karliner 2017)
+  const l4 = n * 0.002 * 4200;                          // VBP/HCAHPS communication gap
+  const l5 = n * 0.015 * 0.40 * 118000 * 0.08;         // Malpractice (CRICO)
+  const total = l1+l2+l3+l4+l5;
+  const net   = total - inv;
+  const roi   = inv > 0 ? (net/inv*100).toFixed(0) : null;
+  const LEVERS = [
+    { label:'L1 · ED Admission Avoidance + Returns', cite:'Schulson 2018 JGIM (OR 1.09)', val:l1, color:'#1D4ED8' },
+    { label:'L2 · Inpatient LOS Reduction',          cite:'Lindholm 2012 (+1.0 day/encounter)', val:l2, color:'#7C3AED' },
+    { label:'L3 · Readmission Avoidance',            cite:'Hong 2019 HR 0.77 · Karliner 2017', val:l3, color:'#B45309' },
+    { label:'L4 · VBP / HCAHPS Communication',       cite:'LEP 8pp gap → VBP score', val:l4, color:'#0A6B62' },
+    { label:'L5 · Malpractice Cost Avoidance',       cite:'CRICO: 7× severity concentration', val:l5, color:'#047857' },
+  ];
+  const maxVal = Math.max(...LEVERS.map(l => l.val), 1);
+  const container = document.getElementById('la-roi-levers');
+  if (container) {
+    container.innerHTML = LEVERS.map(lv => {
+      const pct = Math.min(100,(lv.val/maxVal)*100).toFixed(1);
+      return `<div style="display:flex;align-items:center;gap:8px;padding:3px 0;">
+        <div style="width:190px;flex-shrink:0;">
+          <div style="font-size:11px;font-weight:700;color:#1E293B;">${lv.label}</div>
+          <div style="font-size:9.5px;color:#94A3B8;">${lv.cite}</div>
+        </div>
+        <div style="flex:1;height:24px;background:#F1F5F9;border-radius:4px;overflow:hidden;">
+          <div style="height:100%;width:${pct}%;background:${lv.color};border-radius:4px;transition:width .4s;"></div>
+        </div>
+        <div style="width:80px;text-align:right;font-size:11.5px;font-weight:800;color:${lv.color};">${fmt(lv.val)}</div>
+      </div>`;
+    }).join('');
+  }
+  const summ = document.getElementById('la-roi-summary');
+  if (summ) {
+    summ.style.display = 'block';
+    const set = (id, v, c) => { const el = document.getElementById(id); if (el){ el.textContent=v; if(c) el.style.color=c; } };
+    set('la-roi-grand-total', fmt(total), null);
+    set('la-roi-invest-show', inv>0 ? fmt(inv) : 'Not entered', null);
+    set('la-roi-net-show', inv>0 ? fmt(net) : '—', net>=0?'#047857':'#B91C1C');
+    set('la-roi-ratio-show', roi ? roi+'% ('+(net/inv).toFixed(1)+':1)' : '—', null);
+  }
+  const badge = document.getElementById('la-roi-total-badge');
+  const bnum  = document.getElementById('la-roi-badge-num');
+  if (badge) badge.style.display = 'block';
+  if (bnum)  bnum.textContent = fmt(total);
+  window._clearROI = { total, investment:inv, net, roi, l1, l2, l3, l4, l5, encounters:n };
+  if (typeof updatePortfolioTotal === 'function') updatePortfolioTotal();
+};
+
+/* ── LA Artifact Generators (extend downloadArtifactFile) ───────────── */
+(function() {
+  const _origDAF = window.downloadArtifactFile;
+  window.downloadArtifactFile = async function(type) {
+    if (!['la_baseline','la_financial','la_roadmap'].includes(type)) {
+      return _origDAF ? _origDAF(type) : null;
+    }
+    if (typeof showToast === 'function') showToast('Building Language Access document…');
+    try {
+      const lib = await loadDocxLib();
+      const { Document, Packer, Paragraph, TextRun, AlignmentType, BorderStyle } = lib;
+      const org = orgName(), loc = orgLoc(), td = today();
+      const sc  = window._laBaseline || {};
+      const roi = window._clearROI   || {};
+      const fmt = n => '$' + Math.round(n||0).toLocaleString();
+      const enc = (roi.encounters || 4500).toLocaleString();
+      const SCORE = sc.score !== undefined ? `${sc.score}/21 — ${sc.tier||''}` : 'Assessment not completed';
+      const COVER = t => new Paragraph({ alignment:AlignmentType.CENTER, spacing:{after:80}, children:[new TextRun({text:t,bold:true,size:30,font:'Calibri',color:'001533'})] });
+      const CSUB  = t => new Paragraph({ alignment:AlignmentType.CENTER, spacing:{after:60}, children:[new TextRun({text:t,size:22,font:'Calibri',color:'374151'})] });
+      const H1    = t => new Paragraph({ spacing:{before:280,after:80}, border:{bottom:{style:BorderStyle.SINGLE,size:6,color:'C9A227',space:3}}, children:[new TextRun({text:t,bold:true,size:22,font:'Calibri',color:'001533'})] });
+      const H2    = t => new Paragraph({ spacing:{before:180,after:60}, children:[new TextRun({text:t,bold:true,size:20,font:'Calibri',color:'1F4E79'})] });
+      const P     = t => new Paragraph({ spacing:{after:90}, children:[new TextRun({text:t,size:20,font:'Calibri'})] });
+      const B     = t => new Paragraph({ bullet:{level:0}, spacing:{after:60}, children:[new TextRun({text:t,size:20,font:'Calibri'})] });
+      const KV    = (k,v) => new Paragraph({ spacing:{after:60}, children:[new TextRun({text:k+':  ',bold:true,size:20,font:'Calibri'}),new TextRun({text:v,size:20,font:'Calibri'})] });
+      const HR    = () => new Paragraph({ border:{bottom:{style:BorderStyle.SINGLE,size:4,color:'D1D5DB'}}, spacing:{before:60,after:100}, children:[new TextRun({text:' '})] });
+      const SP    = () => new Paragraph({ spacing:{after:60}, children:[new TextRun({text:''})] });
+      const TIER_OPTS = ['Initial / High Risk','Developing','Established','Optimized'];
+      const Q_OPTS = {
+        q1:['<20%','20–50%','50–80%','80–95%','95–100% (target)'],
+        q2:['Ad hoc/family','OPI only','OPI + VRI','OPI + VRI + In-person'],
+        q3:['Not tracked','>15 min','5–15 min','<5 min'],
+        q4:['Rarely/never','Sometimes','Usually','Always (documented)'],
+        q5:['No','Partially','Yes — all vendors'],
+        q6:['Yes — active/resolved','No / Don\'t know'],
+        q7:['No tracking','Rough estimate','Detailed by service line'],
+        q8:['None','Basic (readmission)','Full (readmission + LOS + HCAHPS)'],
+      };
+      const qv = k => Q_OPTS[k]?.[sc[k]||0] || '—';
+      let children;
+      if (type === 'la_baseline') {
+        children = [
+          COVER('LANGUAGE ACCESS BASELINE REPORT'),
+          CSUB(org+' · '+loc),
+          CSUB('Readiness Assessment & Corrective Action Plan'),
+          new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:200},children:[new TextRun({text:'Generated: '+td+' · Aqueduct Platform',size:18,font:'Calibri',color:'94A3B8'})]}),
+          HR(),
+          H1('I. READINESS SCORE'),
+          KV('Organization',org), KV('Location',loc), KV('Readiness Score',SCORE),
+          KV('Annual LEP Encounters',enc+' encounters/year'), SP(),
+          H1('II. DOMAIN ASSESSMENT'),
+          H2('Domain 1 — Documentation & Access'),
+          KV('Preferred Language EHR Documentation',qv('q1')),
+          KV('Interpreter Delivery Model',qv('q2')),
+          H2('Domain 2 — Clinical Quality'),
+          KV('Interpreter Response Time',qv('q3')),
+          KV('LEP Discharge Instructions',qv('q4')),
+          H2('Domain 3 — Compliance Infrastructure'),
+          KV('HIPAA BAA — Interpreter Vendors',qv('q5')),
+          KV('OCR Complaint (last 3 years)',qv('q6')),
+          H2('Domain 4 — Financial Tracking'),
+          KV('Interpreter Cost Tracking',qv('q7')),
+          KV('LEP vs. Non-LEP Outcome Stratification',qv('q8')), SP(),
+          H1('III. CORRECTIVE ACTION PLAN'),
+          P('Prioritized by expected impact on outcomes, compliance risk reduction, and ROI realization:'),
+          ...((sc.q1||0)<3?[B('Preferred Language Documentation: Implement EHR hard-stop at registration. Target ≥95% completion within 90 days.')]:[]),
+          ...((sc.q2||0)<2?[B('Interpreter Delivery Model: Deploy OPI + VRI in parallel. Procure vendor and execute HIPAA BAA within 30 days.')]:[]),
+          ...((sc.q3||0)<2?[B('Interpreter Response Time: Embed interpreter dispatch trigger in ED and OB triage EHR workflows.')]:[]),
+          ...((sc.q4||0)<2?[B('Discharge Instructions: Implement language-concordant discharge protocol — written + verbal in preferred language.')]:[]),
+          ...((sc.q5||0)<2?[B('HIPAA BAA: Audit all interpreter vendor contracts. Suspend any vendor without current BAA immediately.')]:[]),
+          ...((sc.q7||0)<1?[B('Cost Tracking: Establish interpreter cost center with monthly reporting by service line.')]:[]),
+          ...((sc.q8||0)<1?[B('Outcome Stratification: Begin tracking readmission and LOS separately for LEP vs. non-LEP patients.')]:[]),
+          SP(), H1('IV. REGULATORY CONTEXT'),
+          P('This assessment reflects obligations under Title VI (42 U.S.C. § 2000d), Section 1557 of the ACA, TJC standards RC.02.01.01 and PC.02.01.21, and the HHS CLAS Standards (2013). CRICO Strategies data: language-barrier claims generate 7× the severity of general malpractice claims; average defense cost $118,000 per incident regardless of outcome.'),
+          SP(), P('Generated by Aqueduct Community Benefit Optimization Platform · '+td),
+        ];
+      } else if (type === 'la_financial') {
+        children = [
+          COVER('LANGUAGE ACCESS FINANCIAL CASE'),
+          CSUB('5-Lever ROI Analysis for Senior Leadership'),
+          CSUB(org+' · '+loc),
+          new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:200},children:[new TextRun({text:'Generated: '+td+' · Aqueduct Platform',size:18,font:'Calibri',color:'94A3B8'})]}),
+          HR(),
+          H1('I. EXECUTIVE SUMMARY'),
+          P('Language access is simultaneously a legal compliance obligation (Title VI, Section 1557 ACA), an accreditation requirement (TJC RC.02.01.01), and a quantifiable financial opportunity. This analysis documents the annual value of professional interpreter services for '+org+' using a conservative 5-lever model grounded in peer-reviewed evidence.'),
+          KV('Readiness Score',SCORE), KV('Annual LEP Encounters',enc),
+          KV('Total Annual Program Value',fmt(roi.total||0)),
+          KV('Program Investment',roi.investment>0?fmt(roi.investment):'To be determined'),
+          KV('Net Annual Value',roi.investment>0?fmt(roi.net||0):'Pending investment figure'),
+          KV('ROI Ratio',roi.roi?roi.roi+'% ('+(((roi.net||0)/(roi.investment||1)).toFixed(1))+':1)':'Pending investment figure'),
+          KV('Time to ROI','1 month (fastest of all 5 SDoH intervention domains)'), SP(),
+          H1('II. 5-LEVER ROI MODEL'),
+          H2('Lever 1 — ED Admission Avoidance + Return Visits'),
+          P('Schulson et al. (2018, JGIM): LEP patients OR 1.09 for ED admission. 79.2% of LEP 48-hour returns are same chief complaint vs. 14.5% English-proficient. Conservative estimate assumes 40% reduction with professional interpretation, 60% attribution.'),
+          KV('Annual estimate',fmt(roi.l1||0)),
+          H2('Lever 2 — Inpatient LOS Reduction'),
+          P('Lindholm et al. (2012): LEP patients average +0.75–1.47 additional inpatient days without professional interpretation. Conservative default: 1.0 day. 60% attribution applied.'),
+          KV('Annual estimate',fmt(roi.l2||0)),
+          H2('Lever 3 — Readmission Avoidance (Teach-Back)'),
+          P('Hong et al. (2019): HR 0.77 — 23% lower condition-related readmission with professional interpretation. Karliner et al. (2017): 119 readmissions averted over 8 months = $161,404/month net savings.'),
+          KV('Annual estimate',fmt(roi.l3||0)),
+          H2('Lever 4 — VBP / HCAHPS Communication Domain'),
+          P('LEP patients score 8–12pp lower on HCAHPS communication domains. HCAHPS represents 25% of CMS VBP Total Performance Score. Closing the gap improves VBP reimbursement directly.'),
+          KV('Annual estimate',fmt(roi.l4||0)),
+          H2('Lever 5 — Malpractice Cost Avoidance'),
+          P('CRICO Strategies: language-barrier claims generate 7× the severity concentration of general malpractice claims. Average defense cost $118,000 per incident regardless of outcome (NHeLP 2010).'),
+          KV('Annual estimate',fmt(roi.l5||0)),
+          HR(), KV('TOTAL ANNUAL VALUE',fmt(roi.total||0)),
+          KV('Investment benchmark','$279 × LEP encounters (Jacobs 2004 AJPH) = '+fmt((roi.encounters||4500)*279)), SP(),
+          H1('III. INVESTMENT & SUSTAINABILITY'),
+          P('Language access programs are cost-saving in Year 1 at conservative estimates. Internal reallocation of prevented LOS costs alone typically covers interpreter service investment. The program sustains itself through prevented losses rather than requiring ongoing grant support.'),
+          SP(), P('Generated by Aqueduct Community Benefit Optimization Platform · '+td),
+        ];
+      } else { // la_roadmap
+        children = [
+          COVER('LANGUAGE ACCESS IMPLEMENTATION ROADMAP'),
+          CSUB('Four-Component Action Plan — 30-Day, 90-Day & 12-Month Targets'),
+          CSUB(org+' · '+loc),
+          new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:200},children:[new TextRun({text:'Generated: '+td+' · Aqueduct Platform',size:18,font:'Calibri',color:'94A3B8'})]}),
+          HR(),
+          H1('I. PROGRAM CONFIGURATION'),
+          KV('Readiness Score',SCORE), KV('Annual LEP Encounters',enc),
+          KV('Annual Program Value',fmt(roi.total||0)),
+          KV('Financing Pathway',(window.PATHWAY_ARTIFACTS?.[window._funderMode||'internal']?.label)||'Internal Capital / Community Benefit'), SP(),
+          H1('II. COMPONENT 1 — EHR & WORKFLOW INFRASTRUCTURE (Days 1–30)'),
+          P('The highest-impact intervention is structural — not programmatic. EHR workflow redesign makes interpreter dispatch systematic rather than dependent on staff discretion.'),
+          B('Implement hard-stop preferred language field at registration — required before encounter creation'),
+          B('Add interpreter request trigger to ED triage EHR workflow — removes reliance on staff awareness'),
+          B('Add interpreter request trigger to OB triage workflow — evidence shows greatest delay concentration here'),
+          KV('30-day target','≥95% of registrations with preferred language documented'),
+          KV('Owner','[EHR Analyst / IT Lead — assign name]'), SP(),
+          H1('III. COMPONENT 2 — INTERPRETER SERVICE DEPLOYMENT (Days 30–90)'),
+          P('A tiered delivery model uses the right mode for the right clinical context.'),
+          B('Procure OPI vendor — execute HIPAA BAA before go-live'),
+          B('Deploy VRI in ED, OB, and top 3 LEP-volume inpatient service lines'),
+          B('Establish in-person interpreter scheduling for surgical consents, end-of-life, complex diagnoses'),
+          B('Complete HIPAA BAA audit — all vendors must have current BAA'),
+          KV('90-day target','OPI + VRI available 24/7; in-person for scheduled high-acuity encounters'),
+          KV('Owner','[VP Patient Experience / CNO — assign name]'), SP(),
+          H1('IV. COMPONENT 3 — CLINICAL QUALITY PROTOCOLS (Days 60–90)'),
+          B('Implement language-concordant discharge instruction protocol — written + verbal in preferred language'),
+          B('Train care coordinators on Teach-Back for LEP patients — drives 23% readmission reduction (Hong 2019)'),
+          B('Begin tracking LEP vs. non-LEP 30-day readmission rates — essential for ROI documentation'),
+          B('Begin tracking LEP vs. non-LEP LOS differentials by service line'),
+          KV('90-day target','Discharge teach-back operational in top 3 service lines; outcome tracking initiated'), SP(),
+          H1('V. COMPONENT 4 — GOVERNANCE & FINANCIAL ACCOUNTABILITY (Days 1–90)'),
+          B('Designate Language Access Coordinator (0.5 FTE minimum) — named owner for all four components'),
+          B('Establish monthly Language Access Dashboard — % documented, response times, cost, HCAHPS by language'),
+          B('Report quarterly to CMO and CNO — tie metrics to quality improvement agenda'),
+          KV('12-month target','Language Access Readiness Score ≥ '+Math.min(21,(sc.score||0)+6)+'/21'),
+          KV('Owner','[Chief Quality Officer or CMO — assign name]'),
+          HR(),
+          H1('VI. 30-DAY COMMITMENT'),
+          P('The single most impactful first action: submit an EHR change request for a required preferred language field at patient registration. This structural change is zero-cost and creates the data infrastructure for every subsequent component.'),
+          SP(),
+          P('Roadmap adopted: ___________________________  Date: _______________'),
+          P('Authorized by:   ___________________________  Title: ______________'),
+          SP(), P('Generated by Aqueduct Community Benefit Optimization Platform · '+td),
+        ];
+      }
+      const NAMES = { la_baseline:'Language_Access_Baseline_Report', la_financial:'Language_Access_Financial_Case', la_roadmap:'Language_Access_Implementation_Roadmap' };
+      const doc = new Document({ creator:'Aqueduct Platform', sections:[{ properties:{page:{size:{width:12240,height:15840},margin:{top:1080,right:1080,bottom:1080,left:1080}}}, children }] });
+      const buffer = await Packer.toBlob(doc);
+      const url = URL.createObjectURL(buffer);
+      const fname = orgName().replace(/[^a-z0-9]/gi,'_').slice(0,20)+'_'+NAMES[type]+'.docx';
+      const a = document.createElement('a'); a.href=url; a.download=fname; a.click();
+      URL.revokeObjectURL(url);
+      if (typeof showToast === 'function') showToast('✓ '+fname+' downloaded!');
+    } catch(e) {
+      if (typeof showToast === 'function') showToast('Error: '+e.message);
+      console.error('LA artifact error:', e);
+    }
+  };
+})();
+
+/* auto-run calculators on load */
+document.addEventListener('DOMContentLoaded', function() {
+  if (document.getElementById('la_lep_encounters')) window.calcLAROI();
+});
+/* ═══════════════════════════════════════════════════════════════════════ */
 </script>
 </body>
 </html>
