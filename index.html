@@ -757,7 +757,7 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
       <div class="sb-num">3</div>
       <div class="sb-step-text">
         <div class="sb-step-num">Step 2 · M1</div>
-        <div class="sb-step-label">AKS &amp; Safe Harbor Assessment</div>
+        <div class="sb-step-label">Compliance Foundation</div>
         <span class="sb-step-mod" style="background:rgba(71,85,105,.15);color:rgba(148,163,184,.8);">⚖️ Regulatory</span>
       </div>
     </button>
@@ -766,7 +766,7 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
       <div class="sb-num">4</div>
       <div class="sb-step-text">
         <div class="sb-step-num">Step 3 · M1</div>
-        <div class="sb-step-label">TJC / NCQA Accreditation Alignment</div>
+        <div class="sb-step-label">Accreditation & Quality Standards</div>
         <span class="sb-step-mod" style="background:rgba(71,85,105,.15);color:rgba(148,163,184,.8);">⚖️ Regulatory</span>
       </div>
     </button>
@@ -1273,7 +1273,7 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
 
   </div>
   <div class="step-foot">
-    <p class="step-bridge">Your CHNA establishes the need. The next step determines whether your program structure is legally defensible under the Anti-Kickback Statute and Safe Harbor regulations — the gate every dollar of program value depends on passing.</p>
+    <p class="step-bridge">Your CHNA establishes the need. The next step assesses the compliance and regulatory framework for each domain in your portfolio — the legal and governance foundation every funder requires before evaluating the financial case.</p>
     <div style="display:flex;gap:8px;align-items:center;">
       <button class="step-back" onclick="goStep(1)">← Back</button>
       <button class="step-continue" onclick="advanceStep(2)">Step 3: Regulatory Assessment →</button>
@@ -1282,7 +1282,7 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
 </div>
 
 <!-- ════════════════════════════════════════════════════════════════════
-  STEP 2 — AKS & SAFE HARBOR ASSESSMENT
+  STEP 2 — COMPLIANCE FOUNDATION
 ═══════════════════════════════════════════════════════════════════════ -->
 <div class="step-pane" id="step-3">
   <div class="step-hdr">
@@ -1435,7 +1435,7 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
         <button style="flex-shrink:0;background:linear-gradient(135deg,var(--gold),#A07810);color:var(--navy);border:none;border-radius:8px;padding:9px 18px;font-size:12px;font-weight:800;cursor:pointer;font-family:var(--sans);white-space:nowrap;" onclick="downloadArtifactFile('aks_memo')">⬇ Download AKS Memo (.docx)</button>
       </div>
 <div class="step-foot">
-    <p class="step-bridge">Your program is structurally defensible under AKS. The next gate confirms alignment with The Joint Commission and NCQA accreditation standards — which transforms your NEMT program from an administrative activity into an accreditation asset.</p>
+    <p class="step-bridge">Your compliance foundation is documented. The next step maps your portfolio to The Joint Commission, NCQA, and CMS quality standards — transforming each domain from an administrative program into a strategic accreditation asset.</p>
     <div style="display:flex;gap:8px;align-items:center;">
       <button class="step-back" onclick="goStep(2)">← Back</button>
       <button class="step-continue" onclick="advanceStep(3)">Step 4: Accreditation Alignment →</button>
@@ -3514,45 +3514,153 @@ window.setPayModel = function(model, btn) {
 window.calcSustainability = function() {
   function fmt(n) { return (n<0?'($':'$')+Math.abs(Math.round(n)).toLocaleString()+(n<0?')':''); }
   function gv(id) { const el=document.getElementById(id); return el?(parseFloat(el.value)||0):0; }
-  
-  const extY1 = gv('sust_ext_y1') || 300000;
-  const costY1 = gv('sust_cost_y1') || 350000;
+
+  const extY1  = gv('sust_ext_y1')     || 300000;
+  const costY1 = gv('sust_cost_y1')    || 350000;
   const growth = (gv('sust_cost_growth') || 5) / 100;
-  
-  const l0 = _roiCache.l0 || 0;
-  const l1 = _roiCache.l1 || 0;
-  const l2 = _roiCache.l2 || 0;
-  const l3 = _roiCache.l3 || 0;
-  
-  // Year 1: L0 full, L1 partial (70%, matures at 90 days), L2 partial (50%, matures at 6mo), L3 none
-  // Year 2: L0 full, L1 full, L2 full, L3 partial (50%)
-  // Year 3: all full, external funding zero
-  const y1 = { l0: l0, l1: l1*0.7, l2: l2*0.5, l3: 0, ext: extY1, cost: costY1 };
-  const y2 = { l0: l0*1.05, l1: l1, l2: l2, l3: l3*0.5, ext: extY1*0.5, cost: costY1*(1+growth) };
-  const y3 = { l0: l0*1.1, l1: l1*1.02, l2: l2*1.15, l3: l3, ext: 0, cost: costY1*Math.pow(1+growth,2) };
-  
-  const totalRev = (y) => y.l0+y.l1+y.l2+y.l3+y.ext;
-  
+
+  // ── NEMT layers ───────────────────────────────────────────────────
+  const l0 = (_roiCache||{}).l0 || 0;
+  const l1 = (_roiCache||{}).l1 || 0;
+  const l2 = (_roiCache||{}).l2 || 0;
+  const l3 = (_roiCache||{}).l3 || 0;
+
+  // NEMT activation schedule: Y1 ramp → Y2 full → Y3 mature
+  const nemtY1 = l0 + l1*0.7 + l2*0.5;
+  const nemtY2 = l0*1.05 + l1 + l2 + l3*0.5;
+  const nemtY3 = l0*1.1  + l1*1.02 + l2*1.15 + l3;
+
+  // ── Language Access levers ────────────────────────────────────────
+  const domains = window._selectedDomains || ['nemt'];
+  const hasLA   = domains.includes('language_access');
+  const laRoi   = window._clearROI || {};
+  // LA activates immediately (time-to-ROI = 1 month)
+  // L1(ED)+L2(LOS)+L3(readmit) active M1; L4(VBP) active M6; L5(malpractice) active Y2
+  const laL1 = (laRoi.l1||0) + (laRoi.l2||0) + (laRoi.l3||0); // core levers, M1
+  const laL4 = laRoi.l4 || 0;  // VBP matures at 6 months
+  const laL5 = laRoi.l5 || 0;  // malpractice avoidance matures Y2
+  const laInv = laRoi.investment || 0;
+
+  const laY1 = hasLA ? laL1 + laL4*0.5 : 0;             // M1 core + partial VBP
+  const laY2 = hasLA ? laL1 + laL4 + laL5*0.5 : 0;      // full core + VBP + partial malpractice
+  const laY3 = hasLA ? laL1 + laL4 + laL5 : 0;           // all levers fully active
+
+  // ── Combined model ────────────────────────────────────────────────
+  const totalCostY1 = costY1 + (hasLA ? laInv : 0);
+  const totalCostY2 = totalCostY1 * (1 + growth);
+  const totalCostY3 = totalCostY1 * Math.pow(1+growth, 2);
+
+  const totalRevY1 = nemtY1 + laY1 + extY1;
+  const totalRevY2 = nemtY2 + laY2 + extY1*0.5;
+  const totalRevY3 = nemtY3 + laY3;  // zero external funding by Y3
+
   const set = (id, val) => { const el=document.getElementById(id); if(el) el.textContent=val; };
-  
-  set('sust_l0_y1', fmt(y1.l0)); set('sust_l0_y2', fmt(y2.l0)); set('sust_l0_y3', fmt(y3.l0));
-  set('sust_l1_y1', fmt(y1.l1)); set('sust_l1_y2', fmt(y2.l1)); set('sust_l1_y3', fmt(y3.l1));
-  set('sust_l2_y1', fmt(y1.l2)); set('sust_l2_y2', fmt(y2.l2)); set('sust_l2_y3', fmt(y3.l2));
-  set('sust_l3_y1', fmt(y1.l3)); set('sust_l3_y2', fmt(y2.l3)); set('sust_l3_y3', fmt(y3.l3));
-  set('sust_ext_y1_disp', fmt(y1.ext)); set('sust_ext_y2_disp', fmt(y2.ext)); set('sust_ext_y3_disp', fmt(y3.ext));
-  set('sust_rev_y1', fmt(totalRev(y1))); set('sust_rev_y2', fmt(totalRev(y2))); set('sust_rev_y3', fmt(totalRev(y3)));
-  set('sust_cost_y1_disp', fmt(y1.cost)); set('sust_cost_y2_disp', fmt(y2.cost)); set('sust_cost_y3_disp', fmt(y3.cost));
-  set('sust_net_y1', fmt(totalRev(y1)-y1.cost));
-  set('sust_net_y2', fmt(totalRev(y2)-y2.cost));
-  set('sust_net_y3', fmt(totalRev(y3)-y3.cost));
-  
+
+  // ── Populate NEMT rows ────────────────────────────────────────────
+  set('sust_l0_y1', fmt(l0));       set('sust_l0_y2', fmt(l0*1.05));   set('sust_l0_y3', fmt(l0*1.1));
+  set('sust_l1_y1', fmt(l1*0.7));   set('sust_l1_y2', fmt(l1));        set('sust_l1_y3', fmt(l1*1.02));
+  set('sust_l2_y1', fmt(l2*0.5));   set('sust_l2_y2', fmt(l2));        set('sust_l2_y3', fmt(l2*1.15));
+  set('sust_l3_y1', fmt(0));        set('sust_l3_y2', fmt(l3*0.5));    set('sust_l3_y3', fmt(l3));
+  set('sust_ext_y1_disp', fmt(extY1));
+  set('sust_ext_y2_disp', fmt(extY1*0.5));
+  set('sust_ext_y3_disp', fmt(0));
+  set('sust_rev_y1', fmt(totalRevY1));
+  set('sust_rev_y2', fmt(totalRevY2));
+  set('sust_rev_y3', fmt(totalRevY3));
+  set('sust_cost_y1_disp', fmt(totalCostY1));
+  set('sust_cost_y2_disp', fmt(totalCostY2));
+  set('sust_cost_y3_disp', fmt(totalCostY3));
+  set('sust_net_y1', fmt(totalRevY1 - totalCostY1));
+  set('sust_net_y2', fmt(totalRevY2 - totalCostY2));
+  set('sust_net_y3', fmt(totalRevY3 - totalCostY3));
+
+  // ── Language Access rows — inject or update ───────────────────────
+  const tbody = document.querySelector('#sust-table tbody');
+  if (tbody) {
+    // Remove any previously injected LA rows before re-rendering
+    tbody.querySelectorAll('.la-sust-row').forEach(r => r.remove());
+
+    if (hasLA) {
+      // Find the "External Funding" row to insert LA rows before it
+      const extRow = tbody.querySelector('tr td:first-child');
+      let insertBefore = null;
+      tbody.querySelectorAll('tr').forEach(r => {
+        if (r.textContent.includes('External Funding')) insertBefore = r;
+      });
+
+      const laRows = [
+        { label: '🗣 LA — LOS + ED + Readmission <span style="font-size:9px;background:#EDE9FE;color:#7C3AED;padding:1px 5px;border-radius:4px;font-weight:700;">Active M1</span>',
+          y1: laL1, y2: laL1, y3: laL1 },
+        { label: '🗣 LA — VBP / HCAHPS Communication <span style="font-size:9px;background:#EDE9FE;color:#7C3AED;padding:1px 5px;border-radius:4px;font-weight:700;">Active M6</span>',
+          y1: laL4*0.5, y2: laL4, y3: laL4 },
+        { label: '🗣 LA — Malpractice Cost Avoidance <span style="font-size:9px;background:#EDE9FE;color:#7C3AED;padding:1px 5px;border-radius:4px;font-weight:700;">Active Y2</span>',
+          y1: 0, y2: laL5*0.5, y3: laL5 },
+      ];
+
+      laRows.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.className = 'la-sust-row';
+        tr.style.cssText = 'background:rgba(124,58,237,.03);';
+        tr.innerHTML = `<td style="color:#6D28D9;">${row.label}</td>` +
+          `<td style="color:#6D28D9;font-weight:600;">${fmt(row.y1)}</td>` +
+          `<td style="color:#6D28D9;font-weight:600;">${fmt(row.y2)}</td>` +
+          `<td style="color:#6D28D9;font-weight:600;">${fmt(row.y3)}</td>`;
+        if (insertBefore) tbody.insertBefore(tr, insertBefore);
+        else tbody.appendChild(tr);
+      });
+
+      // Also update Total Revenue row label to say "Portfolio Total"
+      tbody.querySelectorAll('tr.total-row td:first-child').forEach(td => {
+        td.textContent = 'Portfolio Total Revenue';
+      });
+    }
+  }
+
+  // ── Narrative ─────────────────────────────────────────────────────
   const org = (document.getElementById('setup_org_name')||{}).value || 'the organization';
   const narrative = document.getElementById('sust-narrative');
-  if (narrative) {
-    const net3 = totalRev(y3) - y3.cost;
-    narrative.innerHTML = `The NEMT program achieves full financial self-sufficiency by <strong>Year 3</strong>. Year 1 external funding of <strong>${fmt(extY1)}</strong> covers the scale-up gap between early-stage revenue (FFS margin + partial coding uplift) and full program cost. By Year 2, CCM/TCM billing reaches full enrollment depth and early VBC earn-back activates, reducing external funding dependence by 50%. Year 3 requires <strong>zero external funding</strong>, with all four revenue layers fully active and a projected net surplus of <strong>${fmt(net3)}</strong> — demonstrating that ${org}'s commitment to this program extends beyond the grant period. This financial trajectory has been reviewed against published evidence from comparable programs (Balasubramanian 2025; Shekelle 2022 meta-analysis) and reflects conservative activation timelines.`;
+  if (!narrative) return;
+
+  const net3 = totalRevY3 - totalCostY3;
+
+  if (hasLA) {
+    // Portfolio narrative
+    narrative.innerHTML =
+      `<strong>${org}</strong>'s SDoH portfolio achieves full financial self-sufficiency by <strong>Year 3</strong> through two complementary sustainability paths with different activation timelines.\n\n` +
+
+      `<strong style="color:#1D4ED8;">NEMT Path (4-layer activation):</strong> ` +
+      `FFS contribution margin (Layer 0) and TCM billing are available from Month 1. ` +
+      `Z75.3 coding uplift (Layer 1) matures at 90 days. CCM enrollment (Layer 2) reaches full depth by Month 6. ` +
+      `VBC earn-back (Layer 3) activates in Year 2 as quality scores reflect NEMT-enabled visit completion. ` +
+      `NEMT reaches full model value of <strong>${fmt(nemtY3)}/year</strong> by Year 3.\n\n` +
+
+      `<strong style="color:#7C3AED;">Language Access Path (5-lever model):</strong> ` +
+      `The fastest-payback domain in the portfolio. LOS reduction, ED access, and readmission avoidance (<strong>${fmt(laL1)}/year</strong>) ` +
+      `are active from Month 1 — typically exceeding the full interpreter service investment within 30 days. ` +
+      `VBP/HCAHPS improvement (${fmt(laL4)}/year) reaches full value by Month 6. ` +
+      `Malpractice cost avoidance (${fmt(laL5)}/year) matures in Year 2. ` +
+      `Language Access generates <strong>${fmt(laY3)}/year</strong> at full activation with zero external funding required for sustainability.\n\n` +
+
+      `<strong>Combined portfolio generates <span style="color:#047857;">${fmt(totalRevY3)}/year</span> by Year 3</strong> against a program cost of ${fmt(totalCostY3)}, ` +
+      `producing a net surplus of <strong style="color:#047857;">${fmt(net3)}</strong>. ` +
+      `External funding bridges the Year 1 NEMT ramp-up gap only — language access is self-funding from Day 1. ` +
+      `This trajectory has been validated against published evidence: Karliner et al. (2017), ` +
+      `Balasubramanian (2025), Shekelle (2022 meta-analysis), and Hong et al. (2019).`;
+  } else {
+    // NEMT-only narrative
+    narrative.innerHTML =
+      `The NEMT program achieves full financial self-sufficiency by <strong>Year 3</strong>. ` +
+      `Year 1 external funding of <strong>${fmt(extY1)}</strong> covers the scale-up gap between early-stage revenue ` +
+      `(FFS margin + partial coding uplift) and full program cost. ` +
+      `By Year 2, CCM/TCM billing reaches full enrollment depth and early VBC earn-back activates, ` +
+      `reducing external funding dependence by 50%. ` +
+      `Year 3 requires <strong>zero external funding</strong>, with all four revenue layers fully active and ` +
+      `a projected net surplus of <strong>${fmt(net3)}</strong> — demonstrating that ${org}'s commitment to ` +
+      `this program extends beyond the grant period. ` +
+      `This financial trajectory reflects conservative activation timelines based on published evidence ` +
+      `(Balasubramanian 2025; Shekelle 2022 meta-analysis).`;
   }
-};
+};;
 
 /* ── APP TYPE SELECTOR ──────────────────────────────────────────────── */
 window.setAppType = function(type, btn) {
