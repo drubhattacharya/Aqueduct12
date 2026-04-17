@@ -2119,9 +2119,9 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
   <div class="step-hdr">
     <div class="step-num-circle">8</div>
     <div class="step-hdr-text">
-      <div class="step-eyebrow">Step 8 of 12 — Funding Strategy</div>
-      <h2 class="step-title">Research all six financing pathways for your SDoH portfolio.</h2>
-      <p class="step-desc">Community Benefit Optimization means knowing every pathway through which your evidence-ranked intervention portfolio can be financed — CRA bank investment, philanthropy, federal grants, state Medicaid waivers, value-based care earn-back, and internal capital reallocation. This step uses AI-powered research to surface named, current opportunities across all pathways relevant to your selected domains.</p>
+      <div class="step-eyebrow" id="step-8-eyebrow">Step 8 of 12 — Funding Strategy</div>
+      <h2 class="step-title" id="step-8-title">Research all six financing pathways for your SDoH portfolio.</h2>
+      <p class="step-desc" id="step-8-desc">Community Benefit Optimization means knowing every pathway through which your evidence-ranked intervention portfolio can be financed — CRA bank investment, philanthropy, federal grants, state Medicaid waivers, value-based care earn-back, and internal capital reallocation. This step uses AI-powered research to surface named, current opportunities across all pathways relevant to your selected domains.</p>
     </div>
   </div>
 
@@ -2217,9 +2217,9 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
   <div class="step-hdr">
     <div class="step-num-circle">9</div>
     <div class="step-hdr-text">
-      <div class="step-eyebrow">Step 9 of 12 — Funding Strategy</div>
-      <h2 class="step-title">Build your funder-specific applications.</h2>
-      <p class="step-desc">Each funding source requires a tailored application narrative aligned to their specific regulatory framework and evaluation criteria. Select your funder type and complete the pre-populated application builder — every section draws from your CHNA data, compliance assessments, and ROI model.</p>
+      <div class="step-eyebrow" id="step-9-eyebrow">Step 9 of 12 — Funding Strategy</div>
+      <h2 class="step-title" id="step-9-title">Build your funder-specific applications.</h2>
+      <p class="step-desc" id="step-9-desc">Each funding source requires a tailored application narrative aligned to their specific regulatory framework and evaluation criteria. Select your funder type and complete the pre-populated application builder — every section draws from your CHNA data, compliance assessments, and ROI model.</p>
     </div>
   </div>
 
@@ -2337,9 +2337,9 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
   <div class="step-hdr">
     <div class="step-num-circle">10</div>
     <div class="step-hdr-text">
-      <div class="step-eyebrow">Step 10 of 12 — Funding Strategy</div>
-      <h2 class="step-title">Identify priority funders and design your outreach sequence.</h2>
-      <p class="step-desc">Not all funders are equally motivated. CRA exam cycle, Outstanding rating status, current exam exposure, and assessment area geography determine which institutions are most likely to engage quickly. Use this step to prioritize your outreach and design a sequenced partnership approach.</p>
+      <div class="step-eyebrow" id="step-10-eyebrow">Step 10 of 12 — Funding Strategy</div>
+      <h2 class="step-title" id="step-10-title">Identify priority funders and design your outreach sequence.</h2>
+      <p class="step-desc" id="step-10-desc">Not all funders are equally motivated. CRA exam cycle, Outstanding rating status, current exam exposure, and assessment area geography determine which institutions are most likely to engage quickly. Use this step to prioritize your outreach and design a sequenced partnership approach.</p>
     </div>
   </div>
 
@@ -2413,9 +2413,9 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
   <div class="step-hdr">
     <div class="step-num-circle">11</div>
     <div class="step-hdr-text">
-      <div class="step-eyebrow">Step 11 of 12 — Sustainability &amp; Future · Module 5</div>
-      <h2 class="step-title">Build the 3-year financial sustainability trajectory.</h2>
-      <p class="step-desc">Every serious funder — CRA bank, foundation, or federal program officer — wants to know when external funding ends. This step builds the 3-year model that shows your NEMT program achieving financial self-sufficiency by Year 3 through layered revenue stream activation.</p>
+      <div class="step-eyebrow" id="step-11-eyebrow">Step 11 of 12 — Sustainability &amp; Future · Module 5</div>
+      <h2 class="step-title" id="step-11-title">Build the 3-year financial sustainability trajectory.</h2>
+      <p class="step-desc" id="step-11-desc">Every serious funder — CRA bank, foundation, or federal program officer — wants to know when external funding ends. This step builds the 3-year model that shows your NEMT program achieving financial self-sufficiency by Year 3 through layered revenue stream activation.</p>
       <button class="step-mod-badge" onclick="openModule('https://drubhattacharya.github.io/AqueductM5/',null)">📖 Learn More: Module 5 — Sustainability &amp; Future</button>
     </div>
   </div>
@@ -2573,9 +2573,9 @@ input[type=password].field-input,input[type=text].field-input,input[type=email].
   <div class="step-hdr">
     <div class="step-num-circle">12</div>
     <div class="step-hdr-text">
-      <div class="step-eyebrow">Step 12 of 12 — Final Output</div>
-      <h2 class="step-title">Generate your complete application package.</h2>
-      <p class="step-desc">Every document below is pre-populated with your organization's data, CHNA priorities, compliance assessments, ROI model, and sustainability narrative. Download each document individually or generate the full package. AI generation requires the Anthropic API key from Step 0.</p>
+      <div class="step-eyebrow" id="step-12-eyebrow">Step 12 of 12 — Final Output</div>
+      <h2 class="step-title" id="step-12-title">Generate your complete application package.</h2>
+      <p class="step-desc" id="step-12-desc">Every document below is pre-populated with your organization's data, CHNA priorities, compliance assessments, ROI model, and sustainability narrative. Download each document individually or generate the full package. AI generation requires the Anthropic API key from Step 0.</p>
     </div>
   </div>
 
@@ -2923,14 +2923,68 @@ window.updateOrgChip = function() {
 };
 
 function populateApplicationSections() {
-  const org = (document.getElementById('setup_org_name')||{}).value || 'Your Organization';
+  const org  = (document.getElementById('setup_org_name')||{}).value || 'Your Organization';
   const city = (document.getElementById('setup_city')||{}).value || '';
-  const state = (document.getElementById('setup_state')||{}).value || '';
-  const loc = [city, state].filter(Boolean).join(', ') || 'your service area';
-  
-  const cra_s1_text = document.getElementById('cra_s1_text');
-  if (cra_s1_text) cra_s1_text.innerHTML = `<strong>${org}</strong> proposes a Community Non-Emergency Medical Transportation (NEMT) program serving LMI-qualified patients in ${loc}. The program targets patients with documented transportation barriers (ICD-10 Z75.3) who are unable to attend medically necessary outpatient appointments. Classification: Community Development Service under 12 CFR Part 228 (FDIC) / 12 CFR Part 25 (OCC) — promotes community development by addressing health and welfare of LMI individuals. Primary purpose test: ≥85% of enrolled patients qualify as LMI per ACS census data for the service area.`;
-  
+  const st   = (document.getElementById('setup_state')||{}).value || '';
+  const loc  = [city, st].filter(Boolean).join(', ') || 'your service area';
+
+  const domains  = window._selectedDomains || ['nemt'];
+  const hasNEMT  = domains.includes('nemt');
+  const hasLA    = domains.includes('language_access');
+  const isMulti  = domains.length > 1;
+
+  // Domain label for narratives
+  const domainDesc = (function() {
+    const labels = {
+      nemt: 'Non-Emergency Medical Transportation (NEMT)',
+      language_access: 'Language Access / Professional Interpreter Services',
+      food_insecurity: 'Food Insecurity / Medically Tailored Meals',
+      housing: 'Housing Instability Navigation',
+      behavioral_health: 'Behavioral Health Integration (IMPACT Model)',
+    };
+    return domains.map(d => labels[d] || d).join(' and ');
+  })();
+
+  const roi = window._roiCache || {};
+  const laRoi = window._clearROI || {};
+  const totalRoi = (roi.total || 0) + (laRoi.total || 0);
+  const fmtMoney = n => '$' + Math.round(n||0).toLocaleString();
+
+  // ── CRA Section 1 ──────────────────────────────────────────────────
+  const cra_s1 = document.getElementById('cra_s1_text');
+  if (cra_s1) {
+    if (isMulti) {
+      cra_s1.innerHTML = `<strong>${org}</strong> proposes a multi-domain SDoH Community Benefit program in ${loc} covering: <strong>${domainDesc}</strong>. Each domain qualifies as a Community Development activity under 12 CFR Part 228 (FDIC) / 12 CFR Part 25 (OCC) as services promoting community development by addressing the health and welfare of LMI individuals. ${hasNEMT ? 'NEMT classification: Community Development Service — targets patients with documented transportation barriers (Z75.3) who are LMI-qualified per ACS census data. ' : ''}${hasLA ? 'Language Access classification: Community Development Service — addresses health equity barriers for LEP populations, the majority of whom are LMI. Section 1557 ACA compliance creates independent regulatory justification. ' : ''}Primary purpose test: ≥85% of enrolled patients qualify as LMI per service area demographics.`;
+    } else {
+      cra_s1.innerHTML = `<strong>${org}</strong> proposes a Community Non-Emergency Medical Transportation (NEMT) program serving LMI-qualified patients in ${loc}. The program targets patients with documented transportation barriers (ICD-10 Z75.3) who are unable to attend medically necessary outpatient appointments. Classification: Community Development Service under 12 CFR Part 228 (FDIC) / 12 CFR Part 25 (OCC) — promotes community development by addressing health and welfare of LMI individuals. Primary purpose test: ≥85% of enrolled patients qualify as LMI per ACS census data for the service area.`;
+    }
+  }
+
+  // ── CRA ROI summary (injected into funder evidence strip) ──────────
+  const cra_roi = document.getElementById('cra_roi_text');
+  if (cra_roi && totalRoi > 0) {
+    cra_roi.innerHTML = `The proposed program generates an estimated <strong>${fmtMoney(totalRoi)}/year</strong> in quantifiable health system value${isMulti ? ' across the selected domains' : ''} — demonstrating both community impact and financial sustainability. ${hasNEMT ? `NEMT: ${fmtMoney(roi.total||0)}/year. ` : ''}${hasLA ? `Language Access: ${fmtMoney(laRoi.total||0)}/year. ` : ''}This figure is calculated using WHO-CHOICE GCEA-adapted methodology with published evidence anchors.`;
+  }
+
+  // ── Sustainability narrative (Step 11) ─────────────────────────────
+  const sustNarr = document.getElementById('sust-narrative');
+  if (sustNarr) {
+    if (isMulti) {
+      let narr = `${org}'s SDoH portfolio is designed for financial self-sufficiency by Year 3 through a layered revenue activation model.\n\n`;
+      if (hasNEMT) {
+        narr += `NEMT Sustainability Path: FFS contribution margin recovery (Layer 0, available Month 1) generates approximately ${fmtMoney((roi.l0||0)*0.4)}/year in Year 1 as utilization ramps. Z75.3 coding uplift (Layer 1, Month 2) and CCM/TCM billing (Layer 2, Month 3) add ${fmtMoney((roi.l1||0)+(roi.l2||0)*0.35)}/year by end of Year 1. Full model value of ${fmtMoney(roi.total||0)}/year is achieved by Year 2 as all four layers mature. VBC earn-back (Layer 3) provides Year 3 upside. External funding bridges the gap between Year 1 ramp and full-model revenue.\n\n`;
+      }
+      if (hasLA) {
+        narr += `Language Access Sustainability Path: The fastest-payback domain in the portfolio. Prevented LOS costs (Lever 2) and readmission avoidance (Lever 3) generate ${fmtMoney((laRoi.l2||0)+(laRoi.l3||0))}/year in Year 1 — typically exceeding the full interpreter service investment in Month 1. No external funding bridge is required for language access sustainability; it self-funds from prevented costs. The program investment of approximately $279/LEP patient/year pays back within 30 days at conservative ROI estimates.\n\n`;
+      }
+      narr += `Combined portfolio generates ${fmtMoney(totalRoi)}/year at full activation. The organization commits to maintaining both programs beyond the external funding period through the internal revenue streams documented above.`;
+      sustNarr.textContent = narr;
+    } else {
+      sustNarr.textContent = `${org}'s NEMT program achieves financial self-sufficiency by Year 3 through layered revenue stream activation. FFS contribution margin (Layer 0) and TCM billing are available from Month 1. Coding uplift (Layer 1) matures at 90 days. CCM enrollment (Layer 2) reaches full depth by Month 6. VBC earn-back (Layer 3) requires 12–18 months. Full model value of ${fmtMoney(roi.total||0)}/year replaces external funding by Year 3. The organization commits to continuing the NEMT program beyond the grant period through these self-sustaining revenue streams.`;
+    }
+  }
+
+  // ── State org field ────────────────────────────────────────────────
   const state_org = document.getElementById('state_org');
   if (state_org) state_org.textContent = org;
 }
@@ -7559,25 +7613,96 @@ function loadDocxLib() {
         sections: [
           {
             icon:'🔧', title:'Interpreter Service Vendor Categories & Selection Criteria',
-            body:'Language Service Organizations (LSOs) — full-service; provide OPI, VRI, and in-person (Language Line, GLOBO, Stratus Video, LanguageLine Solutions). VRI-specialized platforms — Voyce, InDemand Interpreting — hospital-grade video with clinical workflow API integration; best for organizations wanting deep EHR integration. Community-based interpreter programs — appropriate for community health outreach, not for clinical encounters involving medical decision-making. Selection criteria for clinical encounters: HIPAA BAA availability (non-negotiable), medical interpreter certification (CMI or CHI credentialed interpreters), language coverage documentation for your top 10 LEP languages by encounter volume, average response time SLA (target: <5 minutes OPI/VRI), and EHR integration capability.'
+            body:'Language Service Organizations (LSOs) — full-service; provide OPI, VRI, and in-person (Language Line, GLOBO, Stratus Video, LanguageLine Solutions). VRI-specialized platforms — Voyce, InDemand Interpreting — hospital-grade video with clinical workflow API integration. Selection criteria for clinical encounters: HIPAA BAA availability (non-negotiable), medical interpreter certification (CMI or CHI credentialed interpreters), language coverage for your top 10 LEP languages by volume, response time SLA (target: <5 minutes OPI/VRI), and EHR integration capability.'
           },
           {
             icon:'📊', title:'Cost Benchmarks & Program Budget',
-            body:'OPI: $1.10–1.80/minute; typical clinical encounter 8–12 minutes = $9–$22/encounter. VRI: $1.25–2.00/minute plus device cost ($600–$900/unit amortized over 3 years). In-person staff interpreter: $45–100/hour with 2-hour minimum = $90–$200/engagement. Program annual cost benchmark: $279/LEP patient/year (Jacobs et al., 2004, AJPH) — the most widely cited all-in cost figure, covering OPI, VRI, in-person, and administrative overhead. At 4,500 annual LEP encounters, all-in program cost ≈ $280,000–$320,000/year. This is the investment figure used in the Step 5 ROI model.'
+            body:'OPI: $1.10–1.80/minute; 8–12 minute encounter = $9–$22/encounter. VRI: $1.25–2.00/minute plus device cost ($600–$900/unit). In-person: $45–100/hour with 2-hour minimum = $90–$200/engagement. Program benchmark: $279/LEP patient/year (Jacobs 2004, AJPH). At 4,500 annual LEP encounters, all-in cost ≈ $280,000–$320,000/year — the investment figure in the Step 5 ROI model.'
           },
           {
-            icon:'📋', title:'HIPAA BAA & Compliance Requirements — Non-Negotiable',
-            body:'Every interpreter interaction involves Protected Health Information. Requirements before any interpreter service goes live: (1) Executed Business Associate Agreement (BAA) with all interpreter vendors — no exceptions; (2) HIPAA training attestation from all interpreters with annual recertification; (3) Prohibition documented in policy on use of family members, friends, or unqualified bilingual staff as interpreters for clinical decisions — this is OCR-documented guidance, not a best practice; (4) Documentation of each interpreted encounter in the medical record: interpreter type, language, duration, and whether interpreter was qualified/certified. Missing any of these creates OCR complaint exposure and TJC survey findings.'
+            icon:'📋', title:'HIPAA BAA & Compliance Requirements',
+            body:'Every interpreter interaction involves PHI. Requirements before go-live: (1) executed BAA with all interpreter vendors — no exceptions; (2) HIPAA training attestation from all interpreters with annual recertification; (3) documented prohibition on use of family members or unqualified bilingual staff as interpreters for clinical decisions; (4) documentation of each interpreted encounter in the medical record: interpreter type, language, duration, certification status.'
           },
           {
             icon:'🔗', title:'EHR Integration Architecture',
-            body:'The minimum viable EHR integration for a compliant language access program: (1) Patient-level preferred language field in the registration/demographics module — required entry, not optional; (2) Interpreter request field in ED triage and OB triage order sets — workflow hard-stop requiring selection before form completion; (3) Interpreter documentation section in nursing admission assessment — T1-T7 fields: type of interpreter, language, request time, response time, duration, certification status, documentation of offer; (4) Discharge documentation field: language-concordant discharge instructions provided, teach-back performed and documented. Most major EHR systems (Epic, Cerner, Meditech) support these fields natively — the barrier is workflow configuration, not technical capability.'
+            body:'Minimum viable EHR integration: (1) patient-level preferred language field at registration — required entry; (2) interpreter request field in ED and OB triage order sets — workflow hard-stop; (3) interpreter documentation section in nursing admission assessment — T1-T7 fields; (4) discharge documentation field for language-concordant discharge instructions and teach-back. Most major EHR systems (Epic, Cerner, Meditech) support these fields natively — the barrier is workflow configuration, not technical capability.'
           },
           {
             icon:'📈', title:'Operational KPIs & Governance Dashboard',
-            body:'Monthly Language Access Operations Dashboard: % patient registrations with preferred language documented (target: ≥95%); % LEP encounters with qualified interpreter (target: 100% for clinical decision-making encounters); OPI/VRI average response time (target: <5 minutes); interpreter program cost per LEP encounter (target: ≤$279/year); LEP vs. non-LEP 30-day readmission rate (target: close gap to <2pp by Month 12); HCAHPS communication domain score stratified by preferred language (track quarterly). These KPIs directly map to the 5-lever ROI model: response time affects ED access lever, readmission rate affects teach-back lever, HCAHPS gap affects VBP lever.'
+            body:'Monthly Language Access dashboard: % patient registrations with preferred language documented (target: ≥95%); % LEP encounters with qualified interpreter (target: 100% for clinical decision-making); OPI/VRI average response time (target: <5 minutes); interpreter cost per LEP encounter (target: ≤$279/year); LEP vs. non-LEP 30-day readmission rate (target: close gap to <2pp by Month 12); HCAHPS communication domain score stratified by preferred language (quarterly). These KPIs map directly to the 5-lever ROI model.'
           }
         ]
+      }
+    },
+
+    // ── STEP 8: Funding Research ─────────────────────────────────────
+    8: {
+      nemt_only: {
+        eyebrow: 'Step 8 of 12 — Funding Strategy',
+        title:   'Research all six financing pathways for your SDoH portfolio.',
+        desc:    'Community Benefit Optimization means knowing every pathway through which your evidence-ranked intervention portfolio can be funded. Research your best-fit options before building the applications.'
+      },
+      multi: {
+        eyebrow: 'Step 8 of 12 — Portfolio Funding Strategy',
+        title:   'Research financing pathways for your full SDoH portfolio.',
+        desc:    'Your portfolio of selected domains can be funded through multiple pathways — some pathways are optimal for NEMT, others for language access, and some fund both simultaneously. CRA bank partners and foundations increasingly expect multi-domain SDoH strategies. Research each pathway with your full portfolio in mind.'
+      }
+    },
+
+    // ── STEP 9: Application Builder ──────────────────────────────────
+    9: {
+      nemt_only: {
+        eyebrow: 'Step 9 of 12 — Funding Strategy',
+        title:   'Build your funder-specific application narrative.',
+        desc:    'Each funding source requires a tailored application narrative. Select your funder type and complete the pre-populated builder — every section draws from your CHNA data, compliance assessments, and ROI model.'
+      },
+      multi: {
+        eyebrow: 'Step 9 of 12 — Portfolio Application Builder',
+        title:   'Build funder-specific narratives for your SDoH portfolio.',
+        desc:    'Your application narrative covers the full portfolio you\'ve selected. Each section below is pre-populated with domain-specific evidence, compliance framing, and ROI data for all active domains — not just NEMT.'
+      }
+    },
+
+    // ── STEP 10: Funder Outreach ─────────────────────────────────────
+    10: {
+      nemt_only: {
+        eyebrow: 'Step 10 of 12 — Funding Strategy',
+        title:   'Identify priority funders and design your outreach sequence.',
+        desc:    'Not all funders are equally motivated. CRA exam cycle, Outstanding rating status, current exam exposure, and assessment area overlap determine which banks to approach first.'
+      },
+      multi: {
+        eyebrow: 'Step 10 of 12 — Funder Targeting & Outreach Sequence',
+        title:   'Target the right funders for your specific portfolio and pathway.',
+        desc:    'Multi-domain SDoH portfolios open additional funder categories. Language access programs qualify for health equity foundations and Title VI enforcement compliance grants that are unavailable to NEMT-only programs. Sequence outreach by expected close time and funder motivation alignment.'
+      }
+    },
+
+    // ── STEP 11: Sustainability ──────────────────────────────────────
+    11: {
+      nemt_only: {
+        eyebrow: 'Step 11 of 12 — Sustainability & Future',
+        title:   'Build the 3-year financial sustainability trajectory.',
+        desc:    'Every serious funder wants to know when external funding ends. This step builds the 3-year model showing your NEMT program achieving financial self-sufficiency through layered revenue stream activation.'
+      },
+      multi: {
+        eyebrow: 'Step 11 of 12 — Portfolio Sustainability Model',
+        title:   'Build the 3-year sustainability model for your full SDoH portfolio.',
+        desc:    'Each domain in your portfolio has a distinct sustainability pathway. NEMT becomes self-funding through FFS recapture and CCM/TCM billing. Language access becomes self-funding through prevented LOS costs and readmission avoidance — with a time-to-ROI of 1 month, it is the fastest-payback domain in the portfolio. This step models both trajectories together.'
+      }
+    },
+
+    // ── STEP 12: Application Package ────────────────────────────────
+    12: {
+      nemt_only: {
+        banner_h2:  'Your NEMT funding case is complete.',
+        banner_p:   'You\'ve built the strongest possible application for your NEMT program — grounded in your CHNA, compliant under AKS Safe Harbor and 501(r), supported by a four-layer ROI model, and designed for long-term sustainability. The documents below are ready to customize and submit.'
+      },
+      multi: {
+        banner_h2:  'Your SDoH portfolio application package is complete.',
+        banner_p:   'You\'ve built the evidence case, compliance foundation, ROI model, and funder-specific application for each domain in your portfolio. Every document below is pre-populated with domain-specific data. Download the artifacts that match your selected financing pathway.'
+      },
+      with_la: {
+        banner_p_suffix: ' Your Language Access artifacts (Baseline Report, Financial Case, and Implementation Roadmap) are included in the package below.'
       }
     }
   };
@@ -7612,8 +7737,8 @@ function loadDocxLib() {
     var isMulti  = domains.length > 1;
     var mode     = isMulti ? 'multi' : 'nemt_only';
 
-    // Rewrite headers for steps 2-7
-    for (var n = 2; n <= 7; n++) {
+    // Rewrite headers for steps 2-12
+    for (var n = 2; n <= 12; n++) {
       var cfg = STEP_CONTENT[n];
       if (!cfg) continue;
       var c = cfg[mode] || cfg['nemt_only'];
@@ -7626,30 +7751,39 @@ function loadDocxLib() {
       if (de && c.desc)    de.textContent = c.desc;
     }
 
-    // Inject LA tabs into dctx zones for steps 3, 4, 5, 6, 7
-    if (hasLA) {
-      [3, 4, 6, 7].forEach(function(n) {
-        var zone = document.getElementById('dctx-' + n);
-        if (!zone) return;
-        var tabHtml = renderLATab(n);
-        if (tabHtml) {
-          zone.style.display = 'block';
-          zone.innerHTML = tabHtml;
-        }
-      });
-
-      // Step 5: show LA ROI bridge
-      var bridge = document.getElementById('clear-roi-bridge');
-      if (bridge) bridge.style.display = 'block';
-
-      // Step 2: show LA baseline panel
-      var laPanel = document.getElementById('clear-integration-panel');
-      if (laPanel) laPanel.style.display = 'block';
+    // Step 12 completion banner
+    if (isMulti) {
+      var cfg12 = STEP_CONTENT[12] || {};
+      var c12   = cfg12[mode] || cfg12['nemt_only'] || {};
+      var banH  = document.querySelector('.complete-banner h2');
+      var banP  = document.querySelector('.complete-banner p');
+      if (banH && c12.banner_h2) banH.textContent = c12.banner_h2;
+      if (banP && c12.banner_p) {
+        var suffix = (hasLA && cfg12.with_la) ? cfg12.with_la.banner_p_suffix : '';
+        banP.textContent = c12.banner_p + suffix;
+      }
     }
 
-    // Add "Also in this step" navigation pill strip when multi-domain
+    // Add domain pills to steps 3-12
     if (isMulti) {
-      [3, 4, 5, 6, 7].forEach(function(n) {
+      // Inject LA content panels (steps 3-7)
+      if (hasLA) {
+        [3, 4, 6, 7].forEach(function(n) {
+          var zone = document.getElementById('dctx-' + n);
+          if (!zone) return;
+          var tabHtml = renderLATab(n);
+          if (tabHtml) { zone.style.display = 'block'; zone.innerHTML = tabHtml; }
+        });
+        var bridge = document.getElementById('clear-roi-bridge');
+        if (bridge) bridge.style.display = 'block';
+        var laPanel = document.getElementById('clear-integration-panel');
+        if (laPanel) laPanel.style.display = 'block';
+        var laArts = document.getElementById('clear-artifacts-section');
+        if (laArts) laArts.style.display = 'block';
+      }
+
+      // Domain pill bar for steps 3-11
+      [3, 4, 5, 6, 7, 8, 9, 10, 11].forEach(function(n) {
         var hdr = document.getElementById('step-' + n + '-eyebrow');
         if (!hdr) return;
         var pillBar = document.getElementById('step-' + n + '-domain-pills');
